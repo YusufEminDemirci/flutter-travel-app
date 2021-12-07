@@ -47,7 +47,7 @@ class _HomeState extends State<Home> {
           items: [
             BottomNavyBarItem(
               icon: Icon(Icons.home),
-              activeColor: kdarkBlue,
+              activeColor: Colors.amber,
               inactiveColor: kgreyDark,
               title: Text(
                 "Home",
@@ -55,22 +55,13 @@ class _HomeState extends State<Home> {
               ),
             ),
             BottomNavyBarItem(
-              icon: Icon(Icons.line_style),
+              icon: Icon(Icons.list),
               title: Text(
-                "Orders",
+                "Travel List",
                 style: TextStyle(fontFamily: "nunito"),
               ),
+              activeColor: Colors.amber,
               inactiveColor: kgreyDark,
-              activeColor: kdarkBlue,
-            ),
-            BottomNavyBarItem(
-              icon: Icon(Icons.notifications),
-              title: Text(
-                "Notifications",
-                style: TextStyle(fontFamily: "nunito"),
-              ),
-              inactiveColor: kgreyDark,
-              activeColor: kdarkBlue,
             ),
             BottomNavyBarItem(
               icon: Icon(Icons.person),
@@ -78,8 +69,8 @@ class _HomeState extends State<Home> {
                 "Profile",
                 style: TextStyle(fontFamily: "nunito"),
               ),
+              activeColor: Colors.amber,
               inactiveColor: kgreyDark,
-              activeColor: kdarkBlue,
             )
           ],
           onItemSelected: (index) {
