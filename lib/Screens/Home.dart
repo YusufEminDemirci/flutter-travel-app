@@ -1,14 +1,11 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:lets_head_out/Screens/Cities.dart';
-import 'package:lets_head_out/utils/CitiesImage.dart';
-import 'package:lets_head_out/utils/TextStyles.dart';
 import 'package:lets_head_out/utils/consts.dart';
 
 import 'Notifications.dart';
 import 'Orders.dart';
 import 'Profile.dart';
-import 'SignInPage.dart';
 
 class Home extends StatefulWidget {
   @override
