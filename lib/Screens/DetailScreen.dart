@@ -2,32 +2,51 @@ import 'package:flutter/material.dart';
 import 'package:lets_head_out/utils/Buttons.dart';
 import 'package:lets_head_out/utils/TextStyles.dart';
 import 'package:lets_head_out/utils/consts.dart';
-import 'package:lets_head_out/utils/PlacesImage.dart';
+import 'package:lets_head_out/Lists/selectedLocationsList.dart';
+import 'package:lets_head_out/utils/locationModel.dart';
 
-class OverViewPage extends StatefulWidget {
+class DetailScreen extends StatefulWidget {
   final String imageUrl;
   final String name;
   final String location;
   final String description;
+  final String comment;
   final String rate;
+  final String type;
 
-  OverViewPage(
-      this.imageUrl, this.name, this.location, this.description, this.rate);
+  DetailScreen(
+    this.imageUrl,
+    this.name,
+    this.location,
+    this.description,
+    this.comment,
+    this.rate,
+    this.type,
+  );
   @override
-  _OverViewPageState createState() => _OverViewPageState(
-      this.imageUrl, this.name, this.location, this.description, this.rate);
+  _DetailScreenState createState() => _DetailScreenState(
+        this.imageUrl,
+        this.name,
+        this.location,
+        this.description,
+        this.comment,
+        this.rate,
+        this.type,
+      );
 }
 
-class _OverViewPageState extends State<OverViewPage>
+class _DetailScreenState extends State<DetailScreen>
     with SingleTickerProviderStateMixin {
   final String imageUrl;
   final String name;
   final String location;
   final String description;
+  final String comment;
   final String rate;
+  final String type;
 
-  _OverViewPageState(
-      this.imageUrl, this.name, this.location, this.description, this.rate);
+  _DetailScreenState(this.imageUrl, this.name, this.location, this.description,
+      this.comment, this.rate, this.type);
   @override
   TabController tabController;
 
@@ -204,18 +223,6 @@ class _OverViewPageState extends State<OverViewPage>
                       ),
                     ],
                   ),
-
-                  /*Stack(
-                    children: <Widget>[
-                      Image.asset("assets/hotel.jpg"),
-
-
-
-
-
-                    ],
-
-                  ),*/
                 ),
               ),
             ),
@@ -225,7 +232,19 @@ class _OverViewPageState extends State<OverViewPage>
               left: 30,
               child: WideButton(
                 "Add to list",
-                () {},
+                () {
+                  selectedLocations.add(
+                    Location(
+                      imageUrl: this.imageUrl,
+                      name: this.name,
+                      type: this.type,
+                      description: this.description,
+                      location: this.location,
+                      comment: this.comment,
+                      rate: this.rate,
+                    ),
+                  );
+                },
               )),
         ],
       ),

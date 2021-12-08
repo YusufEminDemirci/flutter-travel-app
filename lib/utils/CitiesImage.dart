@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lets_head_out/Screens/ContentSelectionScreen.dart';
+import 'package:lets_head_out/Screens/Locations.dart';
 
 import 'TextStyles.dart';
 import 'consts.dart';
@@ -22,11 +22,8 @@ class CitiesImage extends StatelessWidget {
             height: 150,
             child: GestureDetector(
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            ContentSelectionScreen(this.city)));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Places(this.city)));
               },
               child: ClipRRect(
                 borderRadius: new BorderRadius.all(Radius.circular(15.0)),

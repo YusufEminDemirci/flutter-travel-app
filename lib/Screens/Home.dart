@@ -2,9 +2,7 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:lets_head_out/Screens/Cities.dart';
 import 'package:lets_head_out/utils/consts.dart';
-
-import 'Notifications.dart';
-import 'Orders.dart';
+import 'TravelList.dart';
 import 'Profile.dart';
 
 class Home extends StatefulWidget {
@@ -84,8 +82,7 @@ class _HomeState extends State<Home> {
           },
           children: <Widget>[
             Cities(),
-            Orders(),
-            Notifications(),
+            TravelList(),
             Profile(),
           ],
         ),

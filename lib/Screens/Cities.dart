@@ -14,20 +14,31 @@ class _CitiesState extends State<Cities> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kwhite,
+      appBar: AppBar(
+        backgroundColor: Colors.amber,
+        title: BoldText("Cities", 35, kwhite),
+        centerTitle: true,
+        elevation: 0.0,
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            ImageContainer(),
             Padding(
               padding: const EdgeInsets.only(
                   left: 40.0, right: 16.0, bottom: 16.0, top: 10.0),
               child: Column(
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.only(top: 10, bottom: 16.0),
+                    padding: const EdgeInsets.only(
+                      top: 16.0,
+                      bottom: 30.0,
+                      right: 10.0,
+                    ),
                     child: Align(
                       alignment: Alignment.centerLeft,
-                      child: BoldText("Awesome Cities", 20.0, kblack),
+                      child: BoldText(
+                          "Which city would you like to visit?", 21.0, kblack),
                     ),
                   ),
                   Row(
