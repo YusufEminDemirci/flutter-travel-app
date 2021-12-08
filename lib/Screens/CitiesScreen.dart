@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lets_head_out/utils/CitiesImage.dart';
 import 'package:lets_head_out/utils/TextStyles.dart';
+import 'package:lets_head_out/Lists/citiesList.dart';
 import 'package:lets_head_out/utils/consts.dart';
-import 'package:lets_head_out/utils/imageContainer.dart';
 
 class Cities extends StatefulWidget {
   @override
@@ -43,11 +43,11 @@ class _CitiesState extends State<Cities> {
                   ),
                   Row(
                     children: <Widget>[
-                      CitiesImage("assets/alger.jpg", "ADANA"),
+                      CitiesImage(city[0]),
                       SizedBox(
                         width: 28,
                       ),
-                      CitiesImage("assets/tlemcen.jpg", "ADIYAMAN"),
+                      CitiesImage(city[1]),
                     ],
                   ),
                   SizedBox(
@@ -55,35 +55,11 @@ class _CitiesState extends State<Cities> {
                   ),
                   Row(
                     children: <Widget>[
-                      CitiesImage("assets/adrar.jpg", "ANKARA"),
+                      CitiesImage(city[2]),
                       SizedBox(
                         width: 28,
                       ),
-                      CitiesImage("assets/bedjaia.jpg", "BURSA"),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 28,
-                  ),
-                  Row(
-                    children: <Widget>[
-                      CitiesImage("assets/alger.jpg", "ÇANKIRI"),
-                      SizedBox(
-                        width: 28,
-                      ),
-                      CitiesImage("assets/tlemcen.jpg", "İSTANBUL"),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 28,
-                  ),
-                  Row(
-                    children: <Widget>[
-                      CitiesImage("assets/adrar.jpg", "KIRIKKALE"),
-                      SizedBox(
-                        width: 28,
-                      ),
-                      CitiesImage("assets/bedjaia.jpg", "ZONGULDAK"),
+                      CitiesImage(city[3]),
                     ],
                   ),
                 ],

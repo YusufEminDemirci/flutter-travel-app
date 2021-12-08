@@ -1,24 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lets_head_out/Lists/locationsList.dart';
-import 'package:lets_head_out/utils/LocationsImage.dart';
 import 'package:lets_head_out/utils/TextStyles.dart';
 import 'package:lets_head_out/utils/consts.dart';
+import 'package:lets_head_out/Lists/selectedLocationsList.dart';
+import 'package:lets_head_out/utils/LocationsImage.dart';
 
-class Places extends StatefulWidget {
-  final String city;
-
-  Places(this.city);
-
+class TravelList extends StatefulWidget {
   @override
-  _PlacesState createState() => _PlacesState(this.city);
+  _TravelListState createState() => _TravelListState();
 }
 
-class _PlacesState extends State<Places> with SingleTickerProviderStateMixin {
+class _TravelListState extends State<TravelList>
+    with SingleTickerProviderStateMixin {
   TabController tabController;
-  final String city;
-
-  _PlacesState(this.city);
 
   @override
   void initState() {
@@ -37,7 +31,7 @@ class _PlacesState extends State<Places> with SingleTickerProviderStateMixin {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.amber,
-        title: BoldText("What are you, Looking for?", 20, kwhite),
+        title: BoldText("My Plan", 35, kwhite),
         centerTitle: true,
         elevation: 0.0,
       ),
@@ -73,7 +67,7 @@ class _PlacesState extends State<Places> with SingleTickerProviderStateMixin {
                           ),
                         ),
                         Column(
-                          children: getPlaces(city),
+                          children: getPlaces(),
                         ),
                         SizedBox(
                           height: 28,
@@ -100,7 +94,7 @@ class _PlacesState extends State<Places> with SingleTickerProviderStateMixin {
                           ),
                         ),
                         Column(
-                          children: getRestaurants(city),
+                          children: getRestaurants(),
                         ),
                         SizedBox(
                           height: 28,
@@ -118,38 +112,40 @@ class _PlacesState extends State<Places> with SingleTickerProviderStateMixin {
   }
 }
 
-getPlaces(String city) {
+getPlaces() {
   List<LocationsImage> getPlaces = [];
-  for (int index = 0; index < locations.length; index++) {
-    if (locations[index].location.toLowerCase() == city.toLowerCase() &&
-        locations[index].type == "place") {
+  for (int index = 0; index < selectedLocations.length; index++) {
+    if (selectedLocations[index].type == "place") {
       getPlaces.add(LocationsImage(
-        locations[index].imageUrl,
-        locations[index].name,
-        locations[index].location,
-        locations[index].description,
-        locations[index].comment,
-        locations[index].rate,
-        locations[index].type,
+        selectedLocations[index].id,
+        selectedLocations[index].imageUrl,
+        selectedLocations[index].name,
+        selectedLocations[index].description,
+        selectedLocations[index].location,
+        selectedLocations[index].comment,
+        selectedLocations[index].rate,
+        selectedLocations[index].type,
+        selectedLocations[index].cityId,
       ));
     }
   }
   return getPlaces;
 }
 
-getRestaurants(String city) {
+getRestaurants() {
   List<LocationsImage> getRestaurants = [];
-  for (int index = 0; index < locations.length; index++) {
-    if (locations[index].location.toLowerCase() == city.toLowerCase() &&
-        locations[index].type == "restaurant") {
+  for (int index = 0; index < selectedLocations.length; index++) {
+    if (selectedLocations[index].type == "restaurant") {
       getRestaurants.add(LocationsImage(
-        locations[index].imageUrl,
-        locations[index].name,
-        locations[index].location,
-        locations[index].description,
-        locations[index].comment,
-        locations[index].rate,
-        locations[index].type,
+        selectedLocations[index].id,
+        selectedLocations[index].imageUrl,
+        selectedLocations[index].name,
+        selectedLocations[index].description,
+        selectedLocations[index].location,
+        selectedLocations[index].comment,
+        selectedLocations[index].rate,
+        selectedLocations[index].type,
+        selectedLocations[index].cityId,
       ));
     }
   }

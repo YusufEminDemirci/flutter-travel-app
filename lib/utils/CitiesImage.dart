@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:lets_head_out/Screens/Locations.dart';
+import 'package:lets_head_out/Screens/LocationsScreen.dart';
+import 'package:lets_head_out/utils/cityModel.dart';
 
 import 'TextStyles.dart';
 import 'consts.dart';
 
 class CitiesImage extends StatelessWidget {
-  final String imgUrl;
-  final String city;
+  final City city;
 
-  CitiesImage(this.imgUrl, this.city);
+  CitiesImage(this.city);
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +22,15 @@ class CitiesImage extends StatelessWidget {
             height: 150,
             child: GestureDetector(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Places(this.city)));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Places(this.city.id)));
               },
               child: ClipRRect(
                 borderRadius: new BorderRadius.all(Radius.circular(15.0)),
                 child: Image.asset(
-                  imgUrl,
+                  city.imageUrl,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -40,7 +42,7 @@ class CitiesImage extends StatelessWidget {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: BoldText(
-                city,
+                city.name.toUpperCase(),
                 20,
                 kwhite,
               ),

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:lets_head_out/Lists/commentsList.dart';
 import 'package:lets_head_out/utils/Buttons.dart';
 import 'package:lets_head_out/utils/TextStyles.dart';
 import 'package:lets_head_out/utils/consts.dart';
 import 'package:lets_head_out/Lists/selectedLocationsList.dart';
 import 'package:lets_head_out/utils/locationModel.dart';
+import 'package:lets_head_out/utils/CommentsImage.dart';
 
 class DetailScreen extends StatefulWidget {
+  final String id;
   final String imageUrl;
   final String name;
   final String location;
@@ -13,30 +16,26 @@ class DetailScreen extends StatefulWidget {
   final String comment;
   final String rate;
   final String type;
+  final String cityId;
 
-  DetailScreen(
-    this.imageUrl,
-    this.name,
-    this.location,
-    this.description,
-    this.comment,
-    this.rate,
-    this.type,
-  );
+  DetailScreen(this.id, this.imageUrl, this.name, this.location,
+      this.description, this.comment, this.rate, this.type, this.cityId);
   @override
   _DetailScreenState createState() => _DetailScreenState(
-        this.imageUrl,
-        this.name,
-        this.location,
-        this.description,
-        this.comment,
-        this.rate,
-        this.type,
-      );
+      this.id,
+      this.imageUrl,
+      this.name,
+      this.location,
+      this.description,
+      this.comment,
+      this.rate,
+      this.type,
+      this.cityId);
 }
 
 class _DetailScreenState extends State<DetailScreen>
     with SingleTickerProviderStateMixin {
+  final String id;
   final String imageUrl;
   final String name;
   final String location;
@@ -44,9 +43,10 @@ class _DetailScreenState extends State<DetailScreen>
   final String comment;
   final String rate;
   final String type;
+  final String cityId;
 
-  _DetailScreenState(this.imageUrl, this.name, this.location, this.description,
-      this.comment, this.rate, this.type);
+  _DetailScreenState(this.id, this.imageUrl, this.name, this.location,
+      this.description, this.comment, this.rate, this.type, this.cityId);
   @override
   TabController tabController;
 
@@ -75,11 +75,11 @@ class _DetailScreenState extends State<DetailScreen>
                     labelStyle: TextStyle(
                         fontFamily: "nunito", fontWeight: FontWeight.bold),
                     controller: tabController,
-                    indicatorColor: kdarkBlue,
+                    indicatorColor: Colors.amber,
                     tabs: <Widget>[
-                      Tab(text: "OverView"),
+                      Tab(text: "Information"),
                       Tab(text: "Location"),
-                      Tab(text: "Review"),
+                      Tab(text: "Reviews"),
                     ],
                   ),
                   backgroundColor: kwhite,
@@ -201,18 +201,19 @@ class _DetailScreenState extends State<DetailScreen>
                                           width: 10,
                                         ),
                                         NormalText(
-                                            "(420 reviews)", kgreyDark, 14),
+                                          comments.length.toString() +
+                                              " Reviews",
+                                          kgreyDark,
+                                          14,
+                                        ),
                                       ],
                                     ),
                                     SizedBox(
                                       height: 16,
                                     ),
-                                    reviewProfile(
-                                        "Hichem", "5.0", "05,Mar,2020"),
-                                    reviewProfile(
-                                        "Walid", "3.5", "17,feb,2020"),
-                                    reviewProfile(
-                                        "kratos", "4.0", "10,jan,2020"),
+                                    Column(
+                                      children: getComments(id),
+                                    )
                                   ],
                                 ),
                               ),
@@ -251,73 +252,6 @@ class _DetailScreenState extends State<DetailScreen>
     );
   }
 
-  Widget reviewProfile(String name, String review, String date) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Row(
-          children: <Widget>[
-            Container(
-              width: 24,
-              height: 24,
-              child: CircleAvatar(
-                backgroundColor: kgreyDark,
-                child: Icon(
-                  Icons.person,
-                  size: 12,
-                ),
-              ),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            BoldText(name, 16, kblack)
-          ],
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Row(
-          children: <Widget>[
-            Container(
-              width: 50.0,
-              decoration: BoxDecoration(
-                color: korange,
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Icon(
-                    Icons.star,
-                    color: kwhite,
-                    size: 15.0,
-                  ),
-                  BoldText(review, 15.0, kwhite),
-                ],
-              ),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            NormalText(date, kgreyDark, 12.0)
-          ],
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        NormalText(
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
-            kblack,
-            12.0),
-        SizedBox(
-          height: 10,
-        ),
-      ],
-    );
-  }
-
   Column equipmentsItem(IconData icon, String text) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -342,4 +276,14 @@ class _DetailScreenState extends State<DetailScreen>
     super.dispose();
     tabController.dispose();
   }
+}
+
+getComments(String locationId) {
+  List<CommentsImage> getComments = [];
+  for (int index = 0; index < comments.length; index++) {
+    if (comments[index].locationId == locationId) {
+      getComments.add(CommentsImage(comments[index]));
+    }
+  }
+  return getComments;
 }

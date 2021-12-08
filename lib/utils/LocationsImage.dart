@@ -4,6 +4,7 @@ import 'package:lets_head_out/Screens/DetailScreen.dart';
 import 'consts.dart';
 
 class LocationsImage extends StatelessWidget {
+  final String id;
   final String imageUrl;
   final String name;
   final String location;
@@ -11,9 +12,10 @@ class LocationsImage extends StatelessWidget {
   final String comment;
   final String rate;
   final String type;
+  final String cityId;
 
-  LocationsImage(this.imageUrl, this.name, this.location, this.description,
-      this.comment, this.rate, this.type);
+  LocationsImage(this.id, this.imageUrl, this.name, this.location,
+      this.description, this.comment, this.rate, this.type, this.cityId);
 
   @override
   Widget build(BuildContext context) {
@@ -37,13 +39,15 @@ class LocationsImage extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => new DetailScreen(
+                                    this.id,
                                     this.imageUrl,
                                     this.name,
                                     this.location,
                                     this.description,
                                     this.comment,
                                     this.rate,
-                                    this.type)));
+                                    this.type,
+                                    this.cityId)));
                       },
                       child: Container(
                         width: 150.0,
