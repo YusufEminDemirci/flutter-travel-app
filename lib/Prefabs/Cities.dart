@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:lets_head_out/Screens/Locations.dart';
-import 'package:lets_head_out/Models/city.dart';
 
 import '../Utils/TextStyles.dart';
 import '../Utils/consts.dart';
 
 class CitiesImage extends StatelessWidget {
-  final City city;
+  final String id;
+  final String imageUrl;
+  final String name;
 
-  CitiesImage(this.city);
+  CitiesImage(this.id, this.imageUrl, this.name);
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +26,13 @@ class CitiesImage extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => Places(this.city.id)));
+                        builder: (context) =>
+                            Places(this.id, this.imageUrl, this.name)));
               },
               child: ClipRRect(
                 borderRadius: new BorderRadius.all(Radius.circular(15.0)),
                 child: Image.asset(
-                  city.imageUrl,
+                  imageUrl,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -42,7 +44,7 @@ class CitiesImage extends StatelessWidget {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: BoldText(
-                city.name.toUpperCase(),
+                name.toUpperCase(),
                 20,
                 kwhite,
               ),

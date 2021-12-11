@@ -41,26 +41,8 @@ class _CitiesState extends State<Cities> {
                           "Which city would you like to visit?", 21.0, kblack),
                     ),
                   ),
-                  Row(
-                    children: <Widget>[
-                      CitiesImage(cities[0]),
-                      SizedBox(
-                        width: 28,
-                      ),
-                      CitiesImage(cities[1]),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 28,
-                  ),
-                  Row(
-                    children: <Widget>[
-                      CitiesImage(cities[2]),
-                      SizedBox(
-                        width: 28,
-                      ),
-                      CitiesImage(cities[3]),
-                    ],
+                  Column(
+                    children: getCities(),
                   ),
                 ],
               ),
@@ -73,9 +55,15 @@ class _CitiesState extends State<Cities> {
 }
 
 getCities() {
-  List<CitiesImage> cityList = [];
-  for (int index = 0; index < cities.length; index++) {
-    CitiesImage(cities[index]);
+  List<Widget> cityList = [];
+  for (int index = 0; index < cities.length; index += 2) {
+    cityList.add(Row(children: [
+      CitiesImage(cities[index].id, cities[index].imageUrl, cities[index].name),
+      SizedBox(width: 20.0),
+      CitiesImage(cities[index + 1].id, cities[index + 1].imageUrl,
+          cities[index + 1].name),
+    ]));
+    cityList.add(SizedBox(height: 20.0));
   }
   return cityList;
 }

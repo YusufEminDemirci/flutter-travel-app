@@ -8,7 +8,7 @@ import 'package:lets_head_out/Utils/consts.dart';
 class Places extends StatefulWidget {
   final String cityId;
 
-  Places(this.cityId);
+  Places(this.cityId, String imageUrl, String name);
 
   @override
   _PlacesState createState() => _PlacesState(this.cityId);
@@ -111,7 +111,7 @@ class _PlacesState extends State<Places> with SingleTickerProviderStateMixin {
 }
 
 getPlaces(String cityId) {
-  List<LocationsImage> getPlaces = [];
+  List<Widget> getPlaces = [];
   for (int index = 0; index < locations.length; index++) {
     if (locations[index].cityId == cityId && locations[index].type == "place") {
       getPlaces.add(LocationsImage(
@@ -125,13 +125,16 @@ getPlaces(String cityId) {
         locations[index].type,
         locations[index].cityId,
       ));
+      getPlaces.add(SizedBox(
+        height: 20.0,
+      ));
     }
   }
   return getPlaces;
 }
 
 getRestaurants(String cityId) {
-  List<LocationsImage> getRestaurants = [];
+  List<Widget> getRestaurants = [];
   for (int index = 0; index < locations.length; index++) {
     if (locations[index].cityId == cityId &&
         locations[index].type == "restaurant") {
@@ -145,6 +148,9 @@ getRestaurants(String cityId) {
         locations[index].rate,
         locations[index].type,
         locations[index].cityId,
+      ));
+      getRestaurants.add(SizedBox(
+        height: 20.0,
       ));
     }
   }

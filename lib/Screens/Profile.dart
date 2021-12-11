@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lets_head_out/Lists/seenLocationsList.dart';
 import 'package:lets_head_out/Lists/myInformation.dart';
+import 'package:lets_head_out/Prefabs/Locations.dart';
 import 'package:lets_head_out/Utils/TextStyles.dart';
 import 'package:lets_head_out/Utils/consts.dart';
 
@@ -22,54 +24,58 @@ class _ProfileState extends State<Profile> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  CircleAvatar(
-                    backgroundColor: kgreyDark,
-                    backgroundImage: AssetImage(myInfo["profileImage"]),
-                    radius: 50,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      SizedBox(height: 20),
-                      BoldText(myInfo["name"] + " " + myInfo["surname"], 20.0,
-                          kblack),
-                      NormalText(myInfo["e-mail"], kgreyDark, 16),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 10.0,
+            SizedBox(height: 10.0),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                CircleAvatar(
+                  backgroundColor: kgreyDark,
+                  backgroundImage: AssetImage(myInfo["profileImage"]),
+                  radius: 40,
+                ),
+                BoldText(
+                    myInfo["name"] + " " + myInfo["surname"], 16.0, kblack),
+                NormalText(myInfo["e-mail"], kgreyDark, 14),
+              ],
             ),
             Container(
               height: 2,
               color: kgreyFill,
             ),
-            ProfileItem(Icons.person, "My Informations"),
-            ProfileItem(Icons.info, "About Us "),
-            ProfileItem(Icons.exit_to_app, "Sign Out"),
+            profileItem(Icons.person, "My Informations"),
+            profileItem(Icons.info, "About Us "),
+            profileItem(Icons.exit_to_app, "Sign Out"),
           ],
         ),
       ),
     );
   }
 
-  Widget ProfileItem(IconData icon, String text) {
+  Widget profileItem(IconData icon, String text) {
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16, bottom: 9),
       child: Row(
         children: <Widget>[
-          Icon(
-            icon,
-            color: kdarkBlue,
-            size: 40,
+          CircleAvatar(
+            backgroundColor: kgreyDark,
+            backgroundImage: AssetImage(myInfo["profileImage"]),
+            radius: 20,
+            child: GestureDetector(
+              onTap: () {
+                if (text == "My Informations") {
+                  // My Informations;
+                } else if (text == "About Us") {
+                  // About Us;
+                } else if (text == "Sign Out") {
+                  // Sign Out;
+                }
+              },
+              child: Icon(
+                icon,
+                color: kblack,
+              ),
+            ),
           ),
           SizedBox(
             width: 8,
@@ -79,4 +85,22 @@ class _ProfileState extends State<Profile> {
       ),
     );
   }
+}
+
+getSeenLocations(String cityId) {
+  List<LocationsImage> getSeenLocations = [];
+  for (int index = 0; index < seenLocations.length; index++) {
+    getSeenLocations.add(LocationsImage(
+      seenLocations[index].id,
+      seenLocations[index].imageUrl,
+      seenLocations[index].name,
+      seenLocations[index].location,
+      seenLocations[index].description,
+      seenLocations[index].comment,
+      seenLocations[index].rate,
+      seenLocations[index].type,
+      seenLocations[index].cityId,
+    ));
+  }
+  return getSeenLocations;
 }
