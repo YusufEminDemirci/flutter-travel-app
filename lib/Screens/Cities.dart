@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lets_head_out/Prefabs/Cities.dart';
+import 'package:lets_head_out/Prefabs/SearchBar.dart';
 import 'package:lets_head_out/Utils/TextStyles.dart';
 import 'package:lets_head_out/Lists/citiesList.dart';
 import 'package:lets_head_out/Utils/consts.dart';
@@ -21,34 +22,35 @@ class _CitiesState extends State<Cities> {
         centerTitle: true,
         elevation: 0.0,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 40.0, right: 16.0, bottom: 16.0, top: 10.0),
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            elevation: 0.0,
+            backgroundColor: Colors.transparent,
+            flexibleSpace: FlexibleSpaceBar(
+              background: SearchBar(),
+            ),
+          ),
+          SliverFillRemaining(
+            child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.only(
-                      top: 16.0,
-                      bottom: 30.0,
-                      right: 10.0,
+                        left: 40.0, right: 16.0, bottom: 16.0, top: 25.0),
+                    child: Column(
+                      children: <Widget>[
+                        Column(
+                          children: getCities(),
+                        ),
+                      ],
                     ),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: BoldText(
-                          "Which city would you like to visit?", 21.0, kblack),
-                    ),
-                  ),
-                  Column(
-                    children: getCities(),
                   ),
                 ],
               ),
             ),
-          ],
-        ),
+          )
+        ],
       ),
     );
   }

@@ -21,4 +21,24 @@ List<City> cities = [
     imageUrl: 'assets/bedjaia.jpg',
     name: 'Bursa',
   ),
+  City(
+    id: "5",
+    imageUrl: 'assets/alger.jpg',
+    name: 'Adana',
+  ),
+  City(
+    id: "6",
+    imageUrl: 'assets/tlemcen.jpg',
+    name: 'Adıyaman',
+  ),
+  City(
+    id: "7",
+    imageUrl: 'assets/adrar.jpg',
+    name: 'Ankara',
+  ),
+  City(
+    id: "8",
+    imageUrl: 'assets/bedjaia.jpg',
+    name: 'Bursa',
+  ),
 ];
