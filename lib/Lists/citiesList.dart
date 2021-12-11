@@ -1,4 +1,4 @@
-import 'package:lets_head_out/utils/cityModel.dart';
+import 'package:lets_head_out/Models/city.dart';
 
 List<City> cities = [
   City(

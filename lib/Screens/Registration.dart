@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lets_head_out/Screens/SignInScreen.dart';
-import 'package:lets_head_out/utils/Buttons.dart';
-import 'package:lets_head_out/utils/TextStyles.dart';
-import 'package:lets_head_out/utils/consts.dart';
-import 'package:lets_head_out/utils/forms.dart';
+import 'package:lets_head_out/Screens/SignIn.dart';
+import 'package:lets_head_out/Utils/Buttons.dart';
+import 'package:lets_head_out/Utils/TextStyles.dart';
+import 'package:lets_head_out/Utils/consts.dart';
+import 'package:lets_head_out/Utils/forms.dart';
 
 class RegistrationScreen extends StatefulWidget {
   @override

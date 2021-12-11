@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lets_head_out/utils/Buttons.dart';
-import 'package:lets_head_out/utils/TextStyles.dart';
-import 'package:lets_head_out/utils/consts.dart';
-import 'package:lets_head_out/utils/navigation.dart';
+import 'package:lets_head_out/Utils/Buttons.dart';
+import 'package:lets_head_out/Utils/TextStyles.dart';
+import 'package:lets_head_out/Utils/consts.dart';
+import 'package:lets_head_out/Utils/navigation.dart';
 
-import '../SignInScreen.dart';
+import '../SignIn.dart';
 import 'Slider.dart';
 
 class SlideItem extends StatelessWidget {

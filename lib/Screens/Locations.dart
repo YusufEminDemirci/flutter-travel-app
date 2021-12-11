@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lets_head_out/Lists/locationsList.dart';
-import 'package:lets_head_out/utils/LocationsImage.dart';
-import 'package:lets_head_out/utils/TextStyles.dart';
-import 'package:lets_head_out/utils/consts.dart';
+import 'package:lets_head_out/Prefabs/Locations.dart';
+import 'package:lets_head_out/Utils/TextStyles.dart';
+import 'package:lets_head_out/Utils/consts.dart';
 
 class Places extends StatefulWidget {
   final String cityId;

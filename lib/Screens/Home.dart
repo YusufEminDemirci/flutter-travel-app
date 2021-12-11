@@ -1,9 +1,9 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:lets_head_out/Screens/CitiesScreen.dart';
-import 'package:lets_head_out/utils/consts.dart';
-import 'TravelListScreen.dart';
-import 'ProfileScreen.dart';
+import 'package:lets_head_out/Screens/Cities.dart';
+import 'package:lets_head_out/Utils/consts.dart';
+import 'TravelList.dart';
+import 'Profile.dart';
 
 class Home extends StatefulWidget {
   @override

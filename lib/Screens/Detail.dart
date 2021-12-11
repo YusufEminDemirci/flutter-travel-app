@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lets_head_out/Lists/commentsList.dart';
-import 'package:lets_head_out/utils/Buttons.dart';
-import 'package:lets_head_out/utils/TextStyles.dart';
-import 'package:lets_head_out/utils/consts.dart';
+import 'package:lets_head_out/Models/location.dart';
+import 'package:lets_head_out/Utils/Buttons.dart';
+import 'package:lets_head_out/Utils/TextStyles.dart';
+import 'package:lets_head_out/Utils/consts.dart';
 import 'package:lets_head_out/Lists/selectedLocationsList.dart';
-import 'package:lets_head_out/utils/locationModel.dart';
-import 'package:lets_head_out/utils/CommentsImage.dart';
+import 'package:lets_head_out/Prefabs/Comments.dart';
 
 class DetailScreen extends StatefulWidget {
   final String id;

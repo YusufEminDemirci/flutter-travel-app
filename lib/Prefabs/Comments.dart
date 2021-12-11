@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:lets_head_out/utils/TextStyles.dart';
-import 'package:lets_head_out/utils/consts.dart';
-import 'package:lets_head_out/utils/commentModel.dart';
+import 'package:lets_head_out/Utils/TextStyles.dart';
+import 'package:lets_head_out/Utils/consts.dart';
+import 'package:lets_head_out/Models/comment.dart';
 
-import 'consts.dart';
+import '../Utils/consts.dart';
 
 class CommentsImage extends StatelessWidget {
   final Comment comment;

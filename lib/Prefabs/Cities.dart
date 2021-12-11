@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:lets_head_out/Screens/LocationsScreen.dart';
-import 'package:lets_head_out/utils/cityModel.dart';
+import 'package:lets_head_out/Screens/Locations.dart';
+import 'package:lets_head_out/Models/city.dart';
 
-import 'TextStyles.dart';
-import 'consts.dart';
+import '../Utils/TextStyles.dart';
+import '../Utils/consts.dart';
 
 class CitiesImage extends StatelessWidget {
   final City city;

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lets_head_out/Screens/DetailScreen.dart';
-import 'package:lets_head_out/utils/TextStyles.dart';
+import 'package:lets_head_out/Screens/Detail.dart';
 
-import 'consts.dart';
+import '../Utils/consts.dart';
 
 class LocationsImage extends StatelessWidget {
   final String id;

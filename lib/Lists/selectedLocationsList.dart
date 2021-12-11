@@ -1,3 +1,3 @@
-import 'package:lets_head_out/utils/locationModel.dart';
+import 'package:lets_head_out/Models/location.dart';
 
 List<Location> selectedLocations = [];

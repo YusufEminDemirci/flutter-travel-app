@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lets_head_out/utils/consts.dart';
+import 'package:lets_head_out/Utils/consts.dart';
 
 class PasswordForm extends StatefulWidget {
   @override
@@ -20,8 +20,11 @@ class _FormsState extends State<PasswordForm> {
     }
 
     return TextFormField(
-      style: TextStyle(fontFamily: "nunito",
-          fontWeight: FontWeight.w500, color: kgreyDark, fontSize: 15.5),
+      style: TextStyle(
+          fontFamily: "nunito",
+          fontWeight: FontWeight.w500,
+          color: kgreyDark,
+          fontSize: 15.5),
       obscureText: _obscureText,
       decoration: InputDecoration(
           filled: true,
@@ -44,8 +47,11 @@ class _FormsState extends State<PasswordForm> {
             iconSize: 20,
           ),
           hintText: "password",
-          hintStyle: TextStyle(fontFamily: "nunito",
-              fontWeight: FontWeight.w500, color: kgreyDark, fontSize: 15.5),
+          hintStyle: TextStyle(
+              fontFamily: "nunito",
+              fontWeight: FontWeight.w500,
+              color: kgreyDark,
+              fontSize: 15.5),
           contentPadding:
               const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0),
           focusColor: Colors.grey.shade700,
@@ -69,11 +75,12 @@ class NormalForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return TextFormField(
-      style:
-      TextStyle(fontFamily: "nunito",
-          fontWeight: FontWeight.w500, color: kgreyDark, fontSize: 15.5),
+      style: TextStyle(
+          fontFamily: "nunito",
+          fontWeight: FontWeight.w500,
+          color: kgreyDark,
+          fontSize: 15.5),
       decoration: InputDecoration(
           filled: true,
           fillColor: Colors.grey.shade100,
@@ -82,10 +89,13 @@ class NormalForm extends StatelessWidget {
             color: Colors.grey.shade700,
           ),
           hintText: hint,
-          hintStyle:  TextStyle(fontFamily: "nunito",
-              fontWeight: FontWeight.w500, color: kgreyDark, fontSize: 15.5),
+          hintStyle: TextStyle(
+              fontFamily: "nunito",
+              fontWeight: FontWeight.w500,
+              color: kgreyDark,
+              fontSize: 15.5),
           contentPadding:
-          const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0),
+              const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0),
           focusColor: Colors.grey.shade700,
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.white),
@@ -98,4 +108,3 @@ class NormalForm extends StatelessWidget {
     );
   }
 }
-

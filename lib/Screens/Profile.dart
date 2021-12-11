@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lets_head_out/Lists/myInformation.dart';
-import 'package:lets_head_out/utils/TextStyles.dart';
-import 'package:lets_head_out/utils/consts.dart';
+import 'package:lets_head_out/Utils/TextStyles.dart';
+import 'package:lets_head_out/Utils/consts.dart';
 
 class Profile extends StatefulWidget {
   @override
