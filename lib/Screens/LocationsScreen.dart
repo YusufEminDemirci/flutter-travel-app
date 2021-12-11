@@ -65,12 +65,8 @@ class _PlacesState extends State<Places> with SingleTickerProviderStateMixin {
                         left: 16.0, right: 16.0, bottom: 16.0, top: 10.0),
                     child: Column(
                       children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10, bottom: 16.0),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: BoldText("Places", 20.0, kblack),
-                          ),
+                        SizedBox(
+                          height: 15,
                         ),
                         Column(
                           children: getPlaces(cityId),
@@ -92,12 +88,8 @@ class _PlacesState extends State<Places> with SingleTickerProviderStateMixin {
                         left: 16.0, right: 16.0, bottom: 16.0, top: 10.0),
                     child: Column(
                       children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10, bottom: 16.0),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: BoldText("Restaurant", 20.0, kblack),
-                          ),
+                        SizedBox(
+                          height: 15,
                         ),
                         Column(
                           children: getRestaurants(cityId),

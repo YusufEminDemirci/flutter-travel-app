@@ -92,28 +92,6 @@ class _DetailScreenState extends State<DetailScreen>
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                BoldText(name, 20.0, kblack),
-                                Row(
-                                  children: <Widget>[
-                                    BoldText("$rate Stars", 12.0, korange),
-                                    SizedBox(
-                                      width: 16.0,
-                                    ),
-                                    Icon(
-                                      Icons.location_on,
-                                      color: kgreyDark,
-                                      size: 15.0,
-                                    ),
-                                    NormalText(location, kgreyDark, 15.0),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Container(
-                                  height: 2,
-                                  color: kgreyFill,
-                                ),
                                 SizedBox(
                                   height: 10,
                                 ),
@@ -138,7 +116,7 @@ class _DetailScreenState extends State<DetailScreen>
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  BoldText("Location", 20.0, kblack),
+                                  SizedBox(height: 20.0),
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(20.0),
                                     child: Image.asset(
@@ -146,7 +124,7 @@ class _DetailScreenState extends State<DetailScreen>
                                       fit: BoxFit.fill,
                                       height:
                                           MediaQuery.of(context).size.width -
-                                              90,
+                                              80,
                                       width: MediaQuery.of(context).size.width,
                                     ),
                                   ),
@@ -165,48 +143,30 @@ class _DetailScreenState extends State<DetailScreen>
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
-                                        BoldText("Reviews", 20.0, kblack),
-                                        BoldText("See all", 16, kdarkBlue),
+                                        BoldText(
+                                            comments.length.toString() +
+                                                " Reviews",
+                                            20.0,
+                                            kblack),
+                                        Row(
+                                          children: [
+                                            Icon(
+                                              Icons.star,
+                                              color: Colors.amber,
+                                              size: 25.0,
+                                            ),
+                                            BoldText(
+                                                "$rate Stars", 14.0, korange),
+                                          ],
+                                        )
                                       ],
                                     ),
                                     SizedBox(
                                       height: 10,
                                     ),
-                                    Row(
-                                      children: <Widget>[
-                                        Container(
-                                          width: 50.0,
-                                          decoration: BoxDecoration(
-                                            color: korange,
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: <Widget>[
-                                              Icon(
-                                                Icons.star,
-                                                color: kwhite,
-                                                size: 15.0,
-                                              ),
-                                              BoldText(rate.toString(), 15.0,
-                                                  kwhite),
-                                            ],
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        NormalText(
-                                          comments.length.toString() +
-                                              " Reviews",
-                                          kgreyDark,
-                                          14,
-                                        ),
-                                      ],
+                                    Container(
+                                      height: 2,
+                                      color: kgreyFill,
                                     ),
                                     SizedBox(
                                       height: 16,

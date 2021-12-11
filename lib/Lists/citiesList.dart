@@ -1,6 +1,6 @@
 import 'package:lets_head_out/utils/cityModel.dart';
 
-List<City> city = [
+List<City> cities = [
   City(
     id: "1",
     imageUrl: 'assets/alger.jpg',

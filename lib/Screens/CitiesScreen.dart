@@ -43,11 +43,11 @@ class _CitiesState extends State<Cities> {
                   ),
                   Row(
                     children: <Widget>[
-                      CitiesImage(city[0]),
+                      CitiesImage(cities[0]),
                       SizedBox(
                         width: 28,
                       ),
-                      CitiesImage(city[1]),
+                      CitiesImage(cities[1]),
                     ],
                   ),
                   SizedBox(
@@ -55,11 +55,11 @@ class _CitiesState extends State<Cities> {
                   ),
                   Row(
                     children: <Widget>[
-                      CitiesImage(city[2]),
+                      CitiesImage(cities[2]),
                       SizedBox(
                         width: 28,
                       ),
-                      CitiesImage(city[3]),
+                      CitiesImage(cities[3]),
                     ],
                   ),
                 ],
@@ -70,4 +70,12 @@ class _CitiesState extends State<Cities> {
       ),
     );
   }
+}
+
+getCities() {
+  List<CitiesImage> cityList = [];
+  for (int index = 0; index < cities.length; index++) {
+    CitiesImage(cities[index]);
+  }
+  return cityList;
 }
