@@ -3,8 +3,8 @@ List<Map<String, String>> myInformation = [
 ];
 
 var myInfo = {
-  'profileImage': 'assets/sheraton.jpg',
-  'e-mail': '123@deneme.com',
+  'profileImage': 'assets/adrar.jpg',
+  'e-mail': 'demirciogluyazilim@gmail.com',
   'name': 'Ali',
   'surname': 'Sayar',
 };

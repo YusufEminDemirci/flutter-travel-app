@@ -57,11 +57,10 @@ class _DetailScreenState extends State<DetailScreen>
       body: Stack(
         children: <Widget>[
           Positioned(
-            top: 0,
-            child: Container(
-                width: MediaQuery.of(context).size.width,
-                child: Image.asset(imageUrl)),
-          ),
+              top: 0,
+              child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Image.asset(imageUrl))),
           Positioned(
             top: 200.0,
             child: ClipRRect(

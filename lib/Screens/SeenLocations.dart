@@ -2,15 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lets_head_out/Utils/TextStyles.dart';
 import 'package:lets_head_out/Utils/consts.dart';
-import 'package:lets_head_out/Lists/selectedLocationsList.dart';
+import 'package:lets_head_out/Lists/seenLocationsList.dart';
 import 'package:lets_head_out/Prefabs/Locations.dart';
 
-class TravelList extends StatefulWidget {
+class SeenLocations extends StatefulWidget {
   @override
-  _TravelListState createState() => _TravelListState();
+  _SeenLocationsState createState() => _SeenLocationsState();
 }
 
-class _TravelListState extends State<TravelList>
+class _SeenLocationsState extends State<SeenLocations>
     with SingleTickerProviderStateMixin {
   TabController tabController;
 
@@ -31,7 +31,7 @@ class _TravelListState extends State<TravelList>
     return Scaffold(
       appBar: AppBar(
         backgroundColor: mainColor,
-        title: BoldText("My Plan", 35, kwhite),
+        title: BoldText("Seen Locations", 35, kwhite),
         centerTitle: true,
         elevation: 0.0,
       ),
@@ -112,18 +112,18 @@ class _TravelListState extends State<TravelList>
 
 getPlaces() {
   List<LocationsImage> getPlaces = [];
-  for (int index = 0; index < selectedLocations.length; index++) {
-    if (selectedLocations[index].type == "place") {
+  for (int index = 0; index < seenLocations.length; index++) {
+    if (seenLocations[index].type == "place") {
       getPlaces.add(LocationsImage(
-        selectedLocations[index].id,
-        selectedLocations[index].imageUrl,
-        selectedLocations[index].name,
-        selectedLocations[index].description,
-        selectedLocations[index].location,
-        selectedLocations[index].comment,
-        selectedLocations[index].rate,
-        selectedLocations[index].type,
-        selectedLocations[index].cityId,
+        seenLocations[index].id,
+        seenLocations[index].imageUrl,
+        seenLocations[index].name,
+        seenLocations[index].description,
+        seenLocations[index].location,
+        seenLocations[index].comment,
+        seenLocations[index].rate,
+        seenLocations[index].type,
+        seenLocations[index].cityId,
       ));
     }
   }
@@ -132,18 +132,18 @@ getPlaces() {
 
 getRestaurants() {
   List<LocationsImage> getRestaurants = [];
-  for (int index = 0; index < selectedLocations.length; index++) {
-    if (selectedLocations[index].type == "restaurant") {
+  for (int index = 0; index < seenLocations.length; index++) {
+    if (seenLocations[index].type == "restaurant") {
       getRestaurants.add(LocationsImage(
-        selectedLocations[index].id,
-        selectedLocations[index].imageUrl,
-        selectedLocations[index].name,
-        selectedLocations[index].description,
-        selectedLocations[index].location,
-        selectedLocations[index].comment,
-        selectedLocations[index].rate,
-        selectedLocations[index].type,
-        selectedLocations[index].cityId,
+        seenLocations[index].id,
+        seenLocations[index].imageUrl,
+        seenLocations[index].name,
+        seenLocations[index].description,
+        seenLocations[index].location,
+        seenLocations[index].comment,
+        seenLocations[index].rate,
+        seenLocations[index].type,
+        seenLocations[index].cityId,
       ));
     }
   }

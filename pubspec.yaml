@@ -72,6 +72,8 @@ flutter:
     - assets/tlemcen.jpg
     - assets/adrar.jpg
     - assets/plazamap.png
+    - assets/orangeProfile.png
+    - assets/orangeProfileTwo.png
 
   fonts:
     - family: nunito
