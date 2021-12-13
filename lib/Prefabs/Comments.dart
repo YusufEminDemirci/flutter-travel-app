@@ -23,10 +23,11 @@ class CommentsImage extends StatelessWidget {
               width: 24,
               height: 24,
               child: CircleAvatar(
-                backgroundColor: kgreyDark,
+                backgroundColor: Colors.transparent,
                 child: Icon(
-                  Icons.person,
-                  size: 12,
+                  Icons.person_pin,
+                  size: 30,
+                  color: mainColor,
                 ),
               ),
             ),

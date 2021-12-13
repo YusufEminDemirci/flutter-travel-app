@@ -8,7 +8,7 @@ import 'package:lets_head_out/Utils/consts.dart';
 class Places extends StatefulWidget {
   final String cityId;
 
-  Places(this.cityId, String imageUrl, String name);
+  Places(this.cityId);
 
   @override
   _PlacesState createState() => _PlacesState(this.cityId);
@@ -36,7 +36,7 @@ class _PlacesState extends State<Places> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.amber,
+        backgroundColor: mainColor,
         title: BoldText("What are you, Looking for?", 20, kwhite),
         centerTitle: true,
         elevation: 0.0,
@@ -44,14 +44,21 @@ class _PlacesState extends State<Places> with SingleTickerProviderStateMixin {
       body: Scaffold(
         backgroundColor: kwhite,
         appBar: TabBar(
-          labelColor: kdarkBlue,
+          labelColor: mainColor,
+          unselectedLabelColor: kdarkBlue,
           labelStyle:
               TextStyle(fontFamily: "nunito", fontWeight: FontWeight.bold),
           controller: tabController,
-          indicatorColor: Colors.amber,
+          indicatorColor: mainColor,
           tabs: <Widget>[
-            Tab(text: "Places"),
-            Tab(text: "Restaurants"),
+            Tab(
+              text: "Places",
+              icon: Icon(Icons.house),
+            ),
+            Tab(
+              text: "Restaurants",
+              icon: Icon(Icons.food_bank),
+            ),
           ],
         ),
         body: TabBarView(

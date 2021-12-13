@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lets_head_out/Lists/commentsList.dart';
 import 'package:lets_head_out/Models/location.dart';
-import 'package:lets_head_out/Utils/Buttons.dart';
 import 'package:lets_head_out/Utils/TextStyles.dart';
 import 'package:lets_head_out/Utils/consts.dart';
 import 'package:lets_head_out/Lists/selectedLocationsList.dart';
@@ -47,6 +46,7 @@ class _DetailScreenState extends State<DetailScreen>
 
   _DetailScreenState(this.id, this.imageUrl, this.name, this.location,
       this.description, this.comment, this.rate, this.type, this.cityId);
+
   @override
   TabController tabController;
 
@@ -71,11 +71,12 @@ class _DetailScreenState extends State<DetailScreen>
                 height: 400,
                 child: Scaffold(
                   appBar: TabBar(
-                    labelColor: kdarkBlue,
+                    labelColor: mainColor,
+                    unselectedLabelColor: kdarkBlue,
                     labelStyle: TextStyle(
                         fontFamily: "nunito", fontWeight: FontWeight.bold),
                     controller: tabController,
-                    indicatorColor: Colors.amber,
+                    indicatorColor: mainColor,
                     tabs: <Widget>[
                       Tab(text: "Information"),
                       Tab(text: "Location"),
@@ -152,7 +153,7 @@ class _DetailScreenState extends State<DetailScreen>
                                           children: [
                                             Icon(
                                               Icons.star,
-                                              color: Colors.amber,
+                                              color: mainColor,
                                               size: 25.0,
                                             ),
                                             BoldText(
@@ -188,28 +189,78 @@ class _DetailScreenState extends State<DetailScreen>
               ),
             ),
           ),
-          Positioned(
-              top: 625,
-              left: 30,
-              child: WideButton(
-                "Add to list",
-                () {
-                  selectedLocations.add(
-                    Location(
-                      imageUrl: this.imageUrl,
-                      name: this.name,
-                      type: this.type,
-                      description: this.description,
-                      location: this.location,
-                      comment: this.comment,
-                      rate: this.rate,
-                    ),
-                  );
-                },
-              )),
         ],
       ),
+      floatingActionButton: FloatingButton(),
     );
+  }
+
+  FloatingButton() {
+    FloatingActionButton floatingButton;
+    var isAddedToList = false;
+    if (selectedLocations.length <= 0) {
+      floatingButton = FloatingActionButton(
+        backgroundColor: isAddedToList ? Colors.red : mainColor,
+        child: Icon(Icons.add_task_rounded),
+        onPressed: () {
+          addSeenLocations();
+          isAddedToList = true;
+        },
+      );
+    }
+    for (int index = 0; index < selectedLocations.length; index++) {
+      if (selectedLocations[index].id != this.id) {
+        floatingButton = FloatingActionButton(
+          backgroundColor: isAddedToList ? mainColor : Colors.red,
+          child: Icon(Icons.add_task_rounded),
+          onPressed: () {
+            addSeenLocations();
+            isAddedToList = true;
+          },
+        );
+      } else {
+        floatingButton = FloatingActionButton(
+          backgroundColor: isAddedToList ? mainColor : Colors.red,
+          child: Icon(Icons.add_task_rounded),
+          onPressed: () {
+            removeSeenLocations();
+            isAddedToList = false;
+          },
+        );
+      }
+    }
+    return floatingButton;
+  }
+
+  addSeenLocations() {
+    for (int index = 0; index < selectedLocations.length; index++) {
+      if (selectedLocations[index].id != this.id) {
+        selectedLocations.add(
+          Location(
+            id: this.id,
+            imageUrl: this.imageUrl,
+            name: this.name,
+            type: this.type,
+            description: this.description,
+            location: this.location,
+            comment: this.comment,
+            rate: this.rate,
+            cityId: this.cityId,
+          ),
+        );
+      }
+    }
+  }
+
+  removeSeenLocations() {
+    for (int index = 0; index < selectedLocations.length; index++) {
+      if (selectedLocations[index].id == this.id) {
+        selectedLocations.remove(
+          selectedLocations[index],
+        );
+        break;
+      }
+    }
   }
 
   Column equipmentsItem(IconData icon, String text) {

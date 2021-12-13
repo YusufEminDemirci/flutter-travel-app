@@ -45,7 +45,7 @@ class _HomeState extends State<Home> {
           items: [
             BottomNavyBarItem(
               icon: Icon(Icons.home),
-              activeColor: Colors.amber,
+              activeColor: mainColor,
               inactiveColor: kgreyDark,
               title: Text(
                 "Home",
@@ -58,7 +58,7 @@ class _HomeState extends State<Home> {
                 "Travel List",
                 style: TextStyle(fontFamily: "nunito"),
               ),
-              activeColor: Colors.amber,
+              activeColor: mainColor,
               inactiveColor: kgreyDark,
             ),
             BottomNavyBarItem(
@@ -67,7 +67,7 @@ class _HomeState extends State<Home> {
                 "Profile",
                 style: TextStyle(fontFamily: "nunito"),
               ),
-              activeColor: Colors.amber,
+              activeColor: mainColor,
               inactiveColor: kgreyDark,
             )
           ],

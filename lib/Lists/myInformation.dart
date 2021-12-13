@@ -4,7 +4,7 @@ List<Map<String, String>> myInformation = [
 
 var myInfo = {
   'profileImage': 'assets/sheraton.jpg',
-  'e-mail': 'deneme@deneme.com',
-  'name': 'Mahmut',
-  'surname': 'Kerem',
+  'e-mail': '123@deneme.com',
+  'name': 'Ali',
+  'surname': 'Sayar',
 };

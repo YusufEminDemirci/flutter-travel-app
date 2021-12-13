@@ -1,3 +1,15 @@
+import 'package:lets_head_out/Lists/citiesList.dart';
 import 'package:lets_head_out/Models/location.dart';
 
-List<Location> selectedLocations = [];
+List<Location> selectedLocations = [
+  Location(
+    id: "1",
+    imageUrl: 'assets/sheraton.jpg',
+    name: 'Sheraton',
+    type: 'restaurant',
+    description: "Description",
+    location: cities[1].id,
+    comment: 'This place is a beatiful place to stay',
+    rate: "4.5",
+  ),
+];

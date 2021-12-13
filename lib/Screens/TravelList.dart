@@ -30,7 +30,7 @@ class _TravelListState extends State<TravelList>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.amber,
+        backgroundColor: mainColor,
         title: BoldText("My Plan", 35, kwhite),
         centerTitle: true,
         elevation: 0.0,
@@ -42,7 +42,7 @@ class _TravelListState extends State<TravelList>
           labelStyle:
               TextStyle(fontFamily: "nunito", fontWeight: FontWeight.bold),
           controller: tabController,
-          indicatorColor: Colors.amber,
+          indicatorColor: mainColor,
           tabs: <Widget>[
             Tab(text: "Places"),
             Tab(text: "Restaurants"),

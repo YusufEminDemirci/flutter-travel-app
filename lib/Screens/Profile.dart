@@ -4,6 +4,7 @@ import 'package:lets_head_out/Lists/myInformation.dart';
 import 'package:lets_head_out/Prefabs/Locations.dart';
 import 'package:lets_head_out/Utils/TextStyles.dart';
 import 'package:lets_head_out/Utils/consts.dart';
+import 'package:lets_head_out/Screens/MyInformation.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -16,7 +17,7 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
       backgroundColor: kwhite,
       appBar: AppBar(
-        backgroundColor: Colors.amber,
+        backgroundColor: mainColor,
         title: BoldText("My Profile", 35, kwhite),
         centerTitle: true,
         elevation: 0.0,
@@ -43,7 +44,8 @@ class _ProfileState extends State<Profile> {
               height: 2,
               color: kgreyFill,
             ),
-            profileItem(Icons.person, "My Informations"),
+            profileItem(Icons.person, "My Information"),
+            profileItem(Icons.list, "Seen Locations"),
             profileItem(Icons.info, "About Us "),
             profileItem(Icons.exit_to_app, "Sign Out"),
           ],
@@ -55,33 +57,36 @@ class _ProfileState extends State<Profile> {
   Widget profileItem(IconData icon, String text) {
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16, bottom: 9),
-      child: Row(
-        children: <Widget>[
-          CircleAvatar(
-            backgroundColor: kgreyDark,
-            backgroundImage: AssetImage(myInfo["profileImage"]),
-            radius: 20,
-            child: GestureDetector(
-              onTap: () {
-                if (text == "My Informations") {
-                  // My Informations;
-                } else if (text == "About Us") {
-                  // About Us;
-                } else if (text == "Sign Out") {
-                  // Sign Out;
-                }
-              },
+      child: GestureDetector(
+        child: Row(
+          children: <Widget>[
+            CircleAvatar(
+              backgroundColor: kgreyDark,
+              backgroundImage: AssetImage(myInfo["profileImage"]),
+              radius: 20,
               child: Icon(
                 icon,
                 color: kblack,
               ),
             ),
-          ),
-          SizedBox(
-            width: 8,
-          ),
-          NormalText(text, kblack, 20.0)
-        ],
+            SizedBox(
+              width: 8,
+            ),
+            NormalText(text, kblack, 20.0)
+          ],
+        ),
+        onTap: () {
+          if (text == "My Information") {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => new MyInformation()));
+          } else if (text == "Seen Locations") {
+            // About Us;
+          } else if (text == "About Us") {
+            // About Us;
+          } else if (text == "Sign Out") {
+            // Sign Out;
+          }
+        },
       ),
     );
   }

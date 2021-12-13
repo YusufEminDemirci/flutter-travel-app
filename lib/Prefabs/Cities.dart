@@ -23,11 +23,8 @@ class CitiesImage extends StatelessWidget {
             height: 150,
             child: GestureDetector(
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            Places(this.id, this.imageUrl, this.name)));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Places(this.id)));
               },
               child: ClipRRect(
                 borderRadius: new BorderRadius.all(Radius.circular(15.0)),
