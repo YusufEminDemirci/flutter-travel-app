@@ -32,45 +32,21 @@ class _CitiesState extends State<Cities> {
             ),
           ),
           SliverFillRemaining(
-            child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 40.0, right: 16.0, bottom: 16.0, top: 25.0),
-                    child: Column(
-                      children: <Widget>[
-                        Column(
-                          children: getCities(),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+            child: GridView(
+              padding: const EdgeInsets.only(
+                  left: 40.0, right: 16.0, bottom: 16.0, top: 25.0),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
               ),
+              shrinkWrap: true,
+              children: List.generate(cities.length, (index) {
+                return CitiesImage(cities[index].id, cities[index].imageUrl,
+                    cities[index].name);
+              }),
             ),
           )
         ],
       ),
     );
   }
-}
-
-getCities() {
-  List<Widget> cityList = [];
-  for (int index = 0; index < cities.length; index += 2) {
-    cityList.add(
-      Row(
-        children: [
-          CitiesImage(
-              cities[index].id, cities[index].imageUrl, cities[index].name),
-          SizedBox(width: 20.0),
-          CitiesImage(cities[index + 1].id, cities[index + 1].imageUrl,
-              cities[index + 1].name),
-        ],
-      ),
-    );
-    cityList.add(SizedBox(height: 20.0));
-  }
-  return cityList;
 }

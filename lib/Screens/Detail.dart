@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lets_head_out/Lists/commentsList.dart';
+import 'package:lets_head_out/Lists/selectedPlaces.dart';
+import 'package:lets_head_out/Lists/selectedRestaurants.dart';
 import 'package:lets_head_out/Models/location.dart';
 import 'package:lets_head_out/Utils/TextStyles.dart';
 import 'package:lets_head_out/Utils/consts.dart';
-import 'package:lets_head_out/Lists/selectedLocationsList.dart';
 import 'package:lets_head_out/Prefabs/Comments.dart';
 
 class DetailScreen extends StatefulWidget {
@@ -190,76 +191,49 @@ class _DetailScreenState extends State<DetailScreen>
           ),
         ],
       ),
-      floatingActionButton: FloatingButton(),
+      floatingActionButton: FloatingActionButton(
+          backgroundColor: mainColor,
+          child: Icon(Icons.add_task_rounded),
+          onPressed: () {
+            if (this.type == "place") {
+              for (int index = 0; index < selectedPlaces.length; index++) {
+                if (selectedPlaces[index].id != this.id) {
+                  selectedPlaces.add(
+                    Location(
+                      id: this.id,
+                      imageUrl: this.imageUrl,
+                      name: this.name,
+                      type: this.type,
+                      description: this.description,
+                      location: this.location,
+                      comment: this.comment,
+                      rate: this.rate,
+                      cityId: this.cityId,
+                    ),
+                  );
+                }
+              }
+            } else {
+              for (int index = 0; index < selectedRestaurants.length; index++) {
+                if (selectedRestaurants[index].id != this.id) {
+                  selectedRestaurants.add(
+                    Location(
+                      id: this.id,
+                      imageUrl: this.imageUrl,
+                      name: this.name,
+                      type: this.type,
+                      description: this.description,
+                      location: this.location,
+                      comment: this.comment,
+                      rate: this.rate,
+                      cityId: this.cityId,
+                    ),
+                  );
+                }
+              }
+            }
+          }),
     );
-  }
-
-  FloatingButton() {
-    FloatingActionButton floatingButton;
-    var isAddedToList = false;
-    if (selectedLocations.length <= 0) {
-      floatingButton = FloatingActionButton(
-        backgroundColor: isAddedToList ? Colors.red : mainColor,
-        child: Icon(Icons.add_task_rounded),
-        onPressed: () {
-          addSeenLocations();
-          isAddedToList = true;
-        },
-      );
-    }
-    for (int index = 0; index < selectedLocations.length; index++) {
-      if (selectedLocations[index].id != this.id) {
-        floatingButton = FloatingActionButton(
-          backgroundColor: isAddedToList ? mainColor : Colors.red,
-          child: Icon(Icons.add_task_rounded),
-          onPressed: () {
-            addSeenLocations();
-            isAddedToList = true;
-          },
-        );
-      } else {
-        floatingButton = FloatingActionButton(
-          backgroundColor: isAddedToList ? mainColor : Colors.red,
-          child: Icon(Icons.add_task_rounded),
-          onPressed: () {
-            removeSeenLocations();
-            isAddedToList = false;
-          },
-        );
-      }
-    }
-    return floatingButton;
-  }
-
-  addSeenLocations() {
-    for (int index = 0; index < selectedLocations.length; index++) {
-      if (selectedLocations[index].id != this.id) {
-        selectedLocations.add(
-          Location(
-            id: this.id,
-            imageUrl: this.imageUrl,
-            name: this.name,
-            type: this.type,
-            description: this.description,
-            location: this.location,
-            comment: this.comment,
-            rate: this.rate,
-            cityId: this.cityId,
-          ),
-        );
-      }
-    }
-  }
-
-  removeSeenLocations() {
-    for (int index = 0; index < selectedLocations.length; index++) {
-      if (selectedLocations[index].id == this.id) {
-        selectedLocations.remove(
-          selectedLocations[index],
-        );
-        break;
-      }
-    }
   }
 
   Column equipmentsItem(IconData icon, String text) {

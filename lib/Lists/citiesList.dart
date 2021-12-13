@@ -41,4 +41,9 @@ List<City> cities = [
     imageUrl: 'assets/bedjaia.jpg',
     name: 'Bursa',
   ),
+  City(
+    id: "9",
+    imageUrl: 'assets/bedjaia.jpg',
+    name: 'Bursa',
+  ),
 ];

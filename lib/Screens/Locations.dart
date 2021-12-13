@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lets_head_out/Lists/locationsList.dart';
+import 'package:lets_head_out/Lists/restaurants.dart';
+import 'package:lets_head_out/Lists/places.dart';
 import 'package:lets_head_out/Prefabs/Locations.dart';
 import 'package:lets_head_out/Utils/TextStyles.dart';
 import 'package:lets_head_out/Utils/consts.dart';
@@ -64,102 +65,59 @@ class _PlacesState extends State<Places> with SingleTickerProviderStateMixin {
         body: TabBarView(
           controller: tabController,
           children: <Widget>[
-            SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 16.0, right: 16.0, bottom: 16.0, top: 10.0),
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Column(
-                          children: getPlaces(cityId),
-                        ),
-                        SizedBox(
-                          height: 28,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+            GridView(
+              padding: const EdgeInsets.only(
+                  left: 40.0, right: 16.0, bottom: 16.0, top: 25.0),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
               ),
+              shrinkWrap: true,
+              children: List.generate(places.length, (index) {
+                if (places[index].cityId == cityId) {
+                  return LocationsImage(
+                    places[index].id,
+                    places[index].imageUrl,
+                    places[index].name,
+                    places[index].location,
+                    places[index].description,
+                    places[index].comment,
+                    places[index].rate,
+                    places[index].type,
+                    places[index].cityId,
+                  );
+                } else {
+                  return Container();
+                }
+              }),
             ),
-            SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 16.0, right: 16.0, bottom: 16.0, top: 10.0),
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Column(
-                          children: getRestaurants(cityId),
-                        ),
-                        SizedBox(
-                          height: 28,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+            GridView(
+              padding: const EdgeInsets.only(
+                  left: 40.0, right: 16.0, bottom: 16.0, top: 25.0),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
               ),
-            ),
+              shrinkWrap: true,
+              children: List.generate(restaurants.length, (index) {
+                if (places[index].cityId == cityId) {
+                  return LocationsImage(
+                    restaurants[index].id,
+                    restaurants[index].imageUrl,
+                    restaurants[index].name,
+                    restaurants[index].location,
+                    restaurants[index].description,
+                    restaurants[index].comment,
+                    restaurants[index].rate,
+                    restaurants[index].type,
+                    restaurants[index].cityId,
+                  );
+                } else {
+                  return Container();
+                }
+              }),
+            )
           ],
         ),
       ),
     );
   }
-}
-
-getPlaces(String cityId) {
-  List<Widget> getPlaces = [];
-  for (int index = 0; index < locations.length; index++) {
-    if (locations[index].cityId == cityId && locations[index].type == "place") {
-      getPlaces.add(LocationsImage(
-        locations[index].id,
-        locations[index].imageUrl,
-        locations[index].name,
-        locations[index].location,
-        locations[index].description,
-        locations[index].comment,
-        locations[index].rate,
-        locations[index].type,
-        locations[index].cityId,
-      ));
-      getPlaces.add(SizedBox(
-        height: 20.0,
-      ));
-    }
-  }
-  return getPlaces;
-}
-
-getRestaurants(String cityId) {
-  List<Widget> getRestaurants = [];
-  for (int index = 0; index < locations.length; index++) {
-    if (locations[index].cityId == cityId &&
-        locations[index].type == "restaurant") {
-      getRestaurants.add(LocationsImage(
-        locations[index].id,
-        locations[index].imageUrl,
-        locations[index].name,
-        locations[index].location,
-        locations[index].description,
-        locations[index].comment,
-        locations[index].rate,
-        locations[index].type,
-        locations[index].cityId,
-      ));
-      getRestaurants.add(SizedBox(
-        height: 20.0,
-      ));
-    }
-  }
-  return getRestaurants;
 }

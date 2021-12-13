@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lets_head_out/Utils/TextStyles.dart';
 import 'package:lets_head_out/Utils/consts.dart';
-import 'package:lets_head_out/Lists/seenLocationsList.dart';
+import 'package:lets_head_out/Lists/seenPlaces.dart';
+import 'package:lets_head_out/Lists/seenRestaurants.dart';
 import 'package:lets_head_out/Prefabs/Locations.dart';
 
 class SeenLocations extends StatefulWidget {
@@ -57,95 +58,51 @@ class _SeenLocationsState extends State<SeenLocations>
         body: TabBarView(
           controller: tabController,
           children: <Widget>[
-            SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 16.0, right: 16.0, bottom: 16.0, top: 10.0),
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Column(
-                          children: getPlaces(),
-                        ),
-                        SizedBox(
-                          height: 28,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+            GridView(
+              padding: const EdgeInsets.only(
+                  left: 40.0, right: 16.0, bottom: 16.0, top: 25.0),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
               ),
+              shrinkWrap: true,
+              children: List.generate(seenPlaces.length, (index) {
+                return LocationsImage(
+                  seenPlaces[index].id,
+                  seenPlaces[index].imageUrl,
+                  seenPlaces[index].name,
+                  seenPlaces[index].location,
+                  seenPlaces[index].description,
+                  seenPlaces[index].comment,
+                  seenPlaces[index].rate,
+                  seenPlaces[index].type,
+                  seenPlaces[index].cityId,
+                );
+              }),
             ),
-            SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 16.0, right: 16.0, bottom: 16.0, top: 10.0),
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Column(
-                          children: getRestaurants(),
-                        ),
-                        SizedBox(
-                          height: 28,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+            GridView(
+              padding: const EdgeInsets.only(
+                  left: 40.0, right: 16.0, bottom: 16.0, top: 25.0),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
               ),
-            ),
+              shrinkWrap: true,
+              children: List.generate(seenRestaurant.length, (index) {
+                return LocationsImage(
+                  seenRestaurant[index].id,
+                  seenRestaurant[index].imageUrl,
+                  seenRestaurant[index].name,
+                  seenRestaurant[index].location,
+                  seenRestaurant[index].description,
+                  seenRestaurant[index].comment,
+                  seenRestaurant[index].rate,
+                  seenRestaurant[index].type,
+                  seenRestaurant[index].cityId,
+                );
+              }),
+            )
           ],
         ),
       ),
     );
   }
-}
-
-getPlaces() {
-  List<LocationsImage> getPlaces = [];
-  for (int index = 0; index < seenLocations.length; index++) {
-    if (seenLocations[index].type == "place") {
-      getPlaces.add(LocationsImage(
-        seenLocations[index].id,
-        seenLocations[index].imageUrl,
-        seenLocations[index].name,
-        seenLocations[index].description,
-        seenLocations[index].location,
-        seenLocations[index].comment,
-        seenLocations[index].rate,
-        seenLocations[index].type,
-        seenLocations[index].cityId,
-      ));
-    }
-  }
-  return getPlaces;
-}
-
-getRestaurants() {
-  List<LocationsImage> getRestaurants = [];
-  for (int index = 0; index < seenLocations.length; index++) {
-    if (seenLocations[index].type == "restaurant") {
-      getRestaurants.add(LocationsImage(
-        seenLocations[index].id,
-        seenLocations[index].imageUrl,
-        seenLocations[index].name,
-        seenLocations[index].description,
-        seenLocations[index].location,
-        seenLocations[index].comment,
-        seenLocations[index].rate,
-        seenLocations[index].type,
-        seenLocations[index].cityId,
-      ));
-    }
-  }
-  return getRestaurants;
 }
