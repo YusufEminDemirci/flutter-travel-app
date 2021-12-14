@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lets_head_out/Lists/myInformation.dart';
 import 'package:lets_head_out/Utils/TextStyles.dart';
@@ -8,7 +9,19 @@ class MyInformation extends StatefulWidget {
   _MyInformationState createState() => _MyInformationState();
 }
 
+String _name;
+String _surname;
+String _email;
+String _birthday;
+
 class _MyInformationState extends State<MyInformation> {
+  @override
+  void initState() {
+    super.initState();
+    // NOTE: Calling this function here would crash the app.
+    getUserInfo();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,19 +61,18 @@ class _MyInformationState extends State<MyInformation> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              BoldText(myInfo["name"] + " " + myInfo["surname"],
-                                  25.0, kblack),
+                              BoldText(
+                                  "$_name $_surname".toString(), 25.0, kblack),
                               Container(
                                 height: 2,
-                                width: (myInfo["name"].length.toDouble() +
-                                        myInfo["surname"].length.toDouble()) *
-                                    20,
+                                width:
+                                    ("$_name $_surname".length.toDouble()) * 20,
                                 color: mainColor,
                               ),
                               SizedBox(height: 80.0),
-                              profileItem(Icons.mail_rounded,
-                                  myInfo["e-mail"].toString()),
-                              profileItem(Icons.cake, "20.09.1999"),
+                              profileItem(
+                                  Icons.mail_rounded, _email.toString()),
+                              profileItem(Icons.cake, _birthday.toString()),
                               SizedBox(height: 50.0),
                               profileItem(
                                   Icons.password_rounded, "Change Password"),
@@ -115,10 +127,23 @@ class _MyInformationState extends State<MyInformation> {
         ),
         onTap: () {
           if (text == "Change Password") {
-            //TODO Change Password
+            //TODO: change password
           }
         },
       ),
     );
   }
+}
+
+getUserInfo() {
+  final firestoreInstance = FirebaseFirestore.instance;
+
+  firestoreInstance.collection("Users").get().then((querySnapshot) {
+    querySnapshot.docs.forEach((result) {
+      _name = result.data()["name"];
+      _surname = result.data()["surname"];
+      _email = result.data()["e-mail"];
+      _birthday = result.data()["birthday"];
+    });
+  });
 }
