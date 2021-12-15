@@ -35,6 +35,7 @@ class _TravelListState extends State<TravelList>
         title: BoldText("My Plan", 35, kwhite),
         centerTitle: true,
         elevation: 0.0,
+        automaticallyImplyLeading: false,
       ),
       body: Scaffold(
         backgroundColor: kwhite,

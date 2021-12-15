@@ -16,8 +16,8 @@ const String POPPINS = "Poppins";
 const String OPEN_SANS = "OpenSans";
 const String SKIP = "Skip";
 const String NEXT = "Next";
-const String SLIDER_HEADING_1 = "Fast Travel!";
-const String SLIDER_HEADING_2 = "Easy to Use!";
-const String SLIDER_HEADING_3 = "Safest Option";
+const String SLIDER_HEADING_1 = "Tour Guide!";
+const String SLIDER_HEADING_2 = "Hundreds of Places";
+const String SLIDER_HEADING_3 = "Easy to Use!";
 const String SLIDER_DESC =
     "Live the best and easiest traveling experience with us,the fastest and most reliable option you can ever find.";

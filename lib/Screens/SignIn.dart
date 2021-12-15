@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -5,7 +6,7 @@ import 'package:lets_head_out/Screens/Registration.dart';
 import 'package:lets_head_out/Utils/Buttons.dart';
 import 'package:lets_head_out/Utils/TextStyles.dart';
 import 'package:lets_head_out/Utils/consts.dart';
-import 'package:lets_head_out/Utils/forms.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Home.dart';
 
@@ -14,117 +15,235 @@ class SignInPage extends StatefulWidget {
   _SignInPageState createState() => _SignInPageState();
 }
 
+final FirebaseAuth _auth = FirebaseAuth.instance;
+
+final TextEditingController _emailController = TextEditingController();
+final TextEditingController _passwordController = TextEditingController();
+
+bool _obscureText = true;
+
 class _SignInPageState extends State<SignInPage> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  _signInWithEmailAndPassword() async {
+    try {
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kwhite,
       appBar: AppBar(
-        elevation: 0.0,
+        backgroundColor: mainColor,
+        title: BoldText("Sign In", 35, kwhite),
         centerTitle: true,
-        title: NormalText("SignIn", kblack, 20.0),
-        backgroundColor: kwhite,
-        iconTheme: IconThemeData(
-          color: Colors.black,
-        ),
+        elevation: 0.0,
+        automaticallyImplyLeading: false,
       ),
       body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: <Widget>[
-              Icon(
-                FontAwesomeIcons.plane,
-                color: kdarkBlue,
-                size: 35,
-              ),
-              SizedBox(height: 10),
-              BoldText("Aight", 30.0, kdarkBlue),
-              NormalText("Let's Head Out", kdarkBlue, 30.0),
-              SizedBox(
-                height: 30,
-              ),
-              Container(width: 340.0, child: NormalForm(Icons.email, "Email")),
-              SizedBox(
-                height: 25,
-              ),
-              Container(
-                width: 340.0,
-                child: PasswordForm(),
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              WideButton.bold("SIGN IN", () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) {
-                  return Home();
-                }));
-              }, true),
-              SizedBox(
-                height: 10,
-              ),
-              Align(
+        child: Form(
+          key: _formKey,
+          child: Center(
+            child: Column(
+              children: <Widget>[
+                SizedBox(height: 30),
+                Icon(
+                  FontAwesomeIcons.route,
+                  color: kdarkBlue,
+                  size: 35,
+                ),
+                SizedBox(height: 10),
+                BoldText("Graduation Project 1", 30.0, kdarkBlue),
+                NormalText("Travel & Food", kdarkBlue, 30.0),
+                SizedBox(
+                  height: 60,
+                ),
+                Container(
+                  width: 340.0,
+                  child: TextFormField(
+                    style: TextStyle(
+                        fontFamily: "nunito",
+                        fontWeight: FontWeight.w500,
+                        color: kgreyDark,
+                        fontSize: 15.5),
+                    controller: _emailController,
+                    validator: (String value) {
+                      if (value.isEmpty) {
+                        return 'This Field Cannot Be Left Blank !';
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.grey.shade100,
+                        prefixIcon: Icon(
+                          Icons.email,
+                          color: Colors.grey.shade700,
+                        ),
+                        hintText: "E-mail",
+                        hintStyle: TextStyle(
+                            fontFamily: "nunito",
+                            fontWeight: FontWeight.w500,
+                            color: kgreyDark,
+                            fontSize: 15.5),
+                        contentPadding: const EdgeInsets.only(
+                            left: 14.0, bottom: 8.0, top: 8.0),
+                        focusColor: Colors.grey.shade700,
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                          borderRadius: BorderRadius.circular(15.0),
+                        )),
+                  ),
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                Container(
+                  width: 340.0,
+                  child: TextFormField(
+                    style: TextStyle(
+                        fontFamily: "nunito",
+                        fontWeight: FontWeight.w500,
+                        color: kgreyDark,
+                        fontSize: 15.5),
+                    obscureText: _obscureText,
+                    controller: _passwordController,
+                    validator: (String value) {
+                      if (value.isEmpty) {
+                        return 'This Field Cannot Be Left Blank !';
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.grey.shade100,
+                        prefixIcon: Icon(
+                          Icons.lock,
+                          color: Colors.grey.shade700,
+                        ),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _obscureText = !_obscureText;
+                              print(_obscureText);
+                            });
+                          },
+                          icon: _obscureText
+                              ? Icon(
+                                  FontAwesomeIcons.eye,
+                                  color: Colors.grey.shade700,
+                                )
+                              : Icon(
+                                  FontAwesomeIcons.eyeSlash,
+                                  color: Colors.grey.shade700,
+                                ),
+                          iconSize: 20,
+                        ),
+                        hintText: "Password",
+                        hintStyle: TextStyle(
+                            fontFamily: "nunito",
+                            fontWeight: FontWeight.w500,
+                            color: kgreyDark,
+                            fontSize: 15.5),
+                        contentPadding: const EdgeInsets.only(
+                            left: 14.0, bottom: 8.0, top: 8.0),
+                        focusColor: Colors.grey.shade700,
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                          borderRadius: BorderRadius.circular(15.0),
+                        )),
+                  ),
+                ),
+                Align(
                   alignment: Alignment.topRight,
                   child: Padding(
                     padding: EdgeInsets.only(right: 8.0),
                     child: BoldText.veryBold(
                         "Forgot your Password ?", 12.5, kdarkBlue, true),
-                  )),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Container(
-                    height: 2,
-                    width: 100,
-                    color: kdarkBlue,
                   ),
-                  NormalText("Or Sign in with", kdarkBlue, 12.5),
-                  Container(
-                    height: 2,
-                    width: 100,
-                    color: kdarkBlue,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Icon(
-                FontAwesomeIcons.facebookSquare,
-                color: Colors.blue.shade600,
-                size: 40.0,
-              ),
-              SizedBox(
-                height: 65,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  NormalText("Don't have an account ?", kdarkBlue, 12.5),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context, rootNavigator: true)
-                          .push(CupertinoPageRoute<bool>(
-                        fullscreenDialog: true,
-                        builder: (context) => RegistrationScreen(),
-                      ));
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        right: 8.0,
-                      ),
-                      child:
-                          BoldText.veryBold("Register ?", 12.5, korange, true),
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                WideButton.bold("SIGN IN", () async {
+                  if (_formKey.currentState.validate()) {
+                    _signInWithEmailAndPassword();
+                  }
+                  if (_auth.currentUser == null) {
+                    print('User is currently signed out!');
+                  } else {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    var status = prefs.setBool('isLoggedIn', true) ?? false;
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => new Home()),
+                        ModalRoute.withName("/Home"));
+                  }
+                }, true),
+                SizedBox(
+                  height: 10,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Container(
+                      height: 2,
+                      width: 75,
+                      color: kdarkBlue,
                     ),
-                  ),
-                ],
-              ),
-            ],
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        NormalText("Don't have an account ?", kdarkBlue, 12.5),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context, rootNavigator: true)
+                                .push(CupertinoPageRoute<bool>(
+                              fullscreenDialog: true,
+                              builder: (context) => RegistrationScreen(),
+                            ));
+                          },
+                          child: BoldText.veryBold(
+                              "Register ?", 12.5, mainColor, true),
+                        ),
+                      ],
+                    ),
+                    Container(
+                      height: 2,
+                      width: 75,
+                      color: kdarkBlue,
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

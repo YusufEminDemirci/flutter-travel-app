@@ -189,6 +189,12 @@ class _DetailScreenState extends State<DetailScreen>
               ),
             ),
           ),
+          Positioned(
+            child: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+            ),
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(

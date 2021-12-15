@@ -16,20 +16,20 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: korange,
+        backgroundColor: Colors.amber,
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Icon(
-                FontAwesomeIcons.plane,
+                FontAwesomeIcons.route,
                 color: kwhite,
                 size: 70,
               ),
               SizedBox(height: 50),
-              BoldText("Aight", 35.0, kdarkBlue),
+              BoldText("Graduation Project 1", 35.0, kdarkBlue),
               TypewriterAnimatedTextKit(
-                text: ["Let's Head Out"],
+                text: ["Travel & Food"],
                 textStyle: TextStyle(
                     fontSize: 30.0, color: kwhite, fontFamily: "nunito"),
                 speed: Duration(milliseconds: 150),
@@ -43,9 +43,10 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(Duration(seconds: 4), () {
-      Navigator.push(context, MaterialPageRoute(builder: (_) {
-        return LandingPage();
-      }));
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => new LandingPage()),
+          ModalRoute.withName("/Home"));
     });
   }
 }

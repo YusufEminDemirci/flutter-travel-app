@@ -12,7 +12,6 @@ class MyInformation extends StatefulWidget {
 String _name;
 String _surname;
 String _email;
-String _birthday;
 
 class _MyInformationState extends State<MyInformation> {
   @override
@@ -72,7 +71,6 @@ class _MyInformationState extends State<MyInformation> {
                               SizedBox(height: 80.0),
                               profileItem(
                                   Icons.mail_rounded, _email.toString()),
-                              profileItem(Icons.cake, _birthday.toString()),
                               SizedBox(height: 50.0),
                               profileItem(
                                   Icons.password_rounded, "Change Password"),
@@ -143,7 +141,6 @@ getUserInfo() {
       _name = result.data()["name"];
       _surname = result.data()["surname"];
       _email = result.data()["e-mail"];
-      _birthday = result.data()["birthday"];
     });
   });
 }

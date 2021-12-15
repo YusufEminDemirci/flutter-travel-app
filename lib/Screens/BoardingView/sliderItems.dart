@@ -16,9 +16,10 @@ class SlideItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     onPressed() {
-      Navigator.push(context, MaterialPageRoute(builder: (_) {
-        return SignInPage();
-      }));
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => new SignInPage()),
+          ModalRoute.withName("/Home"));
     }
 
     return Column(

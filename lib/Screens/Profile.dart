@@ -1,11 +1,18 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lets_head_out/Lists/myInformation.dart';
-import 'package:lets_head_out/Screens/MyInformation.dart';
 import 'package:lets_head_out/Screens/SeenLocations.dart';
 import 'package:lets_head_out/Screens/AboutUs.dart';
+import 'package:lets_head_out/Screens/SignIn.dart';
 import 'package:lets_head_out/Utils/TextStyles.dart';
 import 'package:lets_head_out/Utils/consts.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
+
+String _surname;
+String _name;
 
 class Profile extends StatefulWidget {
   @override
@@ -13,6 +20,11 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  void initState() {
+    super.initState();
+    getUserInfo();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,6 +34,7 @@ class _ProfileState extends State<Profile> {
         title: BoldText("My Profile", 35, kwhite),
         centerTitle: true,
         elevation: 0.0,
+        automaticallyImplyLeading: false,
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -52,18 +65,17 @@ class _ProfileState extends State<Profile> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              BoldText(myInfo["name"] + " " + myInfo["surname"],
-                                  25.0, kblack),
+                              BoldText(_auth.currentUser.email, 25.0, kblack),
                               Container(
                                 height: 2,
-                                width: (myInfo["name"].length.toDouble() +
-                                        myInfo["surname"].length.toDouble()) *
+                                width: (_auth.currentUser.email.length
+                                        .toDouble()) *
                                     20,
                                 color: mainColor,
                               ),
                               SizedBox(height: 25.0),
-                              profileItem(Icons.person, "My Information"),
-                              profileItem(Icons.list, "Seen Locations"),
+                              profileItem(
+                                  FontAwesomeIcons.route, "Seen Locations"),
                               profileItem(Icons.info, "About Us"),
                               profileItem(Icons.exit_to_app, "Sign Out"),
                             ],
@@ -115,21 +127,32 @@ class _ProfileState extends State<Profile> {
             NormalText(text, kblack, 22.0)
           ],
         ),
-        onTap: () {
-          if (text == "My Information") {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => new MyInformation()));
-          } else if (text == "Seen Locations") {
+        onTap: () async {
+          if (text == "Seen Locations") {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => new SeenLocations()));
           } else if (text == "About Us") {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => new AboutUs()));
           } else if (text == "Sign Out") {
-            exit(0);
+            if (_auth.currentUser != null) {
+              await _auth.signOut();
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              var status = prefs.setBool('isLoggedIn', false) ?? false;
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => new SignInPage()),
+                  ModalRoute.withName("/Home"));
+            }
           }
         },
       ),
     );
   }
+}
+
+getUserInfo() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  _name = prefs.getString('UserName') ?? false;
+  _surname = prefs.getString('UserSurname') ?? false;
 }

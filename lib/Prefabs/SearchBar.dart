@@ -16,7 +16,7 @@ class SearchBar extends StatelessWidget {
           child: Align(
             alignment: Alignment.center,
             child:
-                NormalForm(Icons.search, "Which city would you like to visit?"),
+                NameForm(Icons.search, "Which city would you like to visit?"),
           ),
         ),
       ],

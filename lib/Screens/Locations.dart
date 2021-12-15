@@ -41,6 +41,7 @@ class _PlacesState extends State<Places> with SingleTickerProviderStateMixin {
         title: BoldText("What are you, Looking for?", 20, kwhite),
         centerTitle: true,
         elevation: 0.0,
+        automaticallyImplyLeading: true,
       ),
       body: Scaffold(
         backgroundColor: kwhite,

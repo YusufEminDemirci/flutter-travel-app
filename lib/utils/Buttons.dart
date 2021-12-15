@@ -17,7 +17,7 @@ class WideButton extends StatelessWidget {
         minWidth: 350.0,
         height: 50.0,
         child: RaisedButton(
-          color: korange,
+          color: mainColor,
           shape: new RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(25)),
           child: isBold

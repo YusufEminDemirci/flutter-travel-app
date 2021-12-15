@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lets_head_out/Prefabs/Cities.dart';
 import 'package:lets_head_out/Prefabs/SearchBar.dart';
@@ -21,6 +20,7 @@ class _CitiesState extends State<Cities> {
         title: BoldText("Cities", 35, kwhite),
         centerTitle: true,
         elevation: 0.0,
+        automaticallyImplyLeading: false,
       ),
       body: CustomScrollView(
         slivers: <Widget>[
@@ -30,6 +30,7 @@ class _CitiesState extends State<Cities> {
             flexibleSpace: FlexibleSpaceBar(
               background: SearchBar(),
             ),
+            automaticallyImplyLeading: false,
           ),
           SliverFillRemaining(
             child: GridView(

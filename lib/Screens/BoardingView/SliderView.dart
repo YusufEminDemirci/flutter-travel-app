@@ -60,20 +60,6 @@ class _SliderLayoutViewState extends State<SliderLayoutView> {
                 Stack(
                   alignment: AlignmentDirectional.topStart,
                   children: <Widget>[
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: Padding(
-                        padding: EdgeInsets.only(right: 15.0, bottom: 15.0),
-                        child: BoldText(NEXT, 14, kblack),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 15.0, bottom: 15.0),
-                        child: BoldText(SKIP, 14, kblack),
-                      ),
-                    ),
                     Container(
                       alignment: AlignmentDirectional.bottomCenter,
                       margin: EdgeInsets.only(bottom: 20.0),
