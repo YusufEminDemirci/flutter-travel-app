@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lets_head_out/Utils/TextStyles.dart';
 import 'package:lets_head_out/Utils/consts.dart';
 import 'package:lets_head_out/Lists/seenPlaces.dart';
@@ -38,22 +39,26 @@ class _SeenLocationsState extends State<SeenLocations>
       ),
       body: Scaffold(
         backgroundColor: kwhite,
-        appBar: TabBar(
-          labelColor: kdarkBlue,
-          labelStyle:
-              TextStyle(fontFamily: "nunito", fontWeight: FontWeight.bold),
-          controller: tabController,
-          indicatorColor: mainColor,
-          tabs: <Widget>[
-            Tab(
-              text: "Places",
-              icon: Icon(Icons.house),
-            ),
-            Tab(
-              text: "Restaurants",
-              icon: Icon(Icons.food_bank),
-            ),
-          ],
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(55.0),
+          child: TabBar(
+            labelColor: mainColor,
+            unselectedLabelColor: kdarkBlue,
+            labelStyle:
+                TextStyle(fontFamily: "nunito", fontWeight: FontWeight.bold),
+            controller: tabController,
+            indicatorColor: mainColor,
+            tabs: <Widget>[
+              Tab(
+                text: "Places",
+                icon: Icon(FontAwesomeIcons.tree),
+              ),
+              Tab(
+                text: "Restaurants",
+                icon: Icon(FontAwesomeIcons.pizzaSlice),
+              ),
+            ],
+          ),
         ),
         body: TabBarView(
           controller: tabController,

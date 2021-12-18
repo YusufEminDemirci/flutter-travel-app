@@ -76,8 +76,9 @@ class _ProfileState extends State<Profile> {
                               SizedBox(height: 25.0),
                               profileItem(
                                   FontAwesomeIcons.route, "Seen Locations"),
-                              profileItem(Icons.info, "About Us"),
-                              profileItem(Icons.exit_to_app, "Sign Out"),
+                              profileItem(FontAwesomeIcons.info, "About Us"),
+                              profileItem(
+                                  FontAwesomeIcons.signOutAlt, "Sign Out"),
                             ],
                           ),
                         ),

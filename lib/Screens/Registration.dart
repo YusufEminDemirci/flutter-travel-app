@@ -77,6 +77,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           fontWeight: FontWeight.w500,
                           color: kgreyDark,
                           fontSize: 15.5),
+                      keyboardType: TextInputType.name,
                       controller: _nameController,
                       validator: (String value) {
                         if (value.isEmpty) {
@@ -120,6 +121,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         fontWeight: FontWeight.w500,
                         color: kgreyDark,
                         fontSize: 15.5),
+                    keyboardType: TextInputType.name,
                     controller: _surnameController,
                     validator: (String value) {
                       if (value.isEmpty) {
@@ -164,6 +166,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         fontWeight: FontWeight.w500,
                         color: kgreyDark,
                         fontSize: 15.5),
+                    keyboardType: TextInputType.emailAddress,
                     controller: _emailController,
                     validator: (String value) {
                       if (value.isEmpty) {
@@ -209,6 +212,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         color: kgreyDark,
                         fontSize: 15.5),
                     obscureText: _obscureText,
+                    keyboardType: TextInputType.text,
                     controller: _passwordController,
                     validator: (String value) {
                       if (value.isEmpty) {

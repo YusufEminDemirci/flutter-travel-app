@@ -17,7 +17,6 @@ class _MyInformationState extends State<MyInformation> {
   @override
   void initState() {
     super.initState();
-    // NOTE: Calling this function here would crash the app.
     getUserInfo();
   }
 

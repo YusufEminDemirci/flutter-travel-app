@@ -78,6 +78,7 @@ class _SignInPageState extends State<SignInPage> {
                         fontWeight: FontWeight.w500,
                         color: kgreyDark,
                         fontSize: 15.5),
+                    keyboardType: TextInputType.emailAddress,
                     controller: _emailController,
                     validator: (String value) {
                       if (value.isEmpty) {
@@ -123,6 +124,7 @@ class _SignInPageState extends State<SignInPage> {
                         color: kgreyDark,
                         fontSize: 15.5),
                     obscureText: _obscureText,
+                    keyboardType: TextInputType.text,
                     controller: _passwordController,
                     validator: (String value) {
                       if (value.isEmpty) {
