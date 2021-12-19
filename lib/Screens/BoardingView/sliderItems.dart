@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lets_head_out/Utils/Buttons.dart';
 import 'package:lets_head_out/Utils/TextStyles.dart';
 import 'package:lets_head_out/Utils/consts.dart';
-import 'package:lets_head_out/Utils/navigation.dart';
 
 import '../SignIn.dart';
 import 'Slider.dart';
