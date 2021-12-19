@@ -46,7 +46,7 @@ class _ProfileState extends State<Profile> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              SizedBox(height: 10.0),
+              SizedBox(height: 100.0),
               Stack(
                 alignment: Alignment.topCenter,
                 children: [
@@ -88,7 +88,7 @@ class _ProfileState extends State<Profile> {
                   Align(
                     alignment: Alignment.topCenter,
                     child: CircleAvatar(
-                      backgroundColor: Colors.blueGrey,
+                      backgroundColor: mainColor,
                       radius: 57,
                       child: CircleAvatar(
                         backgroundImage: AssetImage(myInfo["profileImage"]),
