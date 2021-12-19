@@ -57,57 +57,59 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(20), topLeft: Radius.circular(20)),
-            boxShadow: [
-              BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
-            ],
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+              topRight: Radius.circular(20), topLeft: Radius.circular(20)),
+          boxShadow: [
+            BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20.0),
+            topRight: Radius.circular(20.0),
           ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.0),
-              topRight: Radius.circular(20.0),
-            ),
-            child: BottomNavyBar(
-                selectedIndex: _cIndex,
-                showElevation: true,
-                backgroundColor: kwhite,
-                items: [
-                  BottomNavyBarItem(
-                    icon: Icon(Icons.home),
-                    activeColor: mainColor,
-                    inactiveColor: kgreyDark,
-                    title: Text(
-                      "Home",
-                      style: TextStyle(fontFamily: "nunito"),
-                    ),
-                  ),
-                  BottomNavyBarItem(
-                    icon: Icon(
-                      FontAwesomeIcons.route,
-                    ),
-                    title: Text(
-                      "Travel List",
-                      style: TextStyle(fontFamily: "nunito"),
-                    ),
-                    activeColor: mainColor,
-                    inactiveColor: kgreyDark,
-                  ),
-                  BottomNavyBarItem(
-                    icon: Icon(Icons.person),
-                    title: Text(
-                      "Profile",
-                      style: TextStyle(fontFamily: "nunito"),
-                    ),
-                    activeColor: mainColor,
-                    inactiveColor: kgreyDark,
-                  )
-                ],
-                onItemSelected: (index) {
-                  _incrementTab(index);
-                }),
-          )),
+          child: BottomNavyBar(
+            selectedIndex: _cIndex,
+            showElevation: true,
+            backgroundColor: kwhite,
+            items: [
+              BottomNavyBarItem(
+                icon: Icon(FontAwesomeIcons.searchLocation),
+                activeColor: mainColor,
+                inactiveColor: kgreyDark,
+                title: Text(
+                  "Cities",
+                  style: TextStyle(fontFamily: "nunito"),
+                ),
+              ),
+              BottomNavyBarItem(
+                icon: Icon(
+                  FontAwesomeIcons.route,
+                ),
+                title: Text(
+                  "Travel List",
+                  style: TextStyle(fontFamily: "nunito"),
+                ),
+                activeColor: mainColor,
+                inactiveColor: kgreyDark,
+              ),
+              BottomNavyBarItem(
+                icon: Icon(Icons.person),
+                title: Text(
+                  "Profile",
+                  style: TextStyle(fontFamily: "nunito"),
+                ),
+                activeColor: mainColor,
+                inactiveColor: kgreyDark,
+              )
+            ],
+            onItemSelected: (index) {
+              _incrementTab(index);
+            },
+          ),
+        ),
+      ),
       body: SizedBox.expand(
         child: PageView(
           controller: _pageController,
