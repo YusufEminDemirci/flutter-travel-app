@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lets_head_out/Lists/commentsList.dart';
 import 'package:lets_head_out/Lists/selectedPlaces.dart';
 import 'package:lets_head_out/Lists/selectedRestaurants.dart';
@@ -230,7 +231,7 @@ class _DetailScreenState extends State<DetailScreen>
                                           height: MediaQuery.of(context)
                                                   .size
                                                   .width -
-                                              80,
+                                              50,
                                           width:
                                               MediaQuery.of(context).size.width,
                                         ),
@@ -291,6 +292,60 @@ class _DetailScreenState extends State<DetailScreen>
                             controller: tabController,
                           ),
                         ],
+                      ),
+                      floatingActionButton: FloatingActionButton(
+                        onPressed: () {
+                          showGeneralDialog(
+                            barrierLabel: "Barrier",
+                            barrierDismissible: true,
+                            barrierColor: Colors.black.withOpacity(0.5),
+                            transitionDuration: Duration(milliseconds: 700),
+                            context: context,
+                            pageBuilder: (_, __, ___) {
+                              return Align(
+                                alignment: Alignment.bottomCenter,
+                                child: Container(
+                                  height: 75,
+                                  child: SizedBox.expand(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          FontAwesomeIcons.check,
+                                          color: Colors.green,
+                                          size: 50,
+                                        ),
+                                        BoldText("Added to Travel List", 20,
+                                            mainColor)
+                                      ],
+                                    ),
+                                  ),
+                                  margin: EdgeInsets.only(
+                                      bottom: 50, left: 12, right: 12),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(40),
+                                  ),
+                                ),
+                              );
+                            },
+                            transitionBuilder: (_, anim, __, child) {
+                              return SlideTransition(
+                                position: Tween(
+                                        begin: Offset(0, 1), end: Offset(0, 0))
+                                    .animate(anim),
+                                child: child,
+                              );
+                            },
+                          );
+                          //TODO: ADD TO TRAVEL LIST !!!
+                        },
+                        child: Icon(
+                          FontAwesomeIcons.check,
+                          color: kwhite,
+                        ),
+                        backgroundColor: mainColor,
                       ),
                     ),
                   ),
