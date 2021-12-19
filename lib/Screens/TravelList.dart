@@ -109,6 +109,16 @@ class _TravelListState extends State<TravelList>
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          //TODO: SHOW TRAVEL PLAN !!!
+        },
+        child: Icon(
+          FontAwesomeIcons.check,
+          color: kwhite,
+        ),
+        backgroundColor: mainColor,
+      ),
     );
   }
 }
