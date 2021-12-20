@@ -12,7 +12,7 @@ var yusuf = {
 
 var tugrul = {
   'profileImage': 'assets/orangeProfileTwo.png',
-  'e-mail': 'Tuğrul E-Mail',
+  'e-mail': 'tugrulaydos@outlook.com',
   'name': 'Yıldırım Tuğrul',
   'surname': 'Aydos',
 };

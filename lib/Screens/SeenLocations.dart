@@ -77,10 +77,11 @@ class _SeenLocationsState extends State<SeenLocations>
                   seenPlaces[index].name,
                   seenPlaces[index].location,
                   seenPlaces[index].description,
-                  seenPlaces[index].comment,
                   seenPlaces[index].rate,
                   seenPlaces[index].type,
-                  seenPlaces[index].cityId,
+                  seenPlaces[index].telephone,
+                  seenPlaces[index].whoSee,
+                  seenPlaces[index].hours,
                 );
               }),
             ),
@@ -98,10 +99,11 @@ class _SeenLocationsState extends State<SeenLocations>
                   seenRestaurant[index].name,
                   seenRestaurant[index].location,
                   seenRestaurant[index].description,
-                  seenRestaurant[index].comment,
                   seenRestaurant[index].rate,
                   seenRestaurant[index].type,
-                  seenRestaurant[index].cityId,
+                  seenRestaurant[index].telephone,
+                  seenRestaurant[index].whoSee,
+                  seenRestaurant[index].hours,
                 );
               }),
             )

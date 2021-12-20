@@ -1,9 +1,12 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lets_head_out/Lists/commentsList.dart';
 import 'package:lets_head_out/Lists/selectedPlaces.dart';
 import 'package:lets_head_out/Lists/selectedRestaurants.dart';
 import 'package:lets_head_out/Models/location.dart';
+import 'package:lets_head_out/Prefabs/Locations.dart';
 import 'package:lets_head_out/Utils/TextStyles.dart';
 import 'package:lets_head_out/Utils/consts.dart';
 import 'package:lets_head_out/Prefabs/Comments.dart';
@@ -15,13 +18,23 @@ class DetailScreen extends StatefulWidget {
   final String name;
   final String location;
   final String description;
-  final String comment;
   final String rate;
   final String type;
-  final String cityId;
+  final String telephone;
+  final List whoSee;
+  final Map hours;
 
-  DetailScreen(this.id, this.imageUrl, this.name, this.location,
-      this.description, this.comment, this.rate, this.type, this.cityId);
+  DetailScreen(
+      this.id,
+      this.imageUrl,
+      this.name,
+      this.location,
+      this.description,
+      this.rate,
+      this.type,
+      this.telephone,
+      this.whoSee,
+      this.hours);
   @override
   _DetailScreenState createState() => _DetailScreenState(
       this.id,
@@ -29,26 +42,37 @@ class DetailScreen extends StatefulWidget {
       this.name,
       this.location,
       this.description,
-      this.comment,
       this.rate,
       this.type,
-      this.cityId);
+      this.telephone,
+      this.whoSee,
+      this.hours);
 }
 
 class _DetailScreenState extends State<DetailScreen>
     with SingleTickerProviderStateMixin {
-  final String id;
-  final String imageUrl;
-  final String name;
-  final String location;
-  final String description;
-  final String comment;
-  final String rate;
-  final String type;
-  final String cityId;
+  String id;
+  String imageUrl;
+  String name;
+  String location;
+  String description;
+  String rate;
+  String type;
+  String telephone;
+  List whoSee;
+  Map hours;
 
-  _DetailScreenState(this.id, this.imageUrl, this.name, this.location,
-      this.description, this.comment, this.rate, this.type, this.cityId);
+  _DetailScreenState(
+      this.id,
+      this.imageUrl,
+      this.name,
+      this.location,
+      this.description,
+      this.rate,
+      this.type,
+      this.telephone,
+      this.whoSee,
+      this.hours);
 
   @override
   TabController tabController;
@@ -64,7 +88,7 @@ class _DetailScreenState extends State<DetailScreen>
               child: Container(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
-                  child: Image.asset(
+                  child: Image.network(
                     imageUrl,
                     fit: BoxFit.cover,
                   ))),
@@ -135,8 +159,7 @@ class _DetailScreenState extends State<DetailScreen>
                                           children: [
                                             BoldText(
                                                 "Telephone: ", 20.0, kblack),
-                                            NormalText(
-                                                "444 44 44", kblack, 15.0),
+                                            NormalText(telephone, kblack, 15.0),
                                           ],
                                         ),
                                         SizedBox(
@@ -159,29 +182,40 @@ class _DetailScreenState extends State<DetailScreen>
                                                   CrossAxisAlignment.end,
                                               children: [
                                                 NormalText(
-                                                    "MONDAY - 10:00 / 18:00",
+                                                    "MONDAY / " +
+                                                        hours["Monday"],
                                                     kblack,
                                                     12.0),
                                                 NormalText(
-                                                    "TUESDAY - 10:00 / 18:00",
+                                                    "TUESDAY / " +
+                                                        hours["Tuesday"],
                                                     kblack,
                                                     12.0),
                                                 NormalText(
-                                                    "WEDNESDEY - 10:00 / 18:00",
+                                                    "WEDNESDEY / " +
+                                                        hours["Wednesday"],
                                                     kblack,
                                                     12.0),
                                                 NormalText(
-                                                    "THURSDAY - 10:00 / 18:00",
+                                                    "THURSDAY / " +
+                                                        hours["Thursday"],
                                                     kblack,
                                                     12.0),
                                                 NormalText(
-                                                    "FRIDAY - 10:00 / 18:00",
+                                                    "FRIDAY / " +
+                                                        hours["Friday"],
                                                     kblack,
                                                     12.0),
-                                                NormalText("SATURDAY - CLOSED",
-                                                    kblack, 12.0),
-                                                NormalText("SUNDAY - CLOSED",
-                                                    kblack, 12.0),
+                                                NormalText(
+                                                    "SATURDAY / " +
+                                                        hours["Saturday"],
+                                                    kblack,
+                                                    12.0),
+                                                NormalText(
+                                                    "SUNDAY / " +
+                                                        hours["Sunday"],
+                                                    kblack,
+                                                    12.0),
                                               ],
                                             )
                                           ],
@@ -339,7 +373,8 @@ class _DetailScreenState extends State<DetailScreen>
                               );
                             },
                           );
-                          //TODO: ADD TO TRAVEL LIST !!!
+                          addToList(id, imageUrl, name, location, description,
+                              rate, type, telephone, whoSee, hours);
                         },
                         child: Icon(
                           FontAwesomeIcons.check,
@@ -392,4 +427,24 @@ getComments(String locationId) {
     }
   }
   return getComments;
+}
+
+addToList(
+    String id,
+    String imageUrl,
+    String name,
+    String location,
+    String description,
+    String rate,
+    String type,
+    String telephone,
+    List whoSee,
+    Map hours) {
+  if (type == "place") {
+    selectedPlaces.add(LocationsImage(id, imageUrl, name, location, description,
+        rate, type, telephone, whoSee, hours));
+  } else if (type == "restaurant") {
+    selectedRestaurants.add(LocationsImage(id, imageUrl, name, location,
+        description, rate, type, telephone, whoSee, hours));
+  }
 }

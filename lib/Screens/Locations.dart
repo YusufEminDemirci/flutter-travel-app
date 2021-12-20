@@ -78,21 +78,18 @@ class _PlacesState extends State<Places> with SingleTickerProviderStateMixin {
               ),
               shrinkWrap: true,
               children: List.generate(places.length, (index) {
-                if (places[index].cityId == cityId) {
-                  return LocationsImage(
-                    places[index].id,
-                    places[index].imageUrl,
-                    places[index].name,
-                    places[index].location,
-                    places[index].description,
-                    places[index].comment,
-                    places[index].rate,
-                    places[index].type,
-                    places[index].cityId,
-                  );
-                } else {
-                  return Container();
-                }
+                return LocationsImage(
+                  places[index].id,
+                  places[index].imageUrl,
+                  places[index].name,
+                  places[index].location,
+                  places[index].description,
+                  places[index].rate,
+                  places[index].type,
+                  places[index].telephone,
+                  places[index].whoSee,
+                  places[index].hours,
+                );
               }),
             ),
             GridView(
@@ -103,21 +100,18 @@ class _PlacesState extends State<Places> with SingleTickerProviderStateMixin {
               ),
               shrinkWrap: true,
               children: List.generate(restaurants.length, (index) {
-                if (places[index].cityId == cityId) {
-                  return LocationsImage(
-                    restaurants[index].id,
-                    restaurants[index].imageUrl,
-                    restaurants[index].name,
-                    restaurants[index].location,
-                    restaurants[index].description,
-                    restaurants[index].comment,
-                    restaurants[index].rate,
-                    restaurants[index].type,
-                    restaurants[index].cityId,
-                  );
-                } else {
-                  return Container();
-                }
+                return LocationsImage(
+                  restaurants[index].id,
+                  restaurants[index].imageUrl,
+                  restaurants[index].name,
+                  restaurants[index].location,
+                  restaurants[index].description,
+                  restaurants[index].rate,
+                  restaurants[index].type,
+                  restaurants[index].telephone,
+                  restaurants[index].whoSee,
+                  restaurants[index].hours,
+                );
               }),
             )
           ],

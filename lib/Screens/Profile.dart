@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lets_head_out/Lists/myInformation.dart';
+import 'package:lets_head_out/Screens/Notifications.dart';
 import 'package:lets_head_out/Screens/SeenLocations.dart';
 import 'package:lets_head_out/Screens/AboutUs.dart';
 import 'package:lets_head_out/Screens/SignIn.dart';
@@ -11,9 +12,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
-String _surname;
-String _name;
-
 class Profile extends StatefulWidget {
   @override
   _ProfileState createState() => _ProfileState();
@@ -22,7 +20,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   void initState() {
     super.initState();
-    getUserInfo();
+    // getUserInfo();
   }
 
   @override
@@ -35,27 +33,57 @@ class _ProfileState extends State<Profile> {
         centerTitle: true,
         elevation: 0.0,
         automaticallyImplyLeading: false,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              FontAwesomeIcons.bell,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => new Notifications()));
+            },
+          )
+        ],
       ),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/ibis.jpg"),
+            image: AssetImage("assets/hotel.jpg"),
             fit: BoxFit.cover,
           ),
         ),
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              SizedBox(height: 100.0),
-              Stack(
+        child: Column(
+          children: <Widget>[
+            SizedBox(height: 100.0),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30.0),
+                    topRight: Radius.circular(30.0)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black38,
+                    spreadRadius: 0,
+                    blurRadius: 10,
+                    offset: const Offset(
+                      0.0,
+                      73.0,
+                    ),
+                  ),
+                ],
+              ),
+              child: Stack(
                 alignment: Alignment.topCenter,
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(top: 75.0),
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(30.0),
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(30.0),
+                          topRight: Radius.circular(30.0)),
                       child: Container(
-                        height: MediaQuery.of(context).size.height,
+                        height: MediaQuery.of(context).size.height - 311,
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
                           color: kwhite,
@@ -65,10 +93,18 @@ class _ProfileState extends State<Profile> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              BoldText(_auth.currentUser.email, 25.0, kblack),
+                              BoldText(
+                                  myInformation[0].name +
+                                      " " +
+                                      myInformation[0].surname,
+                                  25.0,
+                                  kblack),
                               Container(
                                 height: 2,
-                                width: (_auth.currentUser.email.length
+                                width: ((myInformation[0].name +
+                                            " " +
+                                            myInformation[0].surname)
+                                        .length
                                         .toDouble()) *
                                     20,
                                 color: mainColor,
@@ -87,21 +123,26 @@ class _ProfileState extends State<Profile> {
                   ),
                   Align(
                     alignment: Alignment.topCenter,
-                    child: CircleAvatar(
-                      backgroundColor: mainColor,
-                      radius: 57,
+                    child: GestureDetector(
                       child: CircleAvatar(
-                        backgroundImage: AssetImage(myInfo["profileImage"]),
-                        backgroundColor: Colors.white,
-                        radius: 55,
+                        backgroundColor: mainColor,
+                        radius: 57,
+                        child: CircleAvatar(
+                          backgroundImage:
+                              NetworkImage(myInformation[0].imageUrl),
+                          backgroundColor: Colors.white,
+                          radius: 55,
+                        ),
                       ),
+                      onTap: () {
+                        //TODO: CHANGE PROFILE PICTURE !!!
+                      },
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 40.0),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -139,7 +180,7 @@ class _ProfileState extends State<Profile> {
             if (_auth.currentUser != null) {
               await _auth.signOut();
               SharedPreferences prefs = await SharedPreferences.getInstance();
-              var status = prefs.setBool('isLoggedIn', false) ?? false;
+              prefs.setBool('isLoggedIn', false) ?? false;
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (context) => new SignInPage()),
@@ -152,8 +193,8 @@ class _ProfileState extends State<Profile> {
   }
 }
 
-getUserInfo() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  _name = prefs.getString('UserName') ?? false;
-  _surname = prefs.getString('UserSurname') ?? false;
-}
+// getUserInfo() async {
+//   SharedPreferences prefs = await SharedPreferences.getInstance();
+//   _name = prefs.getString('UserName') ?? false;
+//   _surname = prefs.getString('UserSurname') ?? false;
+// }

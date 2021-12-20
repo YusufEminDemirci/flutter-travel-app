@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:lets_head_out/Screens/Detail.dart';
 
@@ -9,13 +11,23 @@ class LocationsImage extends StatelessWidget {
   final String name;
   final String location;
   final String description;
-  final String comment;
   final String rate;
   final String type;
-  final String cityId;
+  final String telephone;
+  final List whoSee;
+  final Map hours;
 
-  LocationsImage(this.id, this.imageUrl, this.name, this.location,
-      this.description, this.comment, this.rate, this.type, this.cityId);
+  LocationsImage(
+      this.id,
+      this.imageUrl,
+      this.name,
+      this.location,
+      this.description,
+      this.rate,
+      this.type,
+      this.telephone,
+      this.whoSee,
+      this.hours);
 
   @override
   Widget build(BuildContext context) {
@@ -38,14 +50,15 @@ class LocationsImage extends StatelessWidget {
                             this.name,
                             this.location,
                             this.description,
-                            this.comment,
                             this.rate,
                             this.type,
-                            this.cityId)));
+                            this.telephone,
+                            this.whoSee,
+                            this.hours)));
               },
               child: ClipRRect(
                 borderRadius: new BorderRadius.all(Radius.circular(15.0)),
-                child: Image.asset(
+                child: Image.network(
                   imageUrl,
                   fit: BoxFit.cover,
                 ),

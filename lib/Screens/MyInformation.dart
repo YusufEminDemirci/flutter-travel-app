@@ -85,7 +85,7 @@ class _MyInformationState extends State<MyInformation> {
                       backgroundColor: Colors.blueGrey,
                       radius: 57,
                       child: CircleAvatar(
-                        backgroundImage: AssetImage(myInfo["profileImage"]),
+                        backgroundImage: AssetImage(""),
                         backgroundColor: Colors.white,
                         radius: 55,
                       ),

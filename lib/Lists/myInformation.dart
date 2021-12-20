@@ -1,10 +1,3 @@
-List<Map<String, String>> myInformation = [
-  myInfo,
-];
+import 'package:lets_head_out/Models/user.dart';
 
-var myInfo = {
-  'profileImage': 'assets/adrar.jpg',
-  'e-mail': 'demirciogluyazilim@gmail.com',
-  'name': 'Ali',
-  'surname': 'Sayar',
-};
+List<User> myInformation = [];

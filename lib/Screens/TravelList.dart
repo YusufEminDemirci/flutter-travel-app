@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lets_head_out/Lists/selectedPlaces.dart';
 import 'package:lets_head_out/Lists/selectedRestaurants.dart';
+import 'package:lets_head_out/Models/comment.dart';
+import 'package:lets_head_out/Screens/Comment.dart';
 import 'package:lets_head_out/Utils/TextStyles.dart';
 import 'package:lets_head_out/Utils/consts.dart';
 import 'package:lets_head_out/Prefabs/Locations.dart';
@@ -78,10 +80,11 @@ class _TravelListState extends State<TravelList>
                   selectedPlaces[index].name,
                   selectedPlaces[index].location,
                   selectedPlaces[index].description,
-                  selectedPlaces[index].comment,
                   selectedPlaces[index].rate,
                   selectedPlaces[index].type,
-                  selectedPlaces[index].cityId,
+                  selectedPlaces[index].telephone,
+                  selectedPlaces[index].whoSee,
+                  selectedPlaces[index].hours,
                 );
               }),
             ),
@@ -99,10 +102,11 @@ class _TravelListState extends State<TravelList>
                   selectedRestaurants[index].name,
                   selectedRestaurants[index].location,
                   selectedRestaurants[index].description,
-                  selectedRestaurants[index].comment,
                   selectedRestaurants[index].rate,
                   selectedRestaurants[index].type,
-                  selectedRestaurants[index].cityId,
+                  selectedRestaurants[index].telephone,
+                  selectedRestaurants[index].whoSee,
+                  selectedRestaurants[index].hours,
                 );
               }),
             )
@@ -111,7 +115,8 @@ class _TravelListState extends State<TravelList>
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          //TODO: SHOW TRAVEL PLAN !!!
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => new CommentScreen()));
         },
         child: Icon(
           FontAwesomeIcons.check,
