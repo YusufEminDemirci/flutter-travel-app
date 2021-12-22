@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lets_head_out/Screens/Home.dart';
@@ -272,9 +273,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   if (_formKey.currentState.validate()) {
                     _register();
 
-                    if (_auth.currentUser == null) {
-                      print('User is currently signed out!');
-                    } else {
+                    if (_auth.currentUser != null) {
                       SharedPreferences prefs =
                           await SharedPreferences.getInstance();
                       var status = prefs.setBool('isLoggedIn', true) ?? false;
@@ -293,49 +292,33 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   children: <Widget>[
                     Container(
                       height: 2,
-                      width: 100,
+                      width: 75,
                       color: kdarkBlue,
                     ),
-                    NormalText("Or Sign in with", kdarkBlue, 12.5),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        NormalText("Have an account ?", kdarkBlue, 12.5),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context, rootNavigator: true)
+                                .push(CupertinoPageRoute<bool>(
+                              fullscreenDialog: true,
+                              builder: (context) => SignInPage(),
+                            ));
+                          },
+                          child: BoldText.veryBold(
+                              "Sign In ?", 12.5, mainColor, true),
+                        ),
+                      ],
+                    ),
                     Container(
                       height: 2,
-                      width: 100,
+                      width: 75,
                       color: kdarkBlue,
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Icon(
-                  FontAwesomeIcons.google,
-                  color: Colors.blue.shade600,
-                  size: 40.0,
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    NormalText("Have an account ?", kdarkBlue, 12.5),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => new SignInPage()));
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                          right: 8.0,
-                        ),
-                        child:
-                            BoldText.veryBold("Sign In ?", 12.5, korange, true),
-                      ),
                     ),
                   ],
                 ),

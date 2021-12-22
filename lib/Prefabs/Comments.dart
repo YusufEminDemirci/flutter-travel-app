@@ -70,7 +70,7 @@ class CommentsImage extends StatelessWidget {
         SizedBox(
           height: 10,
         ),
-        NormalText(comment.comment, kblack, 12.0),
+        NormalText(comment.message, kblack, 12.0),
         SizedBox(
           height: 10,
         ),

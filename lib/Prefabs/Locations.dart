@@ -1,9 +1,6 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:lets_head_out/Screens/Detail.dart';
-
-import '../Utils/consts.dart';
+import 'package:lets_head_out/Utils/consts.dart';
 
 class LocationsImage extends StatelessWidget {
   final String id;
@@ -16,18 +13,21 @@ class LocationsImage extends StatelessWidget {
   final String telephone;
   final List whoSee;
   final Map hours;
+  final String cityName;
 
   LocationsImage(
-      this.id,
-      this.imageUrl,
-      this.name,
-      this.location,
-      this.description,
-      this.rate,
-      this.type,
-      this.telephone,
-      this.whoSee,
-      this.hours);
+    this.id,
+    this.imageUrl,
+    this.name,
+    this.location,
+    this.description,
+    this.rate,
+    this.type,
+    this.telephone,
+    this.whoSee,
+    this.hours,
+    this.cityName,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -45,16 +45,18 @@ class LocationsImage extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) => new DetailScreen(
-                            this.id,
-                            this.imageUrl,
-                            this.name,
-                            this.location,
-                            this.description,
-                            this.rate,
-                            this.type,
-                            this.telephone,
-                            this.whoSee,
-                            this.hours)));
+                              this.id,
+                              this.imageUrl,
+                              this.name,
+                              this.location,
+                              this.description,
+                              this.rate,
+                              this.type,
+                              this.telephone,
+                              this.whoSee,
+                              this.hours,
+                              this.cityName,
+                            )));
               },
               child: ClipRRect(
                 borderRadius: new BorderRadius.all(Radius.circular(15.0)),
@@ -66,7 +68,7 @@ class LocationsImage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 8.0, top: 100.0),
+            padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 100.0),
             child: Text(
               name,
               style: TextStyle(
@@ -74,7 +76,7 @@ class LocationsImage extends StatelessWidget {
                 fontSize: 15.0,
                 fontWeight: FontWeight.bold,
               ),
-              maxLines: 2,
+              maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
           ),
@@ -92,7 +94,7 @@ class LocationsImage extends StatelessWidget {
                 ),
                 SizedBox(
                   child: Text(
-                    location,
+                    cityName,
                     style: TextStyle(
                       color: kwhite,
                       fontSize: 13.0,

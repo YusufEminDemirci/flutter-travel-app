@@ -9,6 +9,7 @@ import 'package:lets_head_out/Utils/TextStyles.dart';
 import 'package:lets_head_out/Utils/consts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -46,104 +47,92 @@ class _ProfileState extends State<Profile> {
           )
         ],
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/hotel.jpg"),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Column(
-          children: <Widget>[
-            SizedBox(height: 100.0),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30.0),
-                    topRight: Radius.circular(30.0)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black38,
-                    spreadRadius: 0,
-                    blurRadius: 10,
-                    offset: const Offset(
-                      0.0,
-                      73.0,
-                    ),
-                  ),
-                ],
+      body: Stack(
+        children: <Widget>[
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/hotel.jpg"),
+                fit: BoxFit.cover,
               ),
-              child: Stack(
+            ),
+            child: SlidingUpPanel(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30.0),
+                  topRight: Radius.circular(30.0)),
+              maxHeight: MediaQuery.of(context).size.height * 0.5,
+              minHeight: 50,
+              panel: Stack(
                 alignment: Alignment.topCenter,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 75.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(30.0),
-                          topRight: Radius.circular(30.0)),
-                      child: Container(
-                        height: MediaQuery.of(context).size.height - 311,
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                          color: kwhite,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 50.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              BoldText(
-                                  myInformation[0].name +
-                                      " " +
-                                      myInformation[0].surname,
-                                  25.0,
-                                  kblack),
-                              Container(
-                                height: 2,
-                                width: ((myInformation[0].name +
-                                            " " +
-                                            myInformation[0].surname)
-                                        .length
-                                        .toDouble()) *
-                                    20,
-                                color: mainColor,
-                              ),
-                              SizedBox(height: 25.0),
-                              profileItem(
-                                  FontAwesomeIcons.route, "Seen Locations"),
-                              profileItem(FontAwesomeIcons.info, "About Us"),
-                              profileItem(
-                                  FontAwesomeIcons.signOutAlt, "Sign Out"),
-                            ],
-                          ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30.0),
+                        topRight: Radius.circular(30.0)),
+                    child: Container(
+                      height: MediaQuery.of(context).size.height,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        color: kwhite,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 10.0),
+                        child: Column(
+                          children: [
+                            BoldText(
+                                myInformation[0].name +
+                                    " " +
+                                    myInformation[0].surname,
+                                25.0,
+                                kblack),
+                            Container(
+                              height: 2,
+                              width: ((myInformation[0].name +
+                                          " " +
+                                          myInformation[0].surname)
+                                      .length
+                                      .toDouble()) *
+                                  20,
+                              color: mainColor,
+                            ),
+                            SizedBox(height: 25.0),
+                            profileItem(
+                                FontAwesomeIcons.route, "Seen Locations"),
+                            profileItem(FontAwesomeIcons.info, "About Us"),
+                            profileItem(
+                                FontAwesomeIcons.signOutAlt, "Sign Out"),
+                          ],
                         ),
                       ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: GestureDetector(
-                      child: CircleAvatar(
-                        backgroundColor: mainColor,
-                        radius: 57,
-                        child: CircleAvatar(
-                          backgroundImage:
-                              NetworkImage(myInformation[0].imageUrl),
-                          backgroundColor: Colors.white,
-                          radius: 55,
-                        ),
-                      ),
-                      onTap: () {
-                        //TODO: CHANGE PROFILE PICTURE !!!
-                      },
                     ),
                   ),
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 35.0),
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: GestureDetector(
+                child: CircleAvatar(
+                  backgroundColor: mainColor,
+                  radius: 67,
+                  child: CircleAvatar(
+                    backgroundImage: NetworkImage(myInformation[0].imageUrl),
+                    backgroundColor: Colors.white,
+                    radius: 65,
+                  ),
+                ),
+                onTap: () {
+                  //TODO: CHANGE PROFILE PICTURE !!!
+                },
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -198,3 +187,5 @@ class _ProfileState extends State<Profile> {
 //   _name = prefs.getString('UserName') ?? false;
 //   _surname = prefs.getString('UserSurname') ?? false;
 // }
+
+

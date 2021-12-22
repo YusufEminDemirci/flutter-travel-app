@@ -4,16 +4,22 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lets_head_out/Utils/TextStyles.dart';
 import 'package:lets_head_out/Utils/consts.dart';
 import 'package:lets_head_out/Lists/seenPlaces.dart';
-import 'package:lets_head_out/Lists/seenRestaurants.dart';
 import 'package:lets_head_out/Prefabs/Locations.dart';
 
 class SeenLocations extends StatefulWidget {
+  final String cityName;
+
+  SeenLocations({this.cityName = ""});
+
   @override
-  _SeenLocationsState createState() => _SeenLocationsState();
+  _SeenLocationsState createState() => _SeenLocationsState(this.cityName);
 }
 
 class _SeenLocationsState extends State<SeenLocations>
     with SingleTickerProviderStateMixin {
+  String cityName;
+
+  _SeenLocationsState(this.cityName);
   TabController tabController;
 
   @override
@@ -71,18 +77,23 @@ class _SeenLocationsState extends State<SeenLocations>
               ),
               shrinkWrap: true,
               children: List.generate(seenPlaces.length, (index) {
-                return LocationsImage(
-                  seenPlaces[index].id,
-                  seenPlaces[index].imageUrl,
-                  seenPlaces[index].name,
-                  seenPlaces[index].location,
-                  seenPlaces[index].description,
-                  seenPlaces[index].rate,
-                  seenPlaces[index].type,
-                  seenPlaces[index].telephone,
-                  seenPlaces[index].whoSee,
-                  seenPlaces[index].hours,
-                );
+                if (seenPlaces[index].type == "place") {
+                  return LocationsImage(
+                    seenPlaces[index].id,
+                    seenPlaces[index].imageUrl,
+                    seenPlaces[index].name,
+                    seenPlaces[index].location,
+                    seenPlaces[index].description,
+                    seenPlaces[index].rate,
+                    seenPlaces[index].type,
+                    seenPlaces[index].telephone,
+                    seenPlaces[index].whoSee,
+                    seenPlaces[index].hours,
+                    cityName,
+                  );
+                } else {
+                  return Container();
+                }
               }),
             ),
             GridView(
@@ -92,19 +103,24 @@ class _SeenLocationsState extends State<SeenLocations>
                 crossAxisCount: 2,
               ),
               shrinkWrap: true,
-              children: List.generate(seenRestaurant.length, (index) {
-                return LocationsImage(
-                  seenRestaurant[index].id,
-                  seenRestaurant[index].imageUrl,
-                  seenRestaurant[index].name,
-                  seenRestaurant[index].location,
-                  seenRestaurant[index].description,
-                  seenRestaurant[index].rate,
-                  seenRestaurant[index].type,
-                  seenRestaurant[index].telephone,
-                  seenRestaurant[index].whoSee,
-                  seenRestaurant[index].hours,
-                );
+              children: List.generate(seenPlaces.length, (index) {
+                if (seenPlaces[index].type == "place") {
+                  return LocationsImage(
+                    seenPlaces[index].id,
+                    seenPlaces[index].imageUrl,
+                    seenPlaces[index].name,
+                    seenPlaces[index].location,
+                    seenPlaces[index].description,
+                    seenPlaces[index].rate,
+                    seenPlaces[index].type,
+                    seenPlaces[index].telephone,
+                    seenPlaces[index].whoSee,
+                    seenPlaces[index].hours,
+                    cityName,
+                  );
+                } else {
+                  return Container();
+                }
               }),
             )
           ],

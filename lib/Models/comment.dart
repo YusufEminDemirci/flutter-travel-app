@@ -1,17 +1,17 @@
 class Comment {
-  String profilePicture;
-  String name;
-  String comment;
-  String rate;
   String date;
-  String locationId;
+  String id;
+  String imageUrl;
+  String message;
+  String name;
+  String rate;
 
   Comment({
-    this.profilePicture,
-    this.name,
-    this.comment,
-    this.rate,
     this.date,
-    this.locationId,
+    this.id,
+    this.imageUrl,
+    this.message,
+    this.name,
+    this.rate,
   });
 }

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../Utils/consts.dart';
@@ -13,6 +14,8 @@ class CommentArea extends StatelessWidget {
   final String telephone;
   final List whoSee;
   final Map hours;
+  final String cityId;
+  final String cityName;
 
   CommentArea(
       this.id,
@@ -24,7 +27,11 @@ class CommentArea extends StatelessWidget {
       this.type,
       this.telephone,
       this.whoSee,
-      this.hours);
+      this.hours,
+      this.cityId,
+      this.cityName);
+
+  final myController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +88,7 @@ class CommentArea extends StatelessWidget {
                         ),
                         SizedBox(
                           child: Text(
-                            location,
+                            cityName,
                             style: TextStyle(
                               color: kwhite,
                               fontSize: 13.0,
@@ -163,6 +170,7 @@ class CommentArea extends StatelessWidget {
                             width: 150,
                             height: 85,
                             child: TextField(
+                              controller: myController,
                               minLines: 1,
                               maxLines: 5,
                               maxLength: 100,
@@ -185,7 +193,37 @@ class CommentArea extends StatelessWidget {
                                 color: Colors.black54,
                               ),
                               onTap: () {
-                                //TODO: ADD COMMENT
+                                if (type == "place") {
+                                  FirebaseFirestore.instance
+                                      .collection("Cities")
+                                      .doc("Gjp6AG8GF5DY0eL99Uc5")
+                                      .collection("Places")
+                                      .doc("MZUWZdKp6Rtzr3QFQIps")
+                                      .collection("Comments")
+                                      .add({
+                                    "date": "Now",
+                                    "id": id,
+                                    "imageUrl": imageUrl,
+                                    "message": myController.text,
+                                    "name": "Yusuf Emin Demirci",
+                                    "rate": "5",
+                                  });
+                                } else if (type == "restaurant") {
+                                  FirebaseFirestore.instance
+                                      .collection("Cities")
+                                      .doc("Gjp6AG8GF5DY0eL99Uc5")
+                                      .collection("Restaurants")
+                                      .doc("MZUWZdKp6Rtzr3QFQIps")
+                                      .collection("Comments")
+                                      .add({
+                                    "date": "Now",
+                                    "id": id,
+                                    "imageUrl": imageUrl,
+                                    "message": myController.text,
+                                    "name": "Yusuf Emin Demirci",
+                                    "rate": "5",
+                                  });
+                                }
                               },
                             ),
                           )

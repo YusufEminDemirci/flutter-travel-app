@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lets_head_out/Lists/seenPlaces.dart';
 import 'package:lets_head_out/Lists/selectedPlaces.dart';
 import 'package:lets_head_out/Lists/selectedRestaurants.dart';
 import 'package:lets_head_out/Prefabs/CommentArea.dart';
@@ -8,12 +7,20 @@ import 'package:lets_head_out/Utils/TextStyles.dart';
 import 'package:lets_head_out/Utils/consts.dart';
 
 class CommentScreen extends StatefulWidget {
+  final String cityId;
+  final String cityName;
+
+  CommentScreen(this.cityId, this.cityName);
   @override
-  _CommentScreenState createState() => _CommentScreenState();
+  _CommentScreenState createState() =>
+      _CommentScreenState(this.cityId, cityName);
 }
 
 class _CommentScreenState extends State<CommentScreen>
     with SingleTickerProviderStateMixin {
+  String cityId;
+  String cityName;
+  _CommentScreenState(this.cityId, this.cityName);
   TabController tabController;
 
   @override
@@ -81,6 +88,8 @@ class _CommentScreenState extends State<CommentScreen>
                     selectedPlaces[index].telephone,
                     selectedPlaces[index].whoSee,
                     selectedPlaces[index].hours,
+                    cityId,
+                    cityName,
                   );
                 },
               ),
@@ -102,6 +111,8 @@ class _CommentScreenState extends State<CommentScreen>
                     selectedRestaurants[index].telephone,
                     selectedRestaurants[index].whoSee,
                     selectedRestaurants[index].hours,
+                    cityId,
+                    cityName,
                   );
                 },
               ),
@@ -113,7 +124,7 @@ class _CommentScreenState extends State<CommentScreen>
   }
 }
 
-getSelectedPlaces() {
+getSelectedPlaces(String cityId, String cityName) {
   List<Widget> places = [];
   for (int index = 0; index < selectedPlaces.length; index) {
     places.add(CommentArea(
@@ -127,12 +138,14 @@ getSelectedPlaces() {
       selectedPlaces[index].telephone,
       selectedPlaces[index].whoSee,
       selectedPlaces[index].hours,
+      cityId,
+      cityName,
     ));
   }
   return places;
 }
 
-getSelectedRestaurants() {
+getSelectedRestaurants(String cityId, String cityName) {
   List<Widget> places = [];
   for (int index = 0; index < selectedRestaurants.length; index) {
     places.add(CommentArea(
@@ -146,6 +159,8 @@ getSelectedRestaurants() {
       selectedRestaurants[index].telephone,
       selectedRestaurants[index].whoSee,
       selectedRestaurants[index].hours,
+      cityId,
+      cityName,
     ));
   }
   return places;

@@ -1,84 +1,144 @@
-import 'dart:ffi';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lets_head_out/Lists/commentsList.dart';
 import 'package:lets_head_out/Lists/selectedPlaces.dart';
 import 'package:lets_head_out/Lists/selectedRestaurants.dart';
-import 'package:lets_head_out/Models/location.dart';
+import 'package:lets_head_out/Models/comment.dart';
 import 'package:lets_head_out/Prefabs/Locations.dart';
 import 'package:lets_head_out/Utils/TextStyles.dart';
 import 'package:lets_head_out/Utils/consts.dart';
 import 'package:lets_head_out/Prefabs/Comments.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
+List<CommentsImage> commentsList = [];
+final ScrollController scrollController = ScrollController();
+
 class DetailScreen extends StatefulWidget {
+  final String description;
+  final Map hours;
   final String id;
   final String imageUrl;
-  final String name;
   final String location;
-  final String description;
+  final String name;
   final String rate;
-  final String type;
   final String telephone;
+  final String type;
   final List whoSee;
-  final Map hours;
+  final String cityName;
 
   DetailScreen(
-      this.id,
-      this.imageUrl,
-      this.name,
-      this.location,
-      this.description,
-      this.rate,
-      this.type,
-      this.telephone,
-      this.whoSee,
-      this.hours);
+    this.id,
+    this.imageUrl,
+    this.name,
+    this.location,
+    this.description,
+    this.rate,
+    this.type,
+    this.telephone,
+    this.whoSee,
+    this.hours,
+    this.cityName,
+  );
+
   @override
   _DetailScreenState createState() => _DetailScreenState(
-      this.id,
-      this.imageUrl,
-      this.name,
-      this.location,
-      this.description,
-      this.rate,
-      this.type,
-      this.telephone,
-      this.whoSee,
-      this.hours);
+        this.id,
+        this.imageUrl,
+        this.name,
+        this.location,
+        this.description,
+        this.rate,
+        this.type,
+        this.telephone,
+        this.whoSee,
+        this.hours,
+        this.cityName,
+      );
 }
 
 class _DetailScreenState extends State<DetailScreen>
     with SingleTickerProviderStateMixin {
+  String description;
+  Map hours;
   String id;
   String imageUrl;
-  String name;
   String location;
-  String description;
+  String name;
   String rate;
-  String type;
   String telephone;
+  String type;
   List whoSee;
-  Map hours;
+  String cityName;
 
   _DetailScreenState(
-      this.id,
-      this.imageUrl,
-      this.name,
-      this.location,
-      this.description,
-      this.rate,
-      this.type,
-      this.telephone,
-      this.whoSee,
-      this.hours);
+    this.id,
+    this.imageUrl,
+    this.name,
+    this.location,
+    this.description,
+    this.rate,
+    this.type,
+    this.telephone,
+    this.whoSee,
+    this.hours,
+    this.cityName,
+  );
 
   @override
   TabController tabController;
 
   @override
+  void dispose() {
+    super.dispose();
+    tabController.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    tabController = new TabController(length: 3, vsync: this);
+    checkComments(location, id);
+  }
+
+  @override
   Widget build(BuildContext context) {
+    Future<void> _getData() async {
+      setState(() {
+        final firestoreInstance = FirebaseFirestore.instance;
+        firestoreInstance
+            .collection("Cities")
+            .doc(location)
+            .collection("Places")
+            .doc(id)
+            .collection("Comments")
+            .get()
+            .then(
+          (querySnapshot) {
+            querySnapshot.docs.forEach((result) {
+              String _date = result.data()["date"];
+              String _id = result.data()["id"];
+              String _imageUrl = result.data()["imageUrl"];
+              String _message = result.data()["message"];
+              String _name = result.data()["name"];
+              String _rate = result.data()["rate"];
+              for (int index = 0; index < commentsList.length; index++) {
+                if (commentsList[index].comment.name != _name) {
+                  commentsList.add(CommentsImage(Comment(
+                    date: _date,
+                    id: _id,
+                    imageUrl: _imageUrl,
+                    message: _message,
+                    name: _name,
+                    rate: _rate,
+                  )));
+                }
+              }
+            });
+          },
+        );
+      });
+    }
+
     return Scaffold(
       backgroundColor: kwhite,
       body: Stack(
@@ -100,6 +160,7 @@ class _DetailScreenState extends State<DetailScreen>
           ),
           Positioned(
             child: SlidingUpPanel(
+              maxHeight: MediaQuery.of(context).size.height * 0.6,
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20.0),
                   topRight: Radius.circular(20.0)),
@@ -261,11 +322,11 @@ class _DetailScreenState extends State<DetailScreen>
                                             BorderRadius.circular(20.0),
                                         child: Image.asset(
                                           "assets/plazamap.png",
-                                          fit: BoxFit.fill,
+                                          fit: BoxFit.cover,
                                           height: MediaQuery.of(context)
                                                   .size
                                                   .width -
-                                              50,
+                                              140,
                                           width:
                                               MediaQuery.of(context).size.width,
                                         ),
@@ -287,7 +348,7 @@ class _DetailScreenState extends State<DetailScreen>
                                               MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
                                             BoldText(
-                                                comments.length.toString() +
+                                                commentsList.length.toString() +
                                                     " Reviews",
                                                 20.0,
                                                 kblack),
@@ -314,9 +375,20 @@ class _DetailScreenState extends State<DetailScreen>
                                         SizedBox(
                                           height: 16,
                                         ),
-                                        Column(
-                                          children: getComments(id),
-                                        )
+                                        RefreshIndicator(
+                                          onRefresh: _getData,
+                                          child: ListView.builder(
+                                            scrollDirection: Axis.vertical,
+                                            shrinkWrap: true,
+                                            controller: scrollController,
+                                            physics:
+                                                AlwaysScrollableScrollPhysics(),
+                                            itemCount: commentsList.length,
+                                            itemBuilder: (context, index) {
+                                              return commentsList[index];
+                                            },
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -329,55 +401,34 @@ class _DetailScreenState extends State<DetailScreen>
                       ),
                       floatingActionButton: FloatingActionButton(
                         onPressed: () {
-                          showGeneralDialog(
-                            barrierLabel: "Barrier",
-                            barrierDismissible: true,
-                            barrierColor: Colors.black.withOpacity(0.5),
-                            transitionDuration: Duration(milliseconds: 700),
-                            context: context,
-                            pageBuilder: (_, __, ___) {
-                              return Align(
-                                alignment: Alignment.bottomCenter,
-                                child: Container(
-                                  height: 75,
-                                  child: SizedBox.expand(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          FontAwesomeIcons.check,
-                                          color: Colors.green,
-                                          size: 50,
-                                        ),
-                                        BoldText("Added to Travel List", 20,
-                                            mainColor)
-                                      ],
-                                    ),
-                                  ),
-                                  margin: EdgeInsets.only(
-                                      bottom: 50, left: 12, right: 12),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(40),
-                                  ),
-                                ),
-                              );
-                            },
-                            transitionBuilder: (_, anim, __, child) {
-                              return SlideTransition(
-                                position: Tween(
-                                        begin: Offset(0, 1), end: Offset(0, 0))
-                                    .animate(anim),
-                                child: child,
-                              );
-                            },
+                          bool response = checkList(
+                            id,
+                            imageUrl,
+                            name,
+                            location,
+                            description,
+                            rate,
+                            type,
+                            telephone,
+                            whoSee,
+                            hours,
+                            cityName,
                           );
-                          addToList(id, imageUrl, name, location, description,
-                              rate, type, telephone, whoSee, hours);
+
+                          if (response) {
+                            popUpMessage(
+                                context,
+                                "This place added to Travel List",
+                                FontAwesomeIcons.check);
+                          } else if (!response) {
+                            popUpMessage(
+                                context,
+                                "This place removed from Travel List",
+                                FontAwesomeIcons.exclamation);
+                          }
                         },
                         child: Icon(
-                          FontAwesomeIcons.check,
+                          FontAwesomeIcons.plus,
                           color: kwhite,
                         ),
                         backgroundColor: mainColor,
@@ -392,59 +443,178 @@ class _DetailScreenState extends State<DetailScreen>
       ),
     );
   }
-
-  Column equipmentsItem(IconData icon, String text) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        Icon(
-          icon,
-          color: kdarkBlue,
-        ),
-        NormalText(text, kdarkBlue, 12)
-      ],
-    );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    tabController = new TabController(length: 3, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    tabController.dispose();
-  }
 }
 
-getComments(String locationId) {
-  List<CommentsImage> getComments = [];
-  for (int index = 0; index < comments.length; index++) {
-    if (comments[index].locationId == locationId) {
-      getComments.add(CommentsImage(comments[index]));
+checkComments(String cityId, String placeId) {
+  final firestoreInstance = FirebaseFirestore.instance;
+  firestoreInstance
+      .collection("Cities")
+      .doc(cityId)
+      .collection("Places")
+      .doc(placeId)
+      .collection("Comments")
+      .get()
+      .then(
+    (querySnapshot) {
+      querySnapshot.docs.forEach((result) {
+        String _date = result.data()["date"];
+        String _id = result.data()["id"];
+        String _imageUrl = result.data()["imageUrl"];
+        String _message = result.data()["message"];
+        String _name = result.data()["name"];
+        String _rate = result.data()["rate"];
+        for (int index = 0; index < commentsList.length; index++) {
+          if (commentsList[index].comment.name != _name) {
+            commentsList.add(CommentsImage(Comment(
+              date: _date,
+              id: _id,
+              imageUrl: _imageUrl,
+              message: _message,
+              name: _name,
+              rate: _rate,
+            )));
+          }
+        }
+      });
+    },
+  );
+}
+
+checkList(
+  String id,
+  String imageUrl,
+  String name,
+  String location,
+  String description,
+  String rate,
+  String type,
+  String telephone,
+  List whoSee,
+  Map hours,
+  String cityName,
+) {
+  if (selectedPlaces.length > 0) {
+    for (int index = 0; index < selectedPlaces.length; index++) {
+      if (id != selectedPlaces[index].id && type == "place") {
+        selectedPlaces.add(LocationsImage(
+          id,
+          imageUrl,
+          name,
+          location,
+          description,
+          rate,
+          type,
+          telephone,
+          whoSee,
+          hours,
+          cityName,
+        ));
+        return true;
+      } else if (id == selectedPlaces[index].id && type == "place") {
+        selectedPlaces.remove(selectedPlaces[index]);
+        return false;
+      }
     }
+  } else if (selectedPlaces.length == 0 && type == "place") {
+    selectedPlaces.add(LocationsImage(
+      id,
+      imageUrl,
+      name,
+      location,
+      description,
+      rate,
+      type,
+      telephone,
+      whoSee,
+      hours,
+      cityName,
+    ));
+    return true;
   }
-  return getComments;
+  if (selectedRestaurants.length > 0) {
+    for (int index = 0; index < selectedRestaurants.length; index++) {
+      if (id != selectedRestaurants[index].id && type == "restaurant") {
+        selectedRestaurants.add(LocationsImage(
+          id,
+          imageUrl,
+          name,
+          location,
+          description,
+          rate,
+          type,
+          telephone,
+          whoSee,
+          hours,
+          cityName,
+        ));
+        return true;
+      } else if (id == selectedRestaurants[index].id && type == "restaurant") {
+        selectedRestaurants.remove(selectedRestaurants[index]);
+        return false;
+      }
+    }
+  } else if (selectedRestaurants.length == 0 && type == "restaurant") {
+    selectedRestaurants.add(LocationsImage(
+      id,
+      imageUrl,
+      name,
+      location,
+      description,
+      rate,
+      type,
+      telephone,
+      whoSee,
+      hours,
+      cityName,
+    ));
+    return true;
+  }
+  return false;
 }
 
-addToList(
-    String id,
-    String imageUrl,
-    String name,
-    String location,
-    String description,
-    String rate,
-    String type,
-    String telephone,
-    List whoSee,
-    Map hours) {
-  if (type == "place") {
-    selectedPlaces.add(LocationsImage(id, imageUrl, name, location, description,
-        rate, type, telephone, whoSee, hours));
-  } else if (type == "restaurant") {
-    selectedRestaurants.add(LocationsImage(id, imageUrl, name, location,
-        description, rate, type, telephone, whoSee, hours));
-  }
+Future<Object> popUpMessage(
+    BuildContext context, String message, IconData icon) {
+  return showGeneralDialog(
+    barrierLabel: "Barrier",
+    barrierDismissible: true,
+    barrierColor: Colors.black.withOpacity(0.5),
+    transitionDuration: Duration(milliseconds: 700),
+    context: context,
+    pageBuilder: (_, __, ___) {
+      return Align(
+        alignment: Alignment.bottomCenter,
+        child: Container(
+          height: 60,
+          child: SizedBox.expand(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                BoldText(message, 20, mainColor),
+                Icon(
+                  icon,
+                  color: mainColor,
+                  size: 30,
+                ),
+              ],
+            ),
+          ),
+          margin: EdgeInsets.only(bottom: 50, left: 12, right: 12),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(40),
+          ),
+        ),
+      );
+    },
+    transitionBuilder: (_, anim, __, child) {
+      return SlideTransition(
+        position: Tween(begin: Offset(0, 1), end: Offset(0, 0)).animate(anim),
+        child: child,
+      );
+    },
+  );
+}
+
+Future<void> _refresh() {
+  return Future.delayed(Duration(seconds: 1));
 }
