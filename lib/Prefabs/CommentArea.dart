@@ -201,7 +201,7 @@ class CommentArea extends StatelessWidget {
                                       .doc("MZUWZdKp6Rtzr3QFQIps")
                                       .collection("Comments")
                                       .add({
-                                    "date": "Now",
+                                    "date": DateTime.now(),
                                     "id": id,
                                     "imageUrl": imageUrl,
                                     "message": myController.text,
@@ -216,7 +216,7 @@ class CommentArea extends StatelessWidget {
                                       .doc("MZUWZdKp6Rtzr3QFQIps")
                                       .collection("Comments")
                                       .add({
-                                    "date": "Now",
+                                    "date": DateTime.now(),
                                     "id": id,
                                     "imageUrl": imageUrl,
                                     "message": myController.text,

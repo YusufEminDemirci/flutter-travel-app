@@ -108,7 +108,7 @@ class _TravelListState extends State<TravelList>
               ),
               shrinkWrap: true,
               children: List.generate(selectedPlaces.length, (index) {
-                if (selectedPlaces[index].type == "place") {
+                if (selectedPlaces[index].type == "restaurant") {
                   return LocationsImage(
                     selectedPlaces[index].id,
                     selectedPlaces[index].imageUrl,

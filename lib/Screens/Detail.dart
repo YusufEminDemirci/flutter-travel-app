@@ -104,38 +104,7 @@ class _DetailScreenState extends State<DetailScreen>
   Widget build(BuildContext context) {
     Future<void> _getData() async {
       setState(() {
-        final firestoreInstance = FirebaseFirestore.instance;
-        firestoreInstance
-            .collection("Cities")
-            .doc(location)
-            .collection("Places")
-            .doc(id)
-            .collection("Comments")
-            .get()
-            .then(
-          (querySnapshot) {
-            querySnapshot.docs.forEach((result) {
-              String _date = result.data()["date"];
-              String _id = result.data()["id"];
-              String _imageUrl = result.data()["imageUrl"];
-              String _message = result.data()["message"];
-              String _name = result.data()["name"];
-              String _rate = result.data()["rate"];
-              for (int index = 0; index < commentsList.length; index++) {
-                if (commentsList[index].comment.name != _name) {
-                  commentsList.add(CommentsImage(Comment(
-                    date: _date,
-                    id: _id,
-                    imageUrl: _imageUrl,
-                    message: _message,
-                    name: _name,
-                    rate: _rate,
-                  )));
-                }
-              }
-            });
-          },
-        );
+        checkComments(location, id);
       });
     }
 
