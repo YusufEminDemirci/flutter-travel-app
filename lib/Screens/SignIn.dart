@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -188,20 +189,43 @@ class _SignInPageState extends State<SignInPage> {
                   height: 25,
                 ),
                 WideButton.bold("SIGN IN", () async {
-                  if (_formKey.currentState.validate()) {
-                    _signInWithEmailAndPassword();
-                  }
-                  if (_auth.currentUser == null) {
-                    print('User is currently signed out!');
-                  } else {
-                    SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    var status = prefs.setBool('isLoggedIn', true) ?? false;
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (context) => new Home()),
-                        ModalRoute.withName("/Home"));
-                  }
+                  _signInWithEmailAndPassword();
+
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+
+                  FirebaseFirestore.instance
+                      .collection("Users")
+                      .get()
+                      .then((querySnapshot) {
+                    querySnapshot.docs.forEach((result) {
+                      String _email = result.data()["e-mail"];
+                      String _name = result.data()["name"];
+                      String _surname = result.data()["surname"];
+                      String _password = result.data()["password"];
+                      String _imageUrl = result.data()["imageUrl"];
+                      String _id = result.data()["id"];
+
+                      if (_emailController.text == _email) {
+                        prefs.setString('userEmail', _email);
+                        prefs.setString('userName', _name);
+                        prefs.setString('userSurname', _surname);
+                        prefs.setString('userImageUrl', _imageUrl);
+                        prefs.setString('userId', _id);
+                        prefs.setString('userPassword', _password);
+
+                        prefs.setBool('isLoggedIn', true);
+
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(builder: (context) => new Home()),
+                            ModalRoute.withName("/Home"));
+                      } else {
+                        print("No user found");
+                        //TODO: NO USER FOUND POP-UP !!!
+                      }
+                    });
+                  });
                 }, true),
                 SizedBox(
                   height: 10,

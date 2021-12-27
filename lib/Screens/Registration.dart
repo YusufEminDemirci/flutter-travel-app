@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:lets_head_out/Utils/Buttons.dart';
 import 'package:lets_head_out/Utils/TextStyles.dart';
 import 'package:lets_head_out/Utils/consts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uuid/uuid.dart';
 
 class RegistrationScreen extends StatefulWidget {
   @override
@@ -273,15 +275,37 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   if (_formKey.currentState.validate()) {
                     _register();
 
-                    if (_auth.currentUser != null) {
-                      SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
-                      var status = prefs.setBool('isLoggedIn', true) ?? false;
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(builder: (context) => new Home()),
-                          ModalRoute.withName("/Home"));
-                    }
+                    var _uuid = Uuid().v4();
+
+                    FirebaseFirestore.instance.collection("Users").add({
+                      "id": _uuid,
+                      "imageUrl":
+                          "https://firebasestorage.googleapis.com/v0/b/projectx-b164c.appspot.com/o/WhatsApp%20Image%202021-12-17%20at%2015.51.24.jpeg?alt=media&token=d48e34d1-6978-4c9b-bd80-a7e735b7b60d",
+                      "name": _nameController.text,
+                      "surname": _surnameController.text,
+                      "e-mail": _emailController.text,
+                      "password": _passwordController.text,
+                    });
+
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+
+                    prefs.setString('userEmail', _emailController.text);
+                    prefs.setString('userName', _nameController.text);
+                    prefs.setString('userSurname', _surnameController.text);
+                    prefs.setString(
+                      'userImageUrl',
+                      "https://firebasestorage.googleapis.com/v0/b/projectx-b164c.appspot.com/o/WhatsApp%20Image%202021-12-17%20at%2015.51.24.jpeg?alt=media&token=d48e34d1-6978-4c9b-bd80-a7e735b7b60d",
+                    );
+                    prefs.setString('userId', _uuid);
+                    prefs.setString('userPassword', _passwordController.text);
+
+                    prefs.setBool('isLoggedIn', true);
+
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => new Home()),
+                        ModalRoute.withName("/Home"));
                   }
                 }, true),
                 SizedBox(

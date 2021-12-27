@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lets_head_out/Lists/myInformation.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lets_head_out/Screens/Notifications.dart';
 import 'package:lets_head_out/Screens/SeenLocations.dart';
 import 'package:lets_head_out/Screens/AboutUs.dart';
@@ -12,6 +12,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
+String userName;
+String userSurname;
+String userImageUrl;
 
 class Profile extends StatefulWidget {
   @override
@@ -20,8 +23,8 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   void initState() {
+    getUserInfo();
     super.initState();
-    // getUserInfo();
   }
 
   @override
@@ -82,16 +85,10 @@ class _ProfileState extends State<Profile> {
                         child: Column(
                           children: [
                             BoldText(
-                                myInformation[0].name +
-                                    " " +
-                                    myInformation[0].surname,
-                                25.0,
-                                kblack),
+                                userName + " " + userSurname, 25.0, kblack),
                             Container(
                               height: 2,
-                              width: ((myInformation[0].name +
-                                          " " +
-                                          myInformation[0].surname)
+                              width: ((userName + " " + userSurname)
                                       .length
                                       .toDouble()) *
                                   20,
@@ -121,13 +118,20 @@ class _ProfileState extends State<Profile> {
                   backgroundColor: mainColor,
                   radius: 67,
                   child: CircleAvatar(
-                    backgroundImage: NetworkImage(myInformation[0].imageUrl),
+                    backgroundImage: NetworkImage(userImageUrl),
                     backgroundColor: Colors.white,
                     radius: 65,
                   ),
                 ),
                 onTap: () {
                   //TODO: CHANGE PROFILE PICTURE !!!
+                  // ImagePicker()
+                  //     .getImage(source: ImageSource.gallery)
+                  //     .then((image) {
+                  //   setState(() {
+                  //     userImageUrl = image.toString();
+                  //   });
+                  // });
                 },
               ),
             ),
@@ -167,9 +171,17 @@ class _ProfileState extends State<Profile> {
                 MaterialPageRoute(builder: (context) => new AboutUs()));
           } else if (text == "Sign Out") {
             if (_auth.currentUser != null) {
-              await _auth.signOut();
               SharedPreferences prefs = await SharedPreferences.getInstance();
-              prefs.setBool('isLoggedIn', false) ?? false;
+
+              prefs.setString('userEmail', "");
+              prefs.setString('userName', "");
+              prefs.setString('userSurname', "");
+              prefs.setString('userImageUrl', "");
+              prefs.setString('userId', "");
+              prefs.setString('userPassword', "");
+
+              prefs.setBool('isLoggedIn', false);
+
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (context) => new SignInPage()),
@@ -182,10 +194,10 @@ class _ProfileState extends State<Profile> {
   }
 }
 
-// getUserInfo() async {
-//   SharedPreferences prefs = await SharedPreferences.getInstance();
-//   _name = prefs.getString('UserName') ?? false;
-//   _surname = prefs.getString('UserSurname') ?? false;
-// }
+getUserInfo() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
 
-
+  userName = prefs.getString('userName');
+  userSurname = prefs.getString('userSurname');
+  userImageUrl = prefs.getString('userImageUrl');
+}
