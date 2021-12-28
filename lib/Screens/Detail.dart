@@ -129,7 +129,8 @@ class _DetailScreenState extends State<DetailScreen>
           ),
           Positioned(
             child: SlidingUpPanel(
-              maxHeight: MediaQuery.of(context).size.height * 0.6,
+              maxHeight: MediaQuery.of(context).size.height * 0.62,
+              minHeight: MediaQuery.of(context).size.height * 0.18,
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20.0),
                   topRight: Radius.circular(20.0)),
@@ -142,11 +143,19 @@ class _DetailScreenState extends State<DetailScreen>
                   height: 400,
                   child: Scaffold(
                     appBar: PreferredSize(
-                      preferredSize: Size.fromHeight(25.0),
+                      preferredSize: Size.fromHeight(38.0),
                       child: AppBar(
-                        title: BoldText(name, 25.0, kblack),
+                        title: Column(
+                          children: [
+                            Container(
+                                height: 3,
+                                width: 80,
+                                color: Colors.grey.shade300),
+                            BoldText(name, 25.0, kblack),
+                          ],
+                        ),
                         centerTitle: true,
-                        backgroundColor: Colors.transparent,
+                        backgroundColor: kwhite,
                         elevation: 0,
                       ),
                     ),
@@ -162,9 +171,21 @@ class _DetailScreenState extends State<DetailScreen>
                         controller: tabController,
                         indicatorColor: mainColor,
                         tabs: <Widget>[
-                          Tab(text: "Information"),
-                          Tab(text: "Location"),
-                          Tab(text: "Reviews"),
+                          Tab(
+                            text: "Information",
+                            icon: Icon(FontAwesomeIcons.info),
+                            height: 53,
+                          ),
+                          Tab(
+                            text: "Location",
+                            icon: Icon(FontAwesomeIcons.mapMarkedAlt),
+                            height: 53,
+                          ),
+                          Tab(
+                            text: "Reviews",
+                            icon: Icon(FontAwesomeIcons.solidComment),
+                            height: 53,
+                          ),
                         ],
                       ),
                       body: Stack(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lets_head_out/Lists/myInformation.dart';
 import 'package:lets_head_out/Screens/Notifications.dart';
 import 'package:lets_head_out/Screens/SeenLocations.dart';
@@ -66,7 +67,7 @@ class _ProfileState extends State<Profile> {
                   topLeft: Radius.circular(30.0),
                   topRight: Radius.circular(30.0)),
               maxHeight: MediaQuery.of(context).size.height * 0.5,
-              minHeight: 50,
+              minHeight: MediaQuery.of(context).size.height * 0.1,
               panel: Stack(
                 alignment: Alignment.topCenter,
                 children: [
@@ -84,6 +85,13 @@ class _ProfileState extends State<Profile> {
                         padding: const EdgeInsets.only(top: 10.0),
                         child: Column(
                           children: [
+                            Container(
+                                height: 3,
+                                width: 80,
+                                color: Colors.grey.shade300),
+                            SizedBox(
+                              height: 15,
+                            ),
                             BoldText(
                                 userName + " " + userSurname, 25.0, kblack),
                             Container(
@@ -105,27 +113,26 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                   ),
-                ],
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 35.0),
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: GestureDetector(
-                child: CircleAvatar(
-                  backgroundColor: mainColor,
-                  radius: 67,
-                  child: CircleAvatar(
-                    backgroundImage: NetworkImage(userImageUrl),
-                    backgroundColor: Colors.white,
-                    radius: 65,
+                  Align(
+                    alignment: Alignment(0, -2.0),
+                    child: GestureDetector(
+                      child: CircleAvatar(
+                        backgroundColor: mainColor,
+                        radius: 67,
+                        child: CircleAvatar(
+                          backgroundImage: NetworkImage(userImageUrl),
+                          backgroundColor: Colors.white,
+                          radius: 65,
+                        ),
+                      ),
+                      onTap: () {
+                        //TODO: CHANGE PROFILE PICTURE !!!
+                        showNotificationSnackBar(
+                            context, "Changed Profile Picture");
+                      },
+                    ),
                   ),
-                ),
-                onTap: () {
-                  //TODO: CHANGE PROFILE PICTURE !!!
-                },
+                ],
               ),
             ),
           ),
@@ -193,4 +200,17 @@ getUserInfo() async {
   userName = prefs.getString('userName');
   userSurname = prefs.getString('userSurname');
   userImageUrl = prefs.getString('userImageUrl');
+}
+
+showNotificationSnackBar(BuildContext context, String text) async {
+  final snackBar = SnackBar(
+    content: Text(text),
+    action: SnackBarAction(
+      label: 'Undo',
+      onPressed: () {
+        // Some code to undo the change.
+      },
+    ),
+  );
+  ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }
