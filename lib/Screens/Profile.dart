@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:lets_head_out/Lists/myInformation.dart';
 import 'package:lets_head_out/Screens/Notifications.dart';
 import 'package:lets_head_out/Screens/SeenLocations.dart';
 import 'package:lets_head_out/Screens/AboutUs.dart';
@@ -23,8 +23,8 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   void initState() {
-    getUserInfo();
     super.initState();
+    getUserInfo();
   }
 
   @override
@@ -57,7 +57,7 @@ class _ProfileState extends State<Profile> {
             height: MediaQuery.of(context).size.height,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/hotel.jpg"),
+                image: AssetImage("assets/home1.jpg"),
                 fit: BoxFit.cover,
               ),
             ),
@@ -125,13 +125,6 @@ class _ProfileState extends State<Profile> {
                 ),
                 onTap: () {
                   //TODO: CHANGE PROFILE PICTURE !!!
-                  // ImagePicker()
-                  //     .getImage(source: ImageSource.gallery)
-                  //     .then((image) {
-                  //   setState(() {
-                  //     userImageUrl = image.toString();
-                  //   });
-                  // });
                 },
               ),
             ),
