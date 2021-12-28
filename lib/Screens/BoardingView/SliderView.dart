@@ -3,8 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lets_head_out/Screens/BoardingView/sliderDots.dart';
 import 'package:lets_head_out/Screens/BoardingView/sliderItems.dart';
-import 'package:lets_head_out/Utils/TextStyles.dart';
-import 'package:lets_head_out/Utils/consts.dart';
 
 import 'Slider.dart';
 
@@ -46,37 +44,38 @@ class _SliderLayoutViewState extends State<SliderLayoutView> {
 
   Widget topSliderLayout() => Container(
         child: Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Stack(
-              alignment: AlignmentDirectional.bottomCenter,
-              children: <Widget>[
-                PageView.builder(
-                  scrollDirection: Axis.horizontal,
-                  controller: _pageController,
-                  onPageChanged: _onPageChanged,
-                  itemCount: sliderArrayList.length,
-                  itemBuilder: (ctx, i) => SlideItem(i),
-                ),
-                Stack(
-                  alignment: AlignmentDirectional.topStart,
-                  children: <Widget>[
-                    Container(
-                      alignment: AlignmentDirectional.bottomCenter,
-                      margin: EdgeInsets.only(bottom: 20.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          for (int i = 0; i < sliderArrayList.length; i++)
-                            if (i == _currentPage)
-                              SlideDots(true)
-                            else
-                              SlideDots(false)
-                        ],
-                      ),
+          padding: EdgeInsets.all(10.0),
+          child: Stack(
+            alignment: AlignmentDirectional.bottomCenter,
+            children: <Widget>[
+              PageView.builder(
+                scrollDirection: Axis.horizontal,
+                controller: _pageController,
+                onPageChanged: _onPageChanged,
+                itemCount: sliderArrayList.length,
+                itemBuilder: (ctx, i) => SlideItem(i),
+              ),
+              Stack(
+                alignment: AlignmentDirectional.topStart,
+                children: <Widget>[
+                  Container(
+                    alignment: AlignmentDirectional.bottomCenter,
+                    margin: EdgeInsets.only(bottom: 20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        for (int i = 0; i < sliderArrayList.length; i++)
+                          if (i == _currentPage)
+                            SlideDots(true)
+                          else
+                            SlideDots(false)
+                      ],
                     ),
-                  ],
-                )
-              ],
-            )),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
       );
 }

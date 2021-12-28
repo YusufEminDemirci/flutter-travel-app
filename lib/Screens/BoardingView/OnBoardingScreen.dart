@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import 'SliderView.dart';
-
 
 class LandingPage extends StatefulWidget {
   @override
@@ -18,7 +16,6 @@ class _LandingPageState extends State<LandingPage> {
   }
 
   Widget onBordingBody() => Container(
-    child: SliderLayoutView(),
-  );
+        child: SliderLayoutView(),
+      );
 }
-
