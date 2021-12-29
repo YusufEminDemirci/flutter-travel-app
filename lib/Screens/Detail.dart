@@ -1,16 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lets_head_out/Lists/commentsList.dart';
 import 'package:lets_head_out/Lists/selectedPlaces.dart';
 import 'package:lets_head_out/Lists/selectedRestaurants.dart';
 import 'package:lets_head_out/Models/comment.dart';
+import 'package:lets_head_out/Prefabs/CityInfo.dart';
+import 'package:lets_head_out/Prefabs/CommentDisplay.dart';
 import 'package:lets_head_out/Prefabs/Locations.dart';
+import 'package:lets_head_out/Prefabs/PlaceLocationMap.dart';
 import 'package:lets_head_out/Utils/TextStyles.dart';
 import 'package:lets_head_out/Utils/consts.dart';
 import 'package:lets_head_out/Prefabs/Comments.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-List<CommentsImage> commentsList = [];
 final ScrollController scrollController = ScrollController();
 
 class DetailScreen extends StatefulWidget {
@@ -97,17 +100,11 @@ class _DetailScreenState extends State<DetailScreen>
   void initState() {
     super.initState();
     tabController = new TabController(length: 3, vsync: this);
-    checkComments(location, id);
+    getComments(location, id);
   }
 
   @override
   Widget build(BuildContext context) {
-    Future<void> _getData() async {
-      setState(() {
-        checkComments(location, id);
-      });
-    }
-
     return Scaffold(
       backgroundColor: kwhite,
       body: Stack(
@@ -192,197 +189,13 @@ class _DetailScreenState extends State<DetailScreen>
                         children: <Widget>[
                           TabBarView(
                             children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            BoldText(
-                                                "Telephone: ", 20.0, kblack),
-                                            NormalText(telephone, kblack, 15.0),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Container(
-                                          height: 2,
-                                          color: kgreyFill,
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            BoldText("Hours: ", 20.0, kblack),
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
-                                              children: [
-                                                NormalText(
-                                                    "MONDAY / " +
-                                                        hours["Monday"],
-                                                    kblack,
-                                                    12.0),
-                                                NormalText(
-                                                    "TUESDAY / " +
-                                                        hours["Tuesday"],
-                                                    kblack,
-                                                    12.0),
-                                                NormalText(
-                                                    "WEDNESDEY / " +
-                                                        hours["Wednesday"],
-                                                    kblack,
-                                                    12.0),
-                                                NormalText(
-                                                    "THURSDAY / " +
-                                                        hours["Thursday"],
-                                                    kblack,
-                                                    12.0),
-                                                NormalText(
-                                                    "FRIDAY / " +
-                                                        hours["Friday"],
-                                                    kblack,
-                                                    12.0),
-                                                NormalText(
-                                                    "SATURDAY / " +
-                                                        hours["Saturday"],
-                                                    kblack,
-                                                    12.0),
-                                                NormalText(
-                                                    "SUNDAY / " +
-                                                        hours["Sunday"],
-                                                    kblack,
-                                                    12.0),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Container(
-                                      height: 2,
-                                      color: kgreyFill,
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        BoldText(
-                                            "About this place", 20.0, kblack),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    NormalText(description, kblack, 12.0),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    right: 16.0, left: 16.0),
-                                child: Container(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      SizedBox(height: 20.0),
-                                      ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(20.0),
-                                        child: Image.asset(
-                                          "assets/plazamap.png",
-                                          fit: BoxFit.cover,
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .width -
-                                              140,
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            BoldText(
-                                                commentsList.length.toString() +
-                                                    " Reviews",
-                                                20.0,
-                                                kblack),
-                                            Row(
-                                              children: [
-                                                Icon(
-                                                  Icons.star,
-                                                  color: mainColor,
-                                                  size: 25.0,
-                                                ),
-                                                BoldText("$rate Stars", 14.0,
-                                                    korange),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Container(
-                                          height: 2,
-                                          color: kgreyFill,
-                                        ),
-                                        SizedBox(
-                                          height: 16,
-                                        ),
-                                        RefreshIndicator(
-                                          onRefresh: _getData,
-                                          child: ListView.builder(
-                                            scrollDirection: Axis.vertical,
-                                            shrinkWrap: true,
-                                            controller: scrollController,
-                                            physics:
-                                                AlwaysScrollableScrollPhysics(),
-                                            itemCount: commentsList.length,
-                                            itemBuilder: (context, index) {
-                                              return commentsList[index];
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
+                              CityInfo(
+                                  telephone: telephone,
+                                  hours: hours,
+                                  description: description),
+                              PlaceLocationMap(),
+                              CommentDisplay(
+                                rate: rate,
                               ),
                             ],
                             controller: tabController,
@@ -435,37 +248,40 @@ class _DetailScreenState extends State<DetailScreen>
   }
 }
 
-checkComments(String cityId, String placeId) {
+getComments(String cityId, String placeId) {
   final firestoreInstance = FirebaseFirestore.instance;
-  firestoreInstance
-      .collection("Cities")
-      .doc(cityId)
-      .collection("Places")
-      .doc(placeId)
-      .collection("Comments")
-      .get()
-      .then(
-    (querySnapshot) {
-      querySnapshot.docs.forEach((result) {
-        String _date = result.data()["date"];
-        String _id = result.data()["id"];
-        String _imageUrl = result.data()["imageUrl"];
-        String _message = result.data()["message"];
-        String _name = result.data()["name"];
-        String _rate = result.data()["rate"];
-        for (int index = 0; index < commentsList.length; index++) {
-          if (commentsList[index].comment.name != _name) {
-            commentsList.add(CommentsImage(Comment(
-              date: _date,
-              id: _id,
-              imageUrl: _imageUrl,
-              message: _message,
-              name: _name,
-              rate: _rate,
-            )));
-          }
-        }
-      });
+
+  return StreamBuilder<QuerySnapshot>(
+    stream: firestoreInstance
+        .collection("Cities")
+        .doc("Gjp6AG8GF5DY0eL99Uc5")
+        .collection("Places")
+        .doc("MZUWZdKp6Rtzr3QFQIps")
+        .collection("Comments")
+        .snapshots(),
+    builder: (context, snapshot) {
+      final commentList = snapshot.data.docs;
+      comments = [];
+
+      for (var comment in commentList) {
+        String _date = comment.data()["date"];
+        String _id = comment.data()["id"];
+        String _imageUrl = comment.data()["imageUrl"];
+        String _message = comment.data()["message"];
+        String _name = comment.data()["name"];
+        String _rate = comment.data()["rate"];
+        comments.add(CommentsImage(Comment(
+          date: _date,
+          id: _id,
+          imageUrl: _imageUrl,
+          message: _message,
+          name: _name,
+          rate: _rate,
+        )));
+      }
+      return ListView(
+        children: comments,
+      );
     },
   );
 }
@@ -603,8 +419,4 @@ Future<Object> popUpMessage(
       );
     },
   );
-}
-
-Future<void> _refresh() {
-  return Future.delayed(Duration(seconds: 1));
 }

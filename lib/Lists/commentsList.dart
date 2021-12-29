@@ -1,3 +1,3 @@
-import 'package:lets_head_out/Models/comment.dart';
+import 'package:lets_head_out/Prefabs/Comments.dart';
 
-List<Comment> comments = [];
+List<CommentsImage> comments = [];
