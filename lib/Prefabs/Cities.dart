@@ -35,22 +35,33 @@ class _CitiesImageState extends State<CitiesImage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 150,
-      height: 150,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            blurRadius: 10,
+            spreadRadius: 5,
+          ),
+        ],
+      ),
       child: Stack(
+        alignment: Alignment.topCenter,
         children: <Widget>[
           Container(
-            width: 150,
-            height: 150,
             child: GestureDetector(
               onTap: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => new Places(this.id, this.name)));
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => new Places(this.id, this.name)),
+                );
               },
               child: ClipRRect(
-                borderRadius: new BorderRadius.all(Radius.circular(15.0)),
+                borderRadius: new BorderRadius.only(
+                    topRight: Radius.circular(15.0),
+                    topLeft: Radius.circular(15.0)),
                 child: Image.network(
                   imageUrl,
                   fit: BoxFit.cover,
@@ -58,15 +69,16 @@ class _CitiesImageState extends State<CitiesImage> {
               ),
             ),
           ),
-          Container(
-            width: 150,
-            height: 150,
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
             child: Align(
               alignment: Alignment.bottomCenter,
-              child: BoldText(
-                name.toUpperCase(),
-                20,
-                kwhite,
+              child: Container(
+                child: BoldText(
+                  name.toUpperCase(),
+                  22,
+                  kblack,
+                ),
               ),
             ),
           ),

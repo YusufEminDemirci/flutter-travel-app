@@ -43,99 +43,122 @@ class CommentArea extends StatelessWidget {
           height: 150,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: Colors.amber.shade50,
+            color: Colors.blueGrey.shade50,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.2),
+                blurRadius: 10,
+                spreadRadius: 5,
+              ),
+            ],
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Stack(
-                children: [
-                  Container(
-                    width: 150,
-                    height: 150,
-                    child: ClipRRect(
-                      borderRadius: new BorderRadius.all(Radius.circular(15.0)),
-                      child: Image.network(
-                        imageUrl,
-                        fit: BoxFit.cover,
+              Container(
+                width: 150,
+                height: 150,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.white,
+                ),
+                child: Stack(
+                  alignment: Alignment.topCenter,
+                  children: <Widget>[
+                    Container(
+                      child: ClipRRect(
+                        borderRadius: new BorderRadius.only(
+                            topRight: Radius.circular(15.0),
+                            topLeft: Radius.circular(15.0)),
+                        child: Image.network(
+                          imageUrl,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0, top: 100.0),
-                    child: Text(
-                      name,
-                      style: TextStyle(
-                        color: kwhite,
-                        fontSize: 15.0,
-                        fontWeight: FontWeight.bold,
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: 8.0,
+                        right: 8.0,
+                        top: 85.0,
                       ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                      child: Text(
+                        name,
+                        style: TextStyle(
+                          color: kwhite,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0, top: 120.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(
-                          child: Icon(
-                            Icons.location_on,
-                            color: kwhite,
-                            size: 16.0,
-                          ),
-                        ),
-                        SizedBox(
-                          child: Text(
-                            cityName,
-                            style: TextStyle(
-                              color: kwhite,
-                              fontSize: 13.0,
-                              fontWeight: FontWeight.bold,
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: 8.0,
+                        top: 120.0,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          SizedBox(
+                            child: Icon(
+                              Icons.location_on,
+                              color: kblack,
+                              size: 17.0,
                             ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
                           ),
-                          width: 50,
-                        ),
-                        SizedBox(
-                          width: 15,
-                        ),
-                        SizedBox(
-                          child: Container(
-                            width: 50.0,
-                            decoration: BoxDecoration(
-                              color: korange,
-                              borderRadius: BorderRadius.circular(10.0),
+                          SizedBox(
+                            child: Text(
+                              cityName,
+                              style: TextStyle(
+                                color: kblack,
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Icon(
-                                  Icons.star,
-                                  color: kwhite,
-                                  size: 15.0,
-                                ),
-                                Text(
-                                  rate.toString(),
-                                  style: TextStyle(
+                            width: 50,
+                          ),
+                          SizedBox(
+                            width: 15,
+                          ),
+                          SizedBox(
+                            child: Container(
+                              width: 50.0,
+                              decoration: BoxDecoration(
+                                color: korange,
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.star,
                                     color: kwhite,
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.bold,
+                                    size: 16.0,
                                   ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
+                                  Text(
+                                    rate.toString(),
+                                    style: TextStyle(
+                                      color: kwhite,
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               SizedBox(
                 width: 2,

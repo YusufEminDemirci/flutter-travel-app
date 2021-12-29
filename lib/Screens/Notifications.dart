@@ -15,28 +15,40 @@ class _NotificationsState extends State<Notifications> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kwhite,
-      appBar: AppBar(
-        backgroundColor: mainColor,
-        title: BoldText("Notifications", 20, kwhite),
-        centerTitle: true,
-        elevation: 0.0,
-        automaticallyImplyLeading: true,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(30),
+        child: AppBar(
+          leading: BackButton(color: mainColor),
+          backgroundColor: Colors.transparent,
+          title: BoldText("Notifications", 20, mainColor),
+          centerTitle: true,
+          elevation: 0.0,
+          automaticallyImplyLeading: true,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(10),
+            ),
+          ),
+        ),
       ),
-      body: ListView.builder(
-        itemCount: notifications.length,
-        itemBuilder: (context, index) {
-          return Dismissible(
-            key: UniqueKey(),
-            onDismissed: (direction) {
-              setState(() {
-                notifications.removeAt(index);
-              });
-            },
-            background: slideRightBackground(),
-            secondaryBackground: slideLeftBackground(),
-            child: NotificationImage(index),
-          );
-        },
+      body: Padding(
+        padding: const EdgeInsets.only(top: 10.0),
+        child: ListView.builder(
+          itemCount: notifications.length,
+          itemBuilder: (context, index) {
+            return Dismissible(
+              key: UniqueKey(),
+              onDismissed: (direction) {
+                setState(() {
+                  notifications.removeAt(index);
+                });
+              },
+              background: slideRightBackground(),
+              secondaryBackground: slideLeftBackground(),
+              child: NotificationImage(index),
+            );
+          },
+        ),
       ),
     );
   }

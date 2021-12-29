@@ -9,14 +9,25 @@ class NotificationImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Padding(
+      padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 5.0),
       child: Container(
-        height: 100,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              blurRadius: 10,
+              spreadRadius: 1,
+            ),
+          ],
+        ),
+        height: 90,
         child: Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(15),
           ),
-          color: Colors.amber.shade50,
+          color: kwhite,
           elevation: 0,
           child: Padding(
             padding: const EdgeInsets.all(8.0),

@@ -31,25 +31,30 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
-      appBar: AppBar(
-        backgroundColor: mainColor,
-        title: BoldText("My Profile", 35, kwhite),
-        centerTitle: true,
-        elevation: 0.0,
-        automaticallyImplyLeading: false,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              FontAwesomeIcons.bell,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => new Notifications()));
-            },
-          )
-        ],
+      extendBodyBehindAppBar: true,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(30),
+        child: AppBar(
+          backgroundColor: Colors.transparent,
+          title: BoldText("My Profile", 35, kwhite),
+          centerTitle: true,
+          elevation: 0.0,
+          automaticallyImplyLeading: false,
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(
+                FontAwesomeIcons.solidBell,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => new Notifications()),
+                );
+              },
+            )
+          ],
+        ),
       ),
       body: Stack(
         children: <Widget>[
@@ -66,6 +71,13 @@ class _ProfileState extends State<Profile> {
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(30.0),
                   topRight: Radius.circular(30.0)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.2),
+                  blurRadius: 10,
+                  spreadRadius: 5,
+                ),
+              ],
               maxHeight: MediaQuery.of(context).size.height * 0.5,
               minHeight: MediaQuery.of(context).size.height * 0.1,
               panel: Stack(

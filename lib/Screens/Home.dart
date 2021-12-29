@@ -61,7 +61,11 @@ class _HomeState extends State<Home> {
           borderRadius: BorderRadius.only(
               topRight: Radius.circular(10.0), topLeft: Radius.circular(10.0)),
           boxShadow: [
-            BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              blurRadius: 10,
+              spreadRadius: 5,
+            ),
           ],
         ),
         child: ClipRRect(

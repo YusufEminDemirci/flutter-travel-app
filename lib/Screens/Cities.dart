@@ -15,12 +15,20 @@ class _CitiesState extends State<Cities> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kwhite,
-      appBar: AppBar(
-        backgroundColor: mainColor,
-        title: BoldText("Cities", 35, kwhite),
-        centerTitle: true,
-        elevation: 0.0,
-        automaticallyImplyLeading: false,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(30),
+        child: AppBar(
+          backgroundColor: Colors.transparent,
+          title: BoldText("Cities", 35, mainColor),
+          centerTitle: true,
+          elevation: 0.0,
+          automaticallyImplyLeading: false,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(10),
+            ),
+          ),
+        ),
       ),
       body: CustomScrollView(
         slivers: <Widget>[
@@ -35,7 +43,7 @@ class _CitiesState extends State<Cities> {
           SliverFillRemaining(
             child: GridView(
               padding: const EdgeInsets.only(
-                  left: 40.0, right: 16.0, bottom: 16.0, top: 25.0),
+                  left: 20.0, right: 16.0, bottom: 16.0, top: 25.0),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
               ),

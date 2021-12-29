@@ -32,13 +32,21 @@ class LocationsImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 150,
-      height: 150,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            blurRadius: 10,
+            spreadRadius: 5,
+          ),
+        ],
+      ),
       child: Stack(
+        alignment: Alignment.topCenter,
         children: <Widget>[
           Container(
-            width: 150,
-            height: 150,
             child: GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -59,7 +67,9 @@ class LocationsImage extends StatelessWidget {
                             )));
               },
               child: ClipRRect(
-                borderRadius: new BorderRadius.all(Radius.circular(15.0)),
+                borderRadius: new BorderRadius.only(
+                    topRight: Radius.circular(15.0),
+                    topLeft: Radius.circular(15.0)),
                 child: Image.network(
                   imageUrl,
                   fit: BoxFit.cover,
@@ -68,12 +78,12 @@ class LocationsImage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 100.0),
+            padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 110.0),
             child: Text(
               name,
               style: TextStyle(
                 color: kwhite,
-                fontSize: 15.0,
+                fontSize: 18.0,
                 fontWeight: FontWeight.bold,
               ),
               maxLines: 1,
@@ -81,23 +91,23 @@ class LocationsImage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 8.0, top: 120.0),
+            padding: const EdgeInsets.only(left: 8.0, top: 152.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 SizedBox(
                   child: Icon(
                     Icons.location_on,
-                    color: kwhite,
-                    size: 16.0,
+                    color: kblack,
+                    size: 17.0,
                   ),
                 ),
                 SizedBox(
                   child: Text(
                     cityName,
                     style: TextStyle(
-                      color: kwhite,
-                      fontSize: 13.0,
+                      color: kblack,
+                      fontSize: 14.0,
                       fontWeight: FontWeight.bold,
                     ),
                     maxLines: 1,
@@ -106,7 +116,7 @@ class LocationsImage extends StatelessWidget {
                   width: 50,
                 ),
                 SizedBox(
-                  width: 15,
+                  width: 50,
                 ),
                 SizedBox(
                   child: Container(
@@ -122,13 +132,13 @@ class LocationsImage extends StatelessWidget {
                         Icon(
                           Icons.star,
                           color: kwhite,
-                          size: 15.0,
+                          size: 16.0,
                         ),
                         Text(
                           rate.toString(),
                           style: TextStyle(
                             color: kwhite,
-                            fontSize: 15.0,
+                            fontSize: 16.0,
                             fontWeight: FontWeight.bold,
                           ),
                           maxLines: 1,

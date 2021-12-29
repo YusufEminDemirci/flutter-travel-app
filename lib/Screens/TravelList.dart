@@ -11,7 +11,7 @@ class TravelList extends StatefulWidget {
   final String cityName;
   final String cityId;
 
-  TravelList({this.cityId = "", this.cityName = ""});
+  TravelList({this.cityId = "", this.cityName = "Adana"});
   @override
   _TravelListState createState() =>
       _TravelListState(this.cityId, this.cityName);
@@ -40,12 +40,15 @@ class _TravelListState extends State<TravelList>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: mainColor,
-        title: BoldText("My Plan", 35, kwhite),
-        centerTitle: true,
-        elevation: 0.0,
-        automaticallyImplyLeading: false,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(30),
+        child: AppBar(
+          backgroundColor: kwhite,
+          title: BoldText("My Plan", 35, mainColor),
+          centerTitle: true,
+          elevation: 0.0,
+          automaticallyImplyLeading: false,
+        ),
       ),
       body: Scaffold(
         backgroundColor: kwhite,
@@ -75,7 +78,7 @@ class _TravelListState extends State<TravelList>
           children: <Widget>[
             GridView(
               padding: const EdgeInsets.only(
-                  left: 40.0, right: 16.0, bottom: 16.0, top: 25.0),
+                  left: 20.0, right: 16.0, bottom: 16.0, top: 25.0),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
               ),
@@ -138,7 +141,7 @@ class _TravelListState extends State<TravelList>
                   builder: (context) => new CommentScreen(cityId, cityName)));
         },
         child: Icon(
-          FontAwesomeIcons.check,
+          FontAwesomeIcons.arrowRight,
           color: kwhite,
         ),
         backgroundColor: mainColor,

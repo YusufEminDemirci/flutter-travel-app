@@ -38,12 +38,22 @@ class _CommentScreenState extends State<CommentScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: mainColor,
-        title: BoldText("Comment", 20, kwhite),
-        centerTitle: true,
-        elevation: 0.0,
-        automaticallyImplyLeading: true,
+      backgroundColor: kwhite,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(30),
+        child: AppBar(
+          leading: BackButton(color: mainColor),
+          backgroundColor: Colors.transparent,
+          title: BoldText("Comment", 20, mainColor),
+          centerTitle: true,
+          elevation: 0.0,
+          automaticallyImplyLeading: true,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(10),
+            ),
+          ),
+        ),
       ),
       body: Scaffold(
         backgroundColor: kwhite,
@@ -123,7 +133,7 @@ class _CommentScreenState extends State<CommentScreen>
                       });
                     },
                     background: Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(15.0),
                       child: Container(
                         height: 100,
                         color: Colors.red,

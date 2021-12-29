@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lets_head_out/Lists/places.dart';
 import 'package:lets_head_out/Prefabs/Locations.dart';
+import 'package:lets_head_out/Screens/Cities.dart';
 import 'package:lets_head_out/Utils/TextStyles.dart';
 import 'package:lets_head_out/Utils/consts.dart';
 
@@ -38,12 +39,22 @@ class _PlacesState extends State<Places> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: mainColor,
-        title: BoldText("What are you, Looking for?", 20, kwhite),
-        centerTitle: true,
-        elevation: 0.0,
-        automaticallyImplyLeading: true,
+      backgroundColor: kwhite,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(30),
+        child: AppBar(
+          leading: BackButton(color: mainColor),
+          backgroundColor: Colors.transparent,
+          title: BoldText("What are you, Looking for?", 20, mainColor),
+          centerTitle: true,
+          elevation: 0.0,
+          automaticallyImplyLeading: true,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(10),
+            ),
+          ),
+        ),
       ),
       body: Scaffold(
         backgroundColor: kwhite,
@@ -73,7 +84,7 @@ class _PlacesState extends State<Places> with SingleTickerProviderStateMixin {
           children: <Widget>[
             GridView(
               padding: const EdgeInsets.only(
-                  left: 40.0, right: 16.0, bottom: 16.0, top: 25.0),
+                  left: 20.0, right: 16.0, bottom: 16.0, top: 25.0),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
               ),
