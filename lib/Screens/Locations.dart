@@ -45,7 +45,7 @@ class _PlacesState extends State<Places> with SingleTickerProviderStateMixin {
         child: AppBar(
           leading: BackButton(color: mainColor),
           backgroundColor: Colors.transparent,
-          title: BoldText("What are you, Looking for?", 20, mainColor),
+          title: BoldText("What are you, Looking for?", 22, mainColor),
           centerTitle: true,
           elevation: 0.0,
           automaticallyImplyLeading: true,

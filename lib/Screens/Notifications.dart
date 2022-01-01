@@ -20,7 +20,7 @@ class _NotificationsState extends State<Notifications> {
         child: AppBar(
           leading: BackButton(color: mainColor),
           backgroundColor: Colors.transparent,
-          title: BoldText("Notifications", 20, mainColor),
+          title: BoldText("Notifications", 22, mainColor),
           centerTitle: true,
           elevation: 0.0,
           automaticallyImplyLeading: true,

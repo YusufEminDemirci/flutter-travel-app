@@ -48,11 +48,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kwhite,
-      appBar: AppBar(
-        backgroundColor: mainColor,
-        title: BoldText("Register", 35, kwhite),
-        centerTitle: true,
-        elevation: 0.0,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(40),
+        child: AppBar(
+          backgroundColor: kwhite,
+          title: BoldText("Register", 35, mainColor),
+          centerTitle: true,
+          elevation: 0.0,
+          automaticallyImplyLeading: false,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(10),
+            ),
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Form(

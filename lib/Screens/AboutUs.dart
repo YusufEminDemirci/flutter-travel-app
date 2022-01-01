@@ -13,11 +13,21 @@ class _AboutUsState extends State<AboutUs> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kwhite,
-      appBar: AppBar(
-        backgroundColor: mainColor,
-        title: BoldText("About Us", 35, kwhite),
-        centerTitle: true,
-        elevation: 0.0,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(30),
+        child: AppBar(
+          leading: BackButton(color: mainColor),
+          backgroundColor: kwhite,
+          title: BoldText("About Us", 35, mainColor),
+          centerTitle: true,
+          elevation: 0.0,
+          automaticallyImplyLeading: true,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(10),
+            ),
+          ),
+        ),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -27,7 +37,9 @@ class _AboutUsState extends State<AboutUs> {
             children: [
               CircleAvatar(
                 backgroundColor: kgreyDark,
-                backgroundImage: AssetImage(creators[0]["profileImage"]),
+                backgroundImage: NetworkImage(
+                  "https://firebasestorage.googleapis.com/v0/b/projectx-b164c.appspot.com/o/WhatsApp%20Image%202021-12-17%20at%2015.51.24.jpeg?alt=media&token=d48e34d1-6978-4c9b-bd80-a7e735b7b60d",
+                ),
                 radius: 60,
               ),
               BoldText(creators[0]["name"] + " " + creators[0]["surname"], 20,

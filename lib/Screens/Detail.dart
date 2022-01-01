@@ -158,6 +158,7 @@ class _DetailScreenState extends State<DetailScreen>
                     ),
                     backgroundColor: kwhite,
                     body: Scaffold(
+                      backgroundColor: kwhite,
                       appBar: TabBar(
                         labelColor: mainColor,
                         unselectedLabelColor: kdarkBlue,

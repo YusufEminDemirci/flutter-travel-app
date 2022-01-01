@@ -37,11 +37,22 @@ class _SeenLocationsState extends State<SeenLocations>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: mainColor,
-        title: BoldText("Seen Locations", 35, kwhite),
-        centerTitle: true,
-        elevation: 0.0,
+      backgroundColor: kwhite,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(30),
+        child: AppBar(
+          leading: BackButton(color: mainColor),
+          backgroundColor: kwhite,
+          title: BoldText("Seen Locations", 35, mainColor),
+          centerTitle: true,
+          elevation: 0.0,
+          automaticallyImplyLeading: true,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(10),
+            ),
+          ),
+        ),
       ),
       body: Scaffold(
         backgroundColor: kwhite,

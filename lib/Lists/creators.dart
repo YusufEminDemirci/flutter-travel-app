@@ -4,7 +4,7 @@ List<Map<String, String>> creators = [
 ];
 
 var yusuf = {
-  'profileImage': 'assets/orangeProfileTwo.png',
+  'profileImage': "",
   'e-mail': 'demirciogluyazilim@gmail.com',
   'name': 'Yusuf Emin',
   'surname': 'Demirci',
