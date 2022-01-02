@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lets_head_out/Lists/selectedPlaces.dart';
 import 'package:lets_head_out/Screens/Comment.dart';
+import 'package:lets_head_out/Screens/TravelPlan.dart';
 import 'package:lets_head_out/Utils/TextStyles.dart';
 import 'package:lets_head_out/Utils/consts.dart';
 import 'package:lets_head_out/Prefabs/Locations.dart';
@@ -144,7 +145,7 @@ floatingButtonStatus(BuildContext context, String cityId, String cityName) {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => new CommentScreen(cityId, cityName)));
+                builder: (context) => new TravelPlan(cityId, cityName)));
       },
       child: Icon(
         FontAwesomeIcons.arrowRight,

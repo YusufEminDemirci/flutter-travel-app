@@ -36,9 +36,13 @@ class _EditProfile extends State<EditProfile> {
         ),
       ),
       body: Container(
-          //TODO: EDIT PROFILE !!!
-          
-          ),
+        alignment: Alignment.center,
+        //TODO: EDIT PROFILE !!!
+        child: Text(
+          "Coming soon...",
+          style: TextStyle(fontSize: 25.0),
+        ),
+      ),
     );
   }
 }
