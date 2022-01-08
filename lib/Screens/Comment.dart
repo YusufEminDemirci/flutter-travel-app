@@ -42,9 +42,9 @@ class _CommentScreenState extends State<CommentScreen>
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(30),
         child: AppBar(
-          leading: BackButton(color: mainColor),
+          leading: BackButton(color: dayMainColor),
           backgroundColor: Colors.transparent,
-          title: BoldText("Comment", 20, mainColor),
+          title: BoldText("Comment", 20, dayMainColor),
           centerTitle: true,
           elevation: 0.0,
           automaticallyImplyLeading: true,
@@ -60,12 +60,12 @@ class _CommentScreenState extends State<CommentScreen>
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(55.0),
           child: TabBar(
-            labelColor: mainColor,
+            labelColor: dayMainColor,
             unselectedLabelColor: kdarkBlue,
             labelStyle:
                 TextStyle(fontFamily: "nunito", fontWeight: FontWeight.bold),
             controller: tabController,
-            indicatorColor: mainColor,
+            indicatorColor: dayMainColor,
             tabs: <Widget>[
               Tab(
                 text: "Places",

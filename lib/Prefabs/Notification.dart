@@ -34,7 +34,7 @@ class NotificationImage extends StatelessWidget {
             child: Row(
               children: [
                 CircleAvatar(
-                  backgroundColor: mainColor,
+                  backgroundColor: dayMainColor,
                   radius: 25,
                   child: CircleAvatar(
                     backgroundColor: kwhite,

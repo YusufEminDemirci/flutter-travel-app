@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lets_head_out/Lists/selectedPlaces.dart';
-import 'package:lets_head_out/Screens/Comment.dart';
 import 'package:lets_head_out/Screens/TravelPlan.dart';
 import 'package:lets_head_out/Utils/TextStyles.dart';
 import 'package:lets_head_out/Utils/consts.dart';
@@ -45,7 +43,7 @@ class _TravelListState extends State<TravelList>
           preferredSize: Size.fromHeight(30),
           child: AppBar(
             backgroundColor: kwhite,
-            title: BoldText("My Plan", 35, mainColor),
+            title: BoldText("My Plan", 35, dayMainColor),
             centerTitle: true,
             elevation: 0.0,
             automaticallyImplyLeading: false,
@@ -56,12 +54,12 @@ class _TravelListState extends State<TravelList>
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(55.0),
             child: TabBar(
-              labelColor: mainColor,
+              labelColor: dayMainColor,
               unselectedLabelColor: kdarkBlue,
               labelStyle:
                   TextStyle(fontFamily: "nunito", fontWeight: FontWeight.bold),
               controller: tabController,
-              indicatorColor: mainColor,
+              indicatorColor: dayMainColor,
               tabs: <Widget>[
                 Tab(
                   text: "Places",
@@ -151,7 +149,7 @@ floatingButtonStatus(BuildContext context, String cityId, String cityName) {
         FontAwesomeIcons.arrowRight,
         color: kwhite,
       ),
-      backgroundColor: mainColor,
+      backgroundColor: dayMainColor,
     );
   }
 }

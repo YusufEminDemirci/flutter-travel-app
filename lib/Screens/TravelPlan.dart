@@ -34,9 +34,9 @@ class _TravelPlanState extends State<TravelPlan>
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(30),
         child: AppBar(
-          leading: BackButton(color: mainColor),
+          leading: BackButton(color: dayMainColor),
           backgroundColor: Colors.transparent,
-          title: BoldText("Travel Plan", 20, mainColor),
+          title: BoldText("Travel Plan", 20, dayMainColor),
           centerTitle: true,
           elevation: 0.0,
           automaticallyImplyLeading: true,
@@ -66,7 +66,7 @@ class _TravelPlanState extends State<TravelPlan>
           FontAwesomeIcons.arrowRight,
           color: kwhite,
         ),
-        backgroundColor: mainColor,
+        backgroundColor: dayMainColor,
       ),
     );
   }

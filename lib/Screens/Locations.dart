@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lets_head_out/Lists/places.dart';
 import 'package:lets_head_out/Prefabs/Locations.dart';
-import 'package:lets_head_out/Screens/Cities.dart';
 import 'package:lets_head_out/Utils/TextStyles.dart';
 import 'package:lets_head_out/Utils/consts.dart';
 
@@ -43,9 +41,9 @@ class _PlacesState extends State<Places> with SingleTickerProviderStateMixin {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(30),
         child: AppBar(
-          leading: BackButton(color: mainColor),
+          leading: BackButton(color: dayMainColor),
           backgroundColor: Colors.transparent,
-          title: BoldText("What are you, Looking for?", 22, mainColor),
+          title: BoldText("What are you, Looking for?", 22, dayMainColor),
           centerTitle: true,
           elevation: 0.0,
           automaticallyImplyLeading: true,
@@ -61,12 +59,12 @@ class _PlacesState extends State<Places> with SingleTickerProviderStateMixin {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(55.0),
           child: TabBar(
-            labelColor: mainColor,
+            labelColor: dayMainColor,
             unselectedLabelColor: kdarkBlue,
             labelStyle:
                 TextStyle(fontFamily: "nunito", fontWeight: FontWeight.bold),
             controller: tabController,
-            indicatorColor: mainColor,
+            indicatorColor: dayMainColor,
             tabs: <Widget>[
               Tab(
                 text: "Places",

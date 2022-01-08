@@ -160,14 +160,14 @@ class _DetailScreenState extends State<DetailScreen>
                     body: Scaffold(
                       backgroundColor: kwhite,
                       appBar: TabBar(
-                        labelColor: mainColor,
+                        labelColor: dayMainColor,
                         unselectedLabelColor: kdarkBlue,
                         labelStyle: TextStyle(
                           fontFamily: "nunito",
                           fontWeight: FontWeight.bold,
                         ),
                         controller: tabController,
-                        indicatorColor: mainColor,
+                        indicatorColor: dayMainColor,
                         tabs: <Widget>[
                           Tab(
                             text: "Information",
@@ -235,7 +235,7 @@ class _DetailScreenState extends State<DetailScreen>
                           FontAwesomeIcons.plus,
                           color: kwhite,
                         ),
-                        backgroundColor: mainColor,
+                        backgroundColor: dayMainColor,
                       ),
                     ),
                   ),
@@ -396,10 +396,10 @@ Future<Object> popUpMessage(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                BoldText(message, 20, mainColor),
+                BoldText(message, 20, dayMainColor),
                 Icon(
                   icon,
-                  color: mainColor,
+                  color: dayMainColor,
                   size: 30,
                 ),
               ],

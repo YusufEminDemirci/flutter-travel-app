@@ -16,9 +16,9 @@ class _EditProfile extends State<EditProfile> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(30),
         child: AppBar(
-          leading: BackButton(color: mainColor),
+          leading: BackButton(color: dayMainColor),
           backgroundColor: Colors.transparent,
-          title: BoldText("Edit Profile", 35, mainColor),
+          title: BoldText("Edit Profile", 35, dayMainColor),
           centerTitle: true,
           elevation: 0.0,
           automaticallyImplyLeading: true,

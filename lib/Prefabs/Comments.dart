@@ -27,7 +27,7 @@ class CommentsImage extends StatelessWidget {
                 child: Icon(
                   Icons.person_pin,
                   size: 30,
-                  color: mainColor,
+                  color: dayMainColor,
                 ),
               ),
             ),

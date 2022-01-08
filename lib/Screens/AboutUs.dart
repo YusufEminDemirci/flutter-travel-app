@@ -16,9 +16,9 @@ class _AboutUsState extends State<AboutUs> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(30),
         child: AppBar(
-          leading: BackButton(color: mainColor),
+          leading: BackButton(color: dayMainColor),
           backgroundColor: kwhite,
-          title: BoldText("About Us", 35, mainColor),
+          title: BoldText("About Us", 35, dayMainColor),
           centerTitle: true,
           elevation: 0.0,
           automaticallyImplyLeading: true,

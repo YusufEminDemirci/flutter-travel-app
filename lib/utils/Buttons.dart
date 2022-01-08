@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'TextStyles.dart';
@@ -17,7 +16,7 @@ class WideButton extends StatelessWidget {
         minWidth: 350.0,
         height: 50.0,
         child: RaisedButton(
-          color: mainColor,
+          color: dayMainColor,
           shape: new RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(25)),
           child: isBold

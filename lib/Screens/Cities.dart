@@ -19,7 +19,7 @@ class _CitiesState extends State<Cities> {
         preferredSize: Size.fromHeight(30),
         child: AppBar(
           backgroundColor: Colors.transparent,
-          title: BoldText("Cities", 35, mainColor),
+          title: BoldText("Cities", 35, dayMainColor),
           centerTitle: true,
           elevation: 0.0,
           automaticallyImplyLeading: false,

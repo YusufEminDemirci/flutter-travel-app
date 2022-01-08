@@ -91,7 +91,7 @@ class LocationsImage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 8.0, top: 152.0),
+            padding: const EdgeInsets.only(left: 10.0, top: 145.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
@@ -116,7 +116,7 @@ class LocationsImage extends StatelessWidget {
                   width: 50,
                 ),
                 SizedBox(
-                  width: 50,
+                  width: 40,
                 ),
                 SizedBox(
                   child: Container(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../Utils/TextStyles.dart';
-import '../Utils/consts.dart';
+import 'package:lets_head_out/Utils/TextStyles.dart';
+import 'package:lets_head_out/Utils/consts.dart';
 
 class RecommendationImage extends StatelessWidget {
   final String imageUrl;

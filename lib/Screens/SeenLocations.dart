@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lets_head_out/Utils/TextStyles.dart';
@@ -41,9 +40,9 @@ class _SeenLocationsState extends State<SeenLocations>
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(30),
         child: AppBar(
-          leading: BackButton(color: mainColor),
+          leading: BackButton(color: dayMainColor),
           backgroundColor: kwhite,
-          title: BoldText("Seen Locations", 35, mainColor),
+          title: BoldText("Seen Locations", 35, dayMainColor),
           centerTitle: true,
           elevation: 0.0,
           automaticallyImplyLeading: true,
@@ -59,12 +58,12 @@ class _SeenLocationsState extends State<SeenLocations>
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(55.0),
           child: TabBar(
-            labelColor: mainColor,
+            labelColor: dayMainColor,
             unselectedLabelColor: kdarkBlue,
             labelStyle:
                 TextStyle(fontFamily: "nunito", fontWeight: FontWeight.bold),
             controller: tabController,
-            indicatorColor: mainColor,
+            indicatorColor: dayMainColor,
             tabs: <Widget>[
               Tab(
                 text: "Places",

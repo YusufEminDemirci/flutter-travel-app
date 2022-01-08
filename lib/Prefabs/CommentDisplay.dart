@@ -30,7 +30,7 @@ class CommentDisplay extends StatelessWidget {
                     children: [
                       Icon(
                         Icons.star,
-                        color: mainColor,
+                        color: dayMainColor,
                         size: 25.0,
                       ),
                       BoldText("$rate Stars", 14.0, korange),

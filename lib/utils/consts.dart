@@ -8,9 +8,11 @@ final kblack = const Color(0xFF000000);
 final kgreyDark = Colors.grey.shade700;
 final kgreyFill = Colors.grey.shade100;
 
-final mainColor = Colors.amber;
+final dayMainColor = Colors.amber;
+final daySecondaryColor = Colors.white;
 
-//Textss
+final nightMainColor = Colors.blueGrey;
+final nightSecondaryColor = Colors.black;
 
 const String POPPINS = "Poppins";
 const String OPEN_SANS = "OpenSans";

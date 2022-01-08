@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../Utils/forms.dart';
+import 'package:lets_head_out/Utils/forms.dart';
 
 class SearchBar extends StatelessWidget {
   @override

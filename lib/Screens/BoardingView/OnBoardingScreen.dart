@@ -11,11 +11,7 @@ class _LandingPageState extends State<LandingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: onBordingBody(),
+      body: SliderLayoutView(),
     );
   }
-
-  Widget onBordingBody() => Container(
-        child: SliderLayoutView(),
-      );
 }

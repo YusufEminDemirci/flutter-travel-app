@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:lets_head_out/Lists/myInformation.dart';
 import 'package:lets_head_out/Utils/TextStyles.dart';
 import 'package:lets_head_out/Utils/consts.dart';
 
@@ -25,7 +24,7 @@ class _MyInformationState extends State<MyInformation> {
     return Scaffold(
       backgroundColor: Colors.blue,
       appBar: AppBar(
-        backgroundColor: mainColor,
+        backgroundColor: dayMainColor,
         title: BoldText("My Information", 35, kwhite),
         centerTitle: true,
         elevation: 0.0,
@@ -65,7 +64,7 @@ class _MyInformationState extends State<MyInformation> {
                                 height: 2,
                                 width:
                                     ("$_name $_surname".length.toDouble()) * 20,
-                                color: mainColor,
+                                color: dayMainColor,
                               ),
                               SizedBox(height: 80.0),
                               profileItem(

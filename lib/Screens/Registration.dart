@@ -52,7 +52,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         preferredSize: Size.fromHeight(40),
         child: AppBar(
           backgroundColor: kwhite,
-          title: BoldText("Register", 35, mainColor),
+          title: BoldText("Register", 35, dayMainColor),
           centerTitle: true,
           elevation: 0.0,
           automaticallyImplyLeading: false,
@@ -344,7 +344,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             ));
                           },
                           child: BoldText.veryBold(
-                              "Sign In ?", 12.5, mainColor, true),
+                              "Sign In ?", 12.5, dayMainColor, true),
                         ),
                       ],
                     ),

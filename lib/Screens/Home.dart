@@ -1,10 +1,8 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lets_head_out/Screens/Cities.dart';
 import 'package:lets_head_out/Screens/SignIn.dart';
-import 'package:lets_head_out/Screens/Splash.dart';
 import 'package:lets_head_out/Utils/consts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'TravelList.dart';
@@ -80,7 +78,7 @@ class _HomeState extends State<Home> {
             items: [
               BottomNavyBarItem(
                 icon: Icon(FontAwesomeIcons.searchLocation),
-                activeColor: mainColor,
+                activeColor: dayMainColor,
                 inactiveColor: kgreyDark,
                 title: Text(
                   "Cities",
@@ -95,7 +93,7 @@ class _HomeState extends State<Home> {
                   "Travel List",
                   style: TextStyle(fontFamily: "nunito"),
                 ),
-                activeColor: mainColor,
+                activeColor: dayMainColor,
                 inactiveColor: kgreyDark,
               ),
               BottomNavyBarItem(
@@ -104,7 +102,7 @@ class _HomeState extends State<Home> {
                   "Profile",
                   style: TextStyle(fontFamily: "nunito"),
                 ),
-                activeColor: mainColor,
+                activeColor: dayMainColor,
                 inactiveColor: kgreyDark,
               )
             ],

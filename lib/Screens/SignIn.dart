@@ -50,7 +50,7 @@ class _SignInPageState extends State<SignInPage> {
         preferredSize: Size.fromHeight(40),
         child: AppBar(
           backgroundColor: kwhite,
-          title: BoldText("Sign In", 35, mainColor),
+          title: BoldText("Sign In", 35, dayMainColor),
           centerTitle: true,
           elevation: 0.0,
           automaticallyImplyLeading: false,
@@ -265,7 +265,7 @@ class _SignInPageState extends State<SignInPage> {
                             ));
                           },
                           child: BoldText.veryBold(
-                              "Register ?", 12.5, mainColor, true),
+                              "Register ?", 12.5, dayMainColor, true),
                         ),
                       ],
                     ),

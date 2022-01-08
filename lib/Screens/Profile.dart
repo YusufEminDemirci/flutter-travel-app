@@ -88,7 +88,7 @@ class _ProfileState extends State<Profile> {
                               bottomRight: Radius.circular(15.0),
                               bottomLeft: Radius.circular(15.0),
                             ),
-                            color: mainColor.withOpacity(0.6),
+                            color: dayMainColor.withOpacity(0.6),
                           ),
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.height / 2.75,
