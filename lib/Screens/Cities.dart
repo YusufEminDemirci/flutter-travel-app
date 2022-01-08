@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:lets_head_out/Prefabs/Cities.dart';
-import 'package:lets_head_out/Prefabs/SearchBar.dart';
-import 'package:lets_head_out/Utils/TextStyles.dart';
-import 'package:lets_head_out/Lists/citiesList.dart';
-import 'package:lets_head_out/Utils/consts.dart';
+import 'package:travel_food/Prefabs/Cities.dart';
+import 'package:travel_food/Prefabs/SearchBar.dart';
+import 'package:travel_food/Utils/TextStyles.dart';
+import 'package:travel_food/Lists/citiesList.dart';
+import 'package:travel_food/Utils/consts.dart';
 
 class Cities extends StatefulWidget {
   @override

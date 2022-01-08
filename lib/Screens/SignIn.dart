@@ -3,10 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lets_head_out/Screens/Registration.dart';
-import 'package:lets_head_out/Utils/Buttons.dart';
-import 'package:lets_head_out/Utils/TextStyles.dart';
-import 'package:lets_head_out/Utils/consts.dart';
+import 'package:travel_food/Screens/Registration.dart';
+import 'package:travel_food/Utils/Buttons.dart';
+import 'package:travel_food/Utils/TextStyles.dart';
+import 'package:travel_food/Utils/consts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Home.dart';

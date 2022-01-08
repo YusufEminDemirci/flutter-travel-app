@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lets_head_out/Lists/notifications.dart';
-import 'package:lets_head_out/Utils/TextStyles.dart';
-import 'package:lets_head_out/Utils/consts.dart';
+import 'package:travel_food/Lists/notifications.dart';
+import 'package:travel_food/Utils/TextStyles.dart';
+import 'package:travel_food/Utils/consts.dart';
 
 class NotificationImage extends StatelessWidget {
   final int index;

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lets_head_out/Lists/places.dart';
-import 'package:lets_head_out/Prefabs/Locations.dart';
-import 'package:lets_head_out/Utils/TextStyles.dart';
-import 'package:lets_head_out/Utils/consts.dart';
+import 'package:travel_food/Lists/places.dart';
+import 'package:travel_food/Prefabs/Locations.dart';
+import 'package:travel_food/Utils/TextStyles.dart';
+import 'package:travel_food/Utils/consts.dart';
 
 class Places extends StatefulWidget {
   final String cityId;

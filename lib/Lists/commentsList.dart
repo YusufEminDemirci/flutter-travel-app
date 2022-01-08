@@ -1,5 +1,5 @@
-import 'package:lets_head_out/Models/comment.dart';
-import 'package:lets_head_out/Prefabs/Comments.dart';
+import 'package:travel_food/Models/comment.dart';
+import 'package:travel_food/Prefabs/Comments.dart';
 
 List<CommentsImage> comments = [
   CommentsImage(

@@ -2,11 +2,11 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lets_head_out/Lists/citiesList.dart';
-import 'package:lets_head_out/Models/city.dart';
-import 'package:lets_head_out/Screens/Home.dart';
-import 'package:lets_head_out/Utils/TextStyles.dart';
-import 'package:lets_head_out/Utils/consts.dart';
+import 'package:travel_food/Lists/citiesList.dart';
+import 'package:travel_food/Models/city.dart';
+import 'package:travel_food/Screens/Home.dart';
+import 'package:travel_food/Utils/TextStyles.dart';
+import 'package:travel_food/Utils/consts.dart';
 
 class SplashScreen extends StatefulWidget {
   @override

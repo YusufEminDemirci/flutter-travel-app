@@ -1,5 +1,5 @@
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lets_head_out/Models/notification.dart';
+import 'package:travel_food/Models/notification.dart';
 
 List<Notification> notifications = [
   Notification(

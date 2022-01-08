@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lets_head_out/Screens/EditProfile.dart';
-import 'package:lets_head_out/Screens/Notifications.dart';
-import 'package:lets_head_out/Screens/SeenLocations.dart';
-import 'package:lets_head_out/Screens/AboutUs.dart';
-import 'package:lets_head_out/Screens/SignIn.dart';
-import 'package:lets_head_out/Utils/TextStyles.dart';
-import 'package:lets_head_out/Utils/consts.dart';
+import 'package:travel_food/Screens/EditProfile.dart';
+import 'package:travel_food/Screens/Notifications.dart';
+import 'package:travel_food/Screens/SeenLocations.dart';
+import 'package:travel_food/Screens/AboutUs.dart';
+import 'package:travel_food/Screens/SignIn.dart';
+import 'package:travel_food/Utils/TextStyles.dart';
+import 'package:travel_food/Utils/consts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

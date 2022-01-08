@@ -1,17 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lets_head_out/Lists/commentsList.dart';
-import 'package:lets_head_out/Lists/selectedPlaces.dart';
-import 'package:lets_head_out/Lists/selectedRestaurants.dart';
-import 'package:lets_head_out/Models/comment.dart';
-import 'package:lets_head_out/Prefabs/CityInfo.dart';
-import 'package:lets_head_out/Prefabs/CommentDisplay.dart';
-import 'package:lets_head_out/Prefabs/Locations.dart';
-import 'package:lets_head_out/Prefabs/PlaceLocationMap.dart';
-import 'package:lets_head_out/Utils/TextStyles.dart';
-import 'package:lets_head_out/Utils/consts.dart';
-import 'package:lets_head_out/Prefabs/Comments.dart';
+import 'package:travel_food/Lists/commentsList.dart';
+import 'package:travel_food/Lists/selectedPlaces.dart';
+import 'package:travel_food/Lists/selectedRestaurants.dart';
+import 'package:travel_food/Models/comment.dart';
+import 'package:travel_food/Prefabs/CityInfo.dart';
+import 'package:travel_food/Prefabs/CommentDisplay.dart';
+import 'package:travel_food/Prefabs/Locations.dart';
+import 'package:travel_food/Prefabs/PlaceLocationMap.dart';
+import 'package:travel_food/Utils/TextStyles.dart';
+import 'package:travel_food/Utils/consts.dart';
+import 'package:travel_food/Prefabs/Comments.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 final ScrollController scrollController = ScrollController();

@@ -1,9 +1,9 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lets_head_out/Screens/Cities.dart';
-import 'package:lets_head_out/Screens/SignIn.dart';
-import 'package:lets_head_out/Utils/consts.dart';
+import 'package:travel_food/Screens/Cities.dart';
+import 'package:travel_food/Screens/SignIn.dart';
+import 'package:travel_food/Utils/consts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'TravelList.dart';
 import 'Profile.dart';

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lets_head_out/Utils/consts.dart';
+import 'package:travel_food/Utils/consts.dart';
 
 class CommentArea extends StatelessWidget {
   final String id;

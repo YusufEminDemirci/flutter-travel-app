@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:lets_head_out/Screens/BoardingView/sliderDots.dart';
-import 'package:lets_head_out/Screens/BoardingView/sliderItems.dart';
+import 'package:travel_food/Screens/BoardingView/sliderDots.dart';
+import 'package:travel_food/Screens/BoardingView/sliderItems.dart';
 
 import 'Slider.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:lets_head_out/Utils/consts.dart';
+import 'package:travel_food/Utils/consts.dart';
 
 class Slider {
   final String sliderImageUrl;

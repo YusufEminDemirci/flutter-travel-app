@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:lets_head_out/Lists/commentsList.dart';
-import 'package:lets_head_out/Screens/Detail.dart';
-import 'package:lets_head_out/Utils/TextStyles.dart';
-import 'package:lets_head_out/Utils/consts.dart';
+import 'package:travel_food/Lists/commentsList.dart';
+import 'package:travel_food/Screens/Detail.dart';
+import 'package:travel_food/Utils/TextStyles.dart';
+import 'package:travel_food/Utils/consts.dart';
 
 class CommentDisplay extends StatelessWidget {
   const CommentDisplay({

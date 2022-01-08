@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:lets_head_out/Lists/places.dart';
-import 'package:lets_head_out/Prefabs/Locations.dart';
-import 'package:lets_head_out/Screens/Locations.dart';
+import 'package:travel_food/Lists/places.dart';
+import 'package:travel_food/Prefabs/Locations.dart';
+import 'package:travel_food/Screens/Locations.dart';
 
 import '../Utils/TextStyles.dart';
 import '../Utils/consts.dart';

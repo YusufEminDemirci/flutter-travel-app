@@ -1,3 +1,3 @@
-import 'package:lets_head_out/Models/city.dart';
+import 'package:travel_food/Models/city.dart';
 
 List<City> cities = [];

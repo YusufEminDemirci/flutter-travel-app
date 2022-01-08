@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lets_head_out/Utils/Buttons.dart';
-import 'package:lets_head_out/Utils/TextStyles.dart';
-import 'package:lets_head_out/Utils/consts.dart';
+import 'package:travel_food/Utils/Buttons.dart';
+import 'package:travel_food/Utils/TextStyles.dart';
+import 'package:travel_food/Utils/consts.dart';
 
 import '../SignIn.dart';
 import 'Slider.dart';

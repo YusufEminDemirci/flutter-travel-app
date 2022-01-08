@@ -1,3 +1,3 @@
-import 'package:lets_head_out/Models/user.dart';
+import 'package:travel_food/Models/user.dart';
 
 List<UserStat> myInformation = [];

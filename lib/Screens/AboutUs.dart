@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lets_head_out/Lists/creators.dart';
-import 'package:lets_head_out/Utils/TextStyles.dart';
-import 'package:lets_head_out/Utils/consts.dart';
+import 'package:travel_food/Lists/creators.dart';
+import 'package:travel_food/Utils/TextStyles.dart';
+import 'package:travel_food/Utils/consts.dart';
 
 class AboutUs extends StatefulWidget {
   @override

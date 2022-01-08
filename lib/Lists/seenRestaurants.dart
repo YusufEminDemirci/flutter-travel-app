@@ -1,3 +1,3 @@
-import 'package:lets_head_out/Prefabs/Locations.dart';
+import 'package:travel_food/Prefabs/Locations.dart';
 
 List<LocationsImage> seenRestaurant = [];
