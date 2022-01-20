@@ -90,7 +90,7 @@ class _HomeState extends State<Home> {
                   FontAwesomeIcons.route,
                 ),
                 title: Text(
-                  "Travel List",
+                  "My Plan",
                   style: TextStyle(fontFamily: "nunito"),
                 ),
                 activeColor: dayMainColor,
