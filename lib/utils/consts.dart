@@ -14,6 +14,8 @@ final daySecondaryColor = Colors.white;
 final nightMainColor = Colors.blueGrey;
 final nightSecondaryColor = Colors.black;
 
+final transparentColor = Colors.transparent;
+
 const String POPPINS = "Poppins";
 const String OPEN_SANS = "OpenSans";
 const String SKIP = "Skip";
