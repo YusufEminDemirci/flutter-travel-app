@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:material_dialogs/material_dialogs.dart';
+import 'package:material_dialogs/widgets/buttons/icon_button.dart';
+import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
 import 'package:travel_food/Screens/EditProfile.dart';
 import 'package:travel_food/Screens/Notifications.dart';
 import 'package:travel_food/Screens/SeenLocations.dart';
@@ -227,26 +230,53 @@ class _ProfileState extends State<Profile> {
                           child: profileItem(
                               FontAwesomeIcons.signOutAlt, "Sign Out"),
                         ),
-                        onTap: () async {
-                          if (_auth.currentUser != null) {
-                            SharedPreferences prefs =
-                                await SharedPreferences.getInstance();
+                        onTap: () {
+                          Dialogs.materialDialog(
+                            msg: 'Are you sure ?',
+                            title: "Sign Out",
+                            color: Colors.white,
+                            context: context,
+                            actions: [
+                              IconsOutlineButton(
+                                text: 'Cancel',
+                                textStyle: TextStyle(color: Colors.grey),
+                                iconData: Icons.cancel_outlined,
+                                iconColor: Colors.grey,
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              IconsButton(
+                                color: Colors.red,
+                                text: 'Sign Out',
+                                textStyle: TextStyle(color: Colors.white),
+                                iconData: FontAwesomeIcons.signOutAlt,
+                                iconColor: Colors.white,
+                                onPressed: () async {
+                                  if (_auth.currentUser != null) {
+                                    SharedPreferences prefs =
+                                        await SharedPreferences.getInstance();
 
-                            prefs.setString('userEmail', "");
-                            prefs.setString('userName', "");
-                            prefs.setString('userSurname', "");
-                            prefs.setString('userImageUrl', "");
-                            prefs.setString('userId', "");
-                            prefs.setString('userPassword', "");
+                                    prefs.setString('userEmail', "");
+                                    prefs.setString('userName', "");
+                                    prefs.setString('userSurname', "");
+                                    prefs.setString('userImageUrl', "");
+                                    prefs.setString('userId', "");
+                                    prefs.setString('userPassword', "");
 
-                            prefs.setBool('isLoggedIn', false);
+                                    prefs.setBool('isLoggedIn', false);
 
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => new SignInPage()),
-                                ModalRoute.withName("/Home"));
-                          }
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                new SignInPage()),
+                                        ModalRoute.withName("/Home"));
+                                  }
+                                },
+                              ),
+                            ],
+                          );
                         }),
                   ],
                 ),
