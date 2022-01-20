@@ -7,7 +7,7 @@ import 'package:travel_food/Utils/consts.dart';
 Future<void> main() async {
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
+      statusBarColor: transparentColor,
       systemNavigationBarColor: dayMainColor,
     ),
   );
