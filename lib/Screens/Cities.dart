@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +22,10 @@ class _CitiesState extends State<Cities> {
     getCitiesInfo();
     _controller.add(null);
   }
+
+  Timer mytimer = Timer.periodic(Duration(seconds: 1), (timer) {
+    getCitiesInfo();
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +62,7 @@ class _CitiesState extends State<Cities> {
                 builder: (_, __) {
                   return GridView.builder(
                     padding: const EdgeInsets.only(
-                        left: 20.0, right: 16.0, bottom: 16.0, top: 25.0),
+                        left: 20.0, right: 20.0, bottom: 20.0, top: 20.0),
                     itemCount: cities.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,

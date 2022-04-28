@@ -197,9 +197,7 @@ class _DetailScreenState extends State<DetailScreen>
                                   hours: hours,
                                   description: description),
                               PlaceLocationMap(),
-                              CommentDisplay(
-                                rate: rate,
-                              ),
+                              getComments(cityName, id),
                             ],
                             controller: tabController,
                           ),
@@ -265,9 +263,9 @@ getComments(String cityId, String placeId) {
     builder: (context, snapshot) {
       final commentList = snapshot.data.docs;
       comments = [];
-
       for (var comment in commentList) {
-        String _date = comment.data()["date"];
+        DateTime date = comment.data()["date"].toDate();
+        String _date = date.toString();
         String _id = comment.data()["id"];
         String _imageUrl = comment.data()["imageUrl"];
         String _message = comment.data()["message"];
@@ -286,9 +284,8 @@ getComments(String cityId, String placeId) {
           ),
         );
       }
-      return ListView(
-        children: comments,
-      );
+      print(comments.length);
+      return CommentDisplay();
     },
   );
 }
@@ -410,10 +407,10 @@ Future<Object> popUpMessage(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                BoldText(message, 20, dayMainColor),
+                BoldText(message, 20, kblack),
                 Icon(
                   icon,
-                  color: dayMainColor,
+                  color: Colors.redAccent,
                   size: 30,
                 ),
               ],
@@ -422,7 +419,7 @@ Future<Object> popUpMessage(
           margin: EdgeInsets.only(bottom: 50, left: 12, right: 12),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(40),
+            borderRadius: BorderRadius.circular(5),
           ),
         ),
       );

@@ -2,11 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:travel_food/Lists/places.dart';
+import 'package:travel_food/Lists/restaurants.dart';
 import 'package:travel_food/Prefabs/Locations.dart';
 import 'package:travel_food/Utils/TextStyles.dart';
 import 'package:travel_food/Utils/consts.dart';
-
-String _cName = "";
 
 class Places extends StatefulWidget {
   final String cityId;
@@ -29,8 +28,7 @@ class _PlacesState extends State<Places> with SingleTickerProviderStateMixin {
   void initState() {
     tabController = new TabController(length: 2, vsync: this);
     super.initState();
-    _cName = this.cityName;
-    getCitiesInfo();
+    getPlacesInfo(cityId, cityName);
   }
 
   @override
@@ -115,25 +113,25 @@ class _PlacesState extends State<Places> with SingleTickerProviderStateMixin {
             ),
             GridView(
               padding: const EdgeInsets.only(
-                  left: 40.0, right: 16.0, bottom: 16.0, top: 25.0),
+                  left: 20.0, right: 16.0, bottom: 16.0, top: 25.0),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
               ),
               shrinkWrap: true,
-              children: List.generate(places.length, (index) {
-                if (places[index].type == "restaurant" &&
-                    places[index].location == cityId) {
+              children: List.generate(restaurants.length, (index) {
+                if (restaurants[index].type == "restaurant" &&
+                    restaurants[index].location == cityId) {
                   return LocationsImage(
-                    places[index].id,
-                    places[index].imageUrl,
-                    places[index].name,
-                    places[index].location,
-                    places[index].description,
-                    places[index].rate,
-                    places[index].type,
-                    places[index].telephone,
-                    places[index].whoSee,
-                    places[index].hours,
+                    restaurants[index].id,
+                    restaurants[index].imageUrl,
+                    restaurants[index].name,
+                    restaurants[index].location,
+                    restaurants[index].description,
+                    restaurants[index].rate,
+                    restaurants[index].type,
+                    restaurants[index].telephone,
+                    restaurants[index].whoSee,
+                    restaurants[index].hours,
                     cityName,
                   );
                 } else {
@@ -148,35 +146,36 @@ class _PlacesState extends State<Places> with SingleTickerProviderStateMixin {
   }
 }
 
-getCitiesInfo() {
+getPlacesInfo(String cityId, String cityName) async {
   final firestoreInstance = FirebaseFirestore.instance;
   places = [];
+  restaurants = [];
 
-  firestoreInstance.collection("Cities").get().then((querySnapshot) {
+  firestoreInstance
+      .collection("Cities")
+      .doc(cityId)
+      .collection("Places")
+      .get()
+      .then((querySnapshot) {
     querySnapshot.docs.forEach((result) {
       String _id = result.data()["id"];
       String _imageUrl = result.data()["imageUrl"];
       String _name = result.data()["name"];
-      Map _hours = result.data()["Hours"];
-      String _description = result.data()["description"];
       String _location = result.data()["location"];
+      String _description = result.data()["description"];
       String _rate = result.data()["rate"];
-      String _telephone = result.data()["telephone"];
       String _type = result.data()["type"];
-      List _whoSee = result.data()["whoSee"];
-      places.add(LocationsImage(
-        _id,
-        _imageUrl,
-        _name,
-        _location,
-        _description,
-        _rate,
-        _type,
-        _telephone,
-        _whoSee,
-        _hours,
-        _cName,
-      ));
+      String _telephone = result.data()["telephone"];
+      List _whoSee = [];
+      Map _hours = result.data()["Hours"];
+
+      if (_type == "place") {
+        places.add(LocationsImage(_id, _imageUrl, _name, _location,
+            _description, _rate, _type, _telephone, _whoSee, _hours, cityName));
+      } else if (_type == "restaurant") {
+        restaurants.add(LocationsImage(_id, _imageUrl, _name, _location,
+            _description, _rate, _type, _telephone, _whoSee, _hours, cityName));
+      }
     });
   });
 }

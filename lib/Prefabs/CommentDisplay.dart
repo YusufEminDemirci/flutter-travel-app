@@ -7,10 +7,7 @@ import 'package:travel_food/Utils/consts.dart';
 class CommentDisplay extends StatelessWidget {
   const CommentDisplay({
     Key key,
-    @required this.rate,
   }) : super(key: key);
-
-  final String rate;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +30,7 @@ class CommentDisplay extends StatelessWidget {
                         color: dayMainColor,
                         size: 25.0,
                       ),
-                      BoldText("$rate Stars", 14.0, korange),
+                      BoldText("3.5 Stars", 14.0, korange),
                     ],
                   )
                 ],
