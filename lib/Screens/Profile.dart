@@ -5,7 +5,6 @@ import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
 import 'package:travel_food/Screens/EditProfile.dart';
 import 'package:travel_food/Screens/Notifications.dart';
-import 'package:travel_food/Screens/SeenLocations.dart';
 import 'package:travel_food/Screens/AboutUs.dart';
 import 'package:travel_food/Screens/SignIn.dart';
 import 'package:travel_food/Utils/TextStyles.dart';
@@ -77,12 +76,6 @@ class _ProfileState extends State<Profile> {
                           borderRadius: new BorderRadius.only(
                             bottomRight: Radius.circular(15.0),
                             bottomLeft: Radius.circular(15.0),
-                          ),
-                          child: Image(
-                            image: NetworkImage(userImageUrl),
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height / 2.75,
-                            fit: BoxFit.cover,
                           ),
                         ),
                         Container(
@@ -162,29 +155,6 @@ class _ProfileState extends State<Profile> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => new EditProfile()));
-                        }),
-                    GestureDetector(
-                        child: Container(
-                          height: 130,
-                          width: 130,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: kwhite,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  blurRadius: 10,
-                                  spreadRadius: 5,
-                                ),
-                              ]),
-                          child: profileItem(
-                              FontAwesomeIcons.route, "Seen Locations"),
-                        ),
-                        onTap: () async {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => new SeenLocations()));
                         }),
                   ],
                 ),
@@ -319,15 +289,4 @@ getUserInfo() async {
   userName = prefs.getString('userName');
   userSurname = prefs.getString('userSurname');
   userImageUrl = prefs.getString('userImageUrl');
-}
-
-showNotificationSnackBar(BuildContext context, String text) async {
-  final snackBar = SnackBar(
-    content: Text(text),
-    action: SnackBarAction(
-      label: 'Undo',
-      onPressed: () {},
-    ),
-  );
-  ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }

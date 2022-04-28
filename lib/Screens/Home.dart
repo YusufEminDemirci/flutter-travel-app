@@ -46,8 +46,11 @@ class _HomeState extends State<Home> {
   void _incrementTab(index) {
     setState(() {
       _cIndex = index;
-      _pageController.animateToPage(index,
-          duration: Duration(milliseconds: 300), curve: Curves.ease);
+      _pageController.animateToPage(
+        index,
+        duration: Duration(milliseconds: 300),
+        curve: Curves.ease,
+      );
     });
   }
 

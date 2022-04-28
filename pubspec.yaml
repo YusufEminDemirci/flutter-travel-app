@@ -62,6 +62,7 @@ flutter:
     - assets/orangeProfileTwo.png
     - assets/icon.png
     - assets/mainIcon.png
+    - assets/kku-logo.jpeg
 
   fonts:
     - family: nunito

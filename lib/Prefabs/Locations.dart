@@ -50,21 +50,23 @@ class LocationsImage extends StatelessWidget {
             child: GestureDetector(
               onTap: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => new DetailScreen(
-                              this.id,
-                              this.imageUrl,
-                              this.name,
-                              this.location,
-                              this.description,
-                              this.rate,
-                              this.type,
-                              this.telephone,
-                              this.whoSee,
-                              this.hours,
-                              this.cityName,
-                            )));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => new DetailScreen(
+                      this.id,
+                      this.imageUrl,
+                      this.name,
+                      this.location,
+                      this.description,
+                      this.rate,
+                      this.type,
+                      this.telephone,
+                      this.whoSee,
+                      this.hours,
+                      this.cityName,
+                    ),
+                  ),
+                );
               },
               child: ClipRRect(
                 borderRadius: new BorderRadius.only(

@@ -8,6 +8,11 @@ final kblack = const Color(0xFF000000);
 final kgreyDark = Colors.grey.shade700;
 final kgreyFill = Colors.grey.shade100;
 
+final newPaletteOrange = const Color(0xffb830);
+final newPaletteBlue = const Color(0x3db2ff);
+final newPalettePink = const Color(0xff3f59);
+final newPaletteDarkBlue = const Color(0x282750);
+
 final dayMainColor = Colors.amber;
 final daySecondaryColor = Colors.white;
 

@@ -110,14 +110,16 @@ class _DetailScreenState extends State<DetailScreen>
       body: Stack(
         children: <Widget>[
           Positioned(
-              top: 0,
-              child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  child: Image.network(
-                    imageUrl,
-                    fit: BoxFit.cover,
-                  ))),
+            top: 0,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: Image.network(
+                imageUrl,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
           Positioned(
             child: AppBar(
               backgroundColor: Colors.transparent,
@@ -271,14 +273,18 @@ getComments(String cityId, String placeId) {
         String _message = comment.data()["message"];
         String _name = comment.data()["name"];
         String _rate = comment.data()["rate"];
-        comments.add(CommentsImage(Comment(
-          date: _date,
-          id: _id,
-          imageUrl: _imageUrl,
-          message: _message,
-          name: _name,
-          rate: _rate,
-        )));
+        comments.add(
+          CommentsImage(
+            Comment(
+              date: _date,
+              id: _id,
+              imageUrl: _imageUrl,
+              message: _message,
+              name: _name,
+              rate: _rate,
+            ),
+          ),
+        );
       }
       return ListView(
         children: comments,
@@ -303,19 +309,21 @@ checkList(
   if (selectedPlaces.length > 0) {
     for (int index = 0; index < selectedPlaces.length; index++) {
       if (id != selectedPlaces[index].id && type == "place") {
-        selectedPlaces.add(LocationsImage(
-          id,
-          imageUrl,
-          name,
-          location,
-          description,
-          rate,
-          type,
-          telephone,
-          whoSee,
-          hours,
-          cityName,
-        ));
+        selectedPlaces.add(
+          LocationsImage(
+            id,
+            imageUrl,
+            name,
+            location,
+            description,
+            rate,
+            type,
+            telephone,
+            whoSee,
+            hours,
+            cityName,
+          ),
+        );
         return true;
       } else if (id == selectedPlaces[index].id && type == "place") {
         selectedPlaces.remove(selectedPlaces[index]);
@@ -323,37 +331,41 @@ checkList(
       }
     }
   } else if (selectedPlaces.length == 0 && type == "place") {
-    selectedPlaces.add(LocationsImage(
-      id,
-      imageUrl,
-      name,
-      location,
-      description,
-      rate,
-      type,
-      telephone,
-      whoSee,
-      hours,
-      cityName,
-    ));
+    selectedPlaces.add(
+      LocationsImage(
+        id,
+        imageUrl,
+        name,
+        location,
+        description,
+        rate,
+        type,
+        telephone,
+        whoSee,
+        hours,
+        cityName,
+      ),
+    );
     return true;
   }
   if (selectedRestaurants.length > 0) {
     for (int index = 0; index < selectedRestaurants.length; index++) {
       if (id != selectedRestaurants[index].id && type == "restaurant") {
-        selectedRestaurants.add(LocationsImage(
-          id,
-          imageUrl,
-          name,
-          location,
-          description,
-          rate,
-          type,
-          telephone,
-          whoSee,
-          hours,
-          cityName,
-        ));
+        selectedRestaurants.add(
+          LocationsImage(
+            id,
+            imageUrl,
+            name,
+            location,
+            description,
+            rate,
+            type,
+            telephone,
+            whoSee,
+            hours,
+            cityName,
+          ),
+        );
         return true;
       } else if (id == selectedRestaurants[index].id && type == "restaurant") {
         selectedRestaurants.remove(selectedRestaurants[index]);
@@ -361,19 +373,21 @@ checkList(
       }
     }
   } else if (selectedRestaurants.length == 0 && type == "restaurant") {
-    selectedRestaurants.add(LocationsImage(
-      id,
-      imageUrl,
-      name,
-      location,
-      description,
-      rate,
-      type,
-      telephone,
-      whoSee,
-      hours,
-      cityName,
-    ));
+    selectedRestaurants.add(
+      LocationsImage(
+        id,
+        imageUrl,
+        name,
+        location,
+        description,
+        rate,
+        type,
+        telephone,
+        whoSee,
+        hours,
+        cityName,
+      ),
+    );
     return true;
   }
   return false;

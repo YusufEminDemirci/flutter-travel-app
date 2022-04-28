@@ -196,8 +196,6 @@ class _SignInPageState extends State<SignInPage> {
                   WideButton.bold("SIGN IN", () async {
                     _signInWithEmailAndPassword();
 
-                    //TODO: Add check auth user and delete bugged old check type !!!
-
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
 
