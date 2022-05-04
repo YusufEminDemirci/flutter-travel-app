@@ -1,4 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:travel_food/Lists/places.dart';
+import 'package:travel_food/Lists/restaurants.dart';
+import 'package:travel_food/Prefabs/Locations.dart';
 import 'package:travel_food/Screens/Locations.dart';
 
 import '../Utils/TextStyles.dart';
@@ -26,12 +30,13 @@ class _CitiesImageState extends State<CitiesImage> {
   @override
   void initState() {
     super.initState();
+    getPlacesInfo(id, name);
   }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(5.0),
+      padding: const EdgeInsets.all(8.0),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
@@ -85,4 +90,39 @@ class _CitiesImageState extends State<CitiesImage> {
       ),
     );
   }
+}
+
+getPlacesInfo(String cityId, String cityName) async {
+  final firestoreInstance = FirebaseFirestore.instance;
+  places = [];
+  firestoreInstance
+      .collection("Cities")
+      .doc(cityId)
+      .collection("Places")
+      .get()
+      .then((querySnapshot) {
+    querySnapshot.docs.forEach((result) {
+      String _id = result.data()["id"];
+      String _imageUrl = result.data()["imageUrl"];
+      String _name = result.data()["name"];
+      String _location = result.data()["location"];
+      String _description = result.data()["description"];
+      String _rate = result.data()["rate"];
+      String _type = result.data()["type"];
+      String _telephone = result.data()["telephone"];
+      List _whoSee = [];
+      Map _hours = result.data()["Hours"];
+
+      if (_type == "place") {
+        places.add(LocationsImage(_id, _imageUrl, _name, _location,
+            _description, _rate, _type, _telephone, _whoSee, _hours, cityName));
+      }
+      if (_type == "restaurant") {
+        restaurants.add(LocationsImage(_id, _imageUrl, _name, _location,
+            _description, _rate, _type, _telephone, _whoSee, _hours, cityName));
+      }
+      print(places);
+      print(restaurants);
+    });
+  });
 }

@@ -93,7 +93,9 @@ class _ProfileState extends State<Profile> {
                           backgroundColor: Colors.white,
                           radius: 72,
                           child: CircleAvatar(
-                            backgroundImage: NetworkImage(userImageUrl),
+                            backgroundImage: (userImageUrl != null)
+                                ? NetworkImage(userImageUrl)
+                                : AssetImage("assets/orangeProfile.png"),
                             radius: 70,
                           ),
                         ),
@@ -104,8 +106,17 @@ class _ProfileState extends State<Profile> {
                               SizedBox(
                                 height: 15,
                               ),
-                              BoldText(
-                                  userName + " " + userSurname, 25.0, kwhite),
+                              (userName != null && userSurname != null)
+                                  ? BoldText(
+                                      userName + " " + userSurname,
+                                      25.0,
+                                      kwhite,
+                                    )
+                                  : BoldText(
+                                      "Name Surname",
+                                      30,
+                                      kwhite,
+                                    ),
                               Container(
                                 height: 2,
                                 width: ((userName + " " + userSurname)
