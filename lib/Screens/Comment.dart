@@ -7,20 +7,28 @@ import 'package:travel_food/Utils/TextStyles.dart';
 import 'package:travel_food/Utils/consts.dart';
 
 class CommentScreen extends StatefulWidget {
-  final String cityId;
   final String cityName;
+  final String cityId;
 
-  CommentScreen(this.cityId, this.cityName);
+  CommentScreen(
+    this.cityName,
+    this.cityId,
+  );
   @override
-  _CommentScreenState createState() =>
-      _CommentScreenState(this.cityId, cityName);
+  _CommentScreenState createState() => _CommentScreenState(
+        this.cityName,
+        this.cityId,
+      );
 }
 
 class _CommentScreenState extends State<CommentScreen>
     with SingleTickerProviderStateMixin {
-  String cityId;
   String cityName;
-  _CommentScreenState(this.cityId, this.cityName);
+  String cityId;
+  _CommentScreenState(
+    this.cityName,
+    this.cityId,
+  );
   TabController tabController;
 
   @override
@@ -112,8 +120,8 @@ class _CommentScreenState extends State<CommentScreen>
                       selectedPlaces[index].telephone,
                       selectedPlaces[index].whoSee,
                       selectedPlaces[index].hours,
-                      cityId,
                       cityName,
+                      cityId,
                     ),
                   );
                 },
@@ -150,8 +158,8 @@ class _CommentScreenState extends State<CommentScreen>
                       selectedRestaurants[index].telephone,
                       selectedRestaurants[index].whoSee,
                       selectedRestaurants[index].hours,
-                      cityId,
                       cityName,
+                      cityId,
                     ),
                   );
                 },

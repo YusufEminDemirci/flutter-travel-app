@@ -7,18 +7,21 @@ import 'package:travel_food/Prefabs/Locations.dart';
 
 class SeenLocations extends StatefulWidget {
   final String cityName;
+  final String cityId;
 
-  SeenLocations({this.cityName = ""});
+  SeenLocations({this.cityName = "", this.cityId = ""});
 
   @override
-  _SeenLocationsState createState() => _SeenLocationsState(this.cityName);
+  _SeenLocationsState createState() =>
+      _SeenLocationsState(this.cityName, this.cityId);
 }
 
 class _SeenLocationsState extends State<SeenLocations>
     with SingleTickerProviderStateMixin {
   String cityName;
+  String cityId;
 
-  _SeenLocationsState(this.cityName);
+  _SeenLocationsState(this.cityName, this.cityId);
   TabController tabController;
 
   @override
@@ -89,18 +92,20 @@ class _SeenLocationsState extends State<SeenLocations>
               children: List.generate(seenPlaces.length, (index) {
                 if (seenPlaces[index].type == "place") {
                   return LocationsImage(
-                    seenPlaces[index].id,
-                    seenPlaces[index].imageUrl,
-                    seenPlaces[index].name,
-                    seenPlaces[index].location,
-                    seenPlaces[index].description,
-                    seenPlaces[index].rate,
-                    seenPlaces[index].type,
-                    seenPlaces[index].telephone,
-                    seenPlaces[index].whoSee,
-                    seenPlaces[index].hours,
-                    cityName,
-                  );
+                      seenPlaces[index].id,
+                      seenPlaces[index].imageUrl,
+                      seenPlaces[index].name,
+                      seenPlaces[index].location,
+                      seenPlaces[index].description,
+                      seenPlaces[index].rate,
+                      seenPlaces[index].type,
+                      seenPlaces[index].telephone,
+                      seenPlaces[index].latitude,
+                      seenPlaces[index].longitude,
+                      seenPlaces[index].whoSee,
+                      seenPlaces[index].hours,
+                      cityName,
+                      cityId);
                 } else {
                   return Container();
                 }
@@ -116,18 +121,20 @@ class _SeenLocationsState extends State<SeenLocations>
               children: List.generate(seenPlaces.length, (index) {
                 if (seenPlaces[index].type == "place") {
                   return LocationsImage(
-                    seenPlaces[index].id,
-                    seenPlaces[index].imageUrl,
-                    seenPlaces[index].name,
-                    seenPlaces[index].location,
-                    seenPlaces[index].description,
-                    seenPlaces[index].rate,
-                    seenPlaces[index].type,
-                    seenPlaces[index].telephone,
-                    seenPlaces[index].whoSee,
-                    seenPlaces[index].hours,
-                    cityName,
-                  );
+                      seenPlaces[index].id,
+                      seenPlaces[index].imageUrl,
+                      seenPlaces[index].name,
+                      seenPlaces[index].location,
+                      seenPlaces[index].description,
+                      seenPlaces[index].rate,
+                      seenPlaces[index].type,
+                      seenPlaces[index].telephone,
+                      seenPlaces[index].latitude,
+                      seenPlaces[index].longitude,
+                      seenPlaces[index].whoSee,
+                      seenPlaces[index].hours,
+                      cityName,
+                      cityId);
                 } else {
                   return Container();
                 }

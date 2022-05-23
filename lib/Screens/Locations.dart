@@ -99,18 +99,20 @@ class _PlacesState extends State<Places> with SingleTickerProviderStateMixin {
                 shrinkWrap: true,
                 children: List.generate(places.length, (index) {
                   return LocationsImage(
-                    places[index].id,
-                    places[index].imageUrl,
-                    places[index].name,
-                    places[index].location,
-                    places[index].description,
-                    places[index].rate,
-                    places[index].type,
-                    places[index].telephone,
-                    places[index].whoSee,
-                    places[index].hours,
-                    cityName,
-                  );
+                      places[index].id,
+                      places[index].imageUrl,
+                      places[index].name,
+                      places[index].location,
+                      places[index].description,
+                      places[index].rate,
+                      places[index].type,
+                      places[index].telephone,
+                      places[index].latitude,
+                      places[index].longitude,
+                      places[index].whoSee,
+                      places[index].hours,
+                      cityName,
+                      cityId);
                 }),
               ),
             ),
@@ -127,18 +129,20 @@ class _PlacesState extends State<Places> with SingleTickerProviderStateMixin {
                 shrinkWrap: true,
                 children: List.generate(restaurants.length, (index) {
                   return LocationsImage(
-                    restaurants[index].id,
-                    restaurants[index].imageUrl,
-                    restaurants[index].name,
-                    restaurants[index].location,
-                    restaurants[index].description,
-                    restaurants[index].rate,
-                    restaurants[index].type,
-                    restaurants[index].telephone,
-                    restaurants[index].whoSee,
-                    restaurants[index].hours,
-                    cityName,
-                  );
+                      restaurants[index].id,
+                      restaurants[index].imageUrl,
+                      restaurants[index].name,
+                      restaurants[index].location,
+                      restaurants[index].description,
+                      restaurants[index].rate,
+                      restaurants[index].type,
+                      restaurants[index].telephone,
+                      restaurants[index].latitude,
+                      restaurants[index].longitude,
+                      restaurants[index].whoSee,
+                      restaurants[index].hours,
+                      cityName,
+                      cityId);
                 }),
               ),
             )
@@ -168,16 +172,44 @@ getPlacesInfo(String cityId, String cityName) async {
       String _rate = result.data()["rate"];
       String _type = result.data()["type"];
       String _telephone = result.data()["telephone"];
+      String _latitude = result.data()["latitude"];
+      String _longitude = result.data()["longitude"];
       List _whoSee = [];
       Map _hours = result.data()["Hours"];
 
       if (_type == "place" && _location == cityId) {
-        places.add(LocationsImage(_id, _imageUrl, _name, _location,
-            _description, _rate, _type, _telephone, _whoSee, _hours, cityName));
+        places.add(LocationsImage(
+            _id,
+            _imageUrl,
+            _name,
+            _location,
+            _description,
+            _rate,
+            _type,
+            _telephone,
+            _latitude,
+            _longitude,
+            _whoSee,
+            _hours,
+            cityName,
+            cityId));
       }
       if (_type == "restaurant" && _location == cityId) {
-        restaurants.add(LocationsImage(_id, _imageUrl, _name, _location,
-            _description, _rate, _type, _telephone, _whoSee, _hours, cityName));
+        restaurants.add(LocationsImage(
+            _id,
+            _imageUrl,
+            _name,
+            _location,
+            _description,
+            _rate,
+            _type,
+            _telephone,
+            _latitude,
+            _longitude,
+            _whoSee,
+            _hours,
+            cityName,
+            cityId));
       }
     });
   });

@@ -7,9 +7,22 @@ class Location {
   String rate;
   String type;
   String telephone;
+  String latitude;
+  String longitude;
   List whoSee;
   Map hours;
 
-  Location(this.id, this.imageUrl, this.name, this.location, this.description,
-      this.rate, this.type, this.telephone, this.whoSee, this.hours);
+  Location(
+      this.id,
+      this.imageUrl,
+      this.name,
+      this.location,
+      this.description,
+      this.rate,
+      this.type,
+      this.telephone,
+      this.latitude,
+      this.longitude,
+      this.whoSee,
+      this.hours);
 }

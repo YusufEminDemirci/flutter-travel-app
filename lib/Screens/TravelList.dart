@@ -10,10 +10,15 @@ class TravelList extends StatefulWidget {
   final String cityName;
   final String cityId;
 
-  TravelList({this.cityId = "", this.cityName = "Adana"});
+  TravelList({
+    this.cityName = "Adana",
+    this.cityId = "",
+  });
   @override
-  _TravelListState createState() =>
-      _TravelListState(this.cityId, this.cityName);
+  _TravelListState createState() => _TravelListState(
+        this.cityName,
+        this.cityId,
+      );
 }
 
 class _TravelListState extends State<TravelList>
@@ -21,7 +26,10 @@ class _TravelListState extends State<TravelList>
   String cityName;
   String cityId;
 
-  _TravelListState(this.cityId, this.cityName);
+  _TravelListState(
+    this.cityName,
+    this.cityId,
+  );
   TabController tabController;
 
   @override
@@ -85,18 +93,20 @@ class _TravelListState extends State<TravelList>
                 children: List.generate(selectedPlaces.length, (index) {
                   if (selectedPlaces[index].type == "place") {
                     return LocationsImage(
-                      selectedPlaces[index].id,
-                      selectedPlaces[index].imageUrl,
-                      selectedPlaces[index].name,
-                      selectedPlaces[index].location,
-                      selectedPlaces[index].description,
-                      selectedPlaces[index].rate,
-                      selectedPlaces[index].type,
-                      selectedPlaces[index].telephone,
-                      selectedPlaces[index].whoSee,
-                      selectedPlaces[index].hours,
-                      cityName,
-                    );
+                        selectedPlaces[index].id,
+                        selectedPlaces[index].imageUrl,
+                        selectedPlaces[index].name,
+                        selectedPlaces[index].location,
+                        selectedPlaces[index].description,
+                        selectedPlaces[index].rate,
+                        selectedPlaces[index].type,
+                        selectedPlaces[index].telephone,
+                        selectedPlaces[index].latitude,
+                        selectedPlaces[index].longitude,
+                        selectedPlaces[index].whoSee,
+                        selectedPlaces[index].hours,
+                        cityName,
+                        cityId);
                   } else {
                     return Container();
                   }
@@ -112,18 +122,20 @@ class _TravelListState extends State<TravelList>
                 children: List.generate(selectedPlaces.length, (index) {
                   if (selectedPlaces[index].type == "restaurant") {
                     return LocationsImage(
-                      selectedPlaces[index].id,
-                      selectedPlaces[index].imageUrl,
-                      selectedPlaces[index].name,
-                      selectedPlaces[index].location,
-                      selectedPlaces[index].description,
-                      selectedPlaces[index].rate,
-                      selectedPlaces[index].type,
-                      selectedPlaces[index].telephone,
-                      selectedPlaces[index].whoSee,
-                      selectedPlaces[index].hours,
-                      cityName,
-                    );
+                        selectedPlaces[index].id,
+                        selectedPlaces[index].imageUrl,
+                        selectedPlaces[index].name,
+                        selectedPlaces[index].location,
+                        selectedPlaces[index].description,
+                        selectedPlaces[index].rate,
+                        selectedPlaces[index].type,
+                        selectedPlaces[index].telephone,
+                        selectedPlaces[index].latitude,
+                        selectedPlaces[index].longitude,
+                        selectedPlaces[index].whoSee,
+                        selectedPlaces[index].hours,
+                        cityName,
+                        cityId);
                   } else {
                     return Container();
                   }
@@ -143,7 +155,10 @@ floatingButtonStatus(BuildContext context, String cityId, String cityName) {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => new TravelPlan(cityId, cityName)));
+                builder: (context) => new TravelPlan(
+                      cityName,
+                      cityId,
+                    )));
       },
       child: Icon(
         FontAwesomeIcons.arrowRight,

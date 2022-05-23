@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:travel_food/Lists/selectedPlaces.dart';
 import 'package:travel_food/Lists/selectedRestaurants.dart';
 import 'package:travel_food/Prefabs/CommentArea.dart';
@@ -8,19 +10,103 @@ import 'package:travel_food/Utils/TextStyles.dart';
 import 'package:travel_food/Utils/consts.dart';
 
 class TravelPlan extends StatefulWidget {
-  final String cityId;
   final String cityName;
+  final String cityId;
 
-  TravelPlan(this.cityId, this.cityName);
+  TravelPlan(
+    this.cityName,
+    this.cityId,
+  );
   @override
-  _TravelPlanState createState() => _TravelPlanState(this.cityId, cityName);
+  _TravelPlanState createState() => _TravelPlanState(
+        this.cityName,
+        this.cityId,
+      );
 }
+
+double _originLatitude = 36.988558;
+double _originLongitude = 35.329461;
+double _destLatitude = 36.99;
+double _destLongitude = 35.33;
 
 class _TravelPlanState extends State<TravelPlan>
     with SingleTickerProviderStateMixin {
-  String cityId;
   String cityName;
-  _TravelPlanState(this.cityId, this.cityName);
+  String cityId;
+
+  _TravelPlanState(
+    this.cityName,
+    this.cityId,
+  );
+
+  GoogleMapController _controller;
+
+  static final CameraPosition _initalCameraPosition = CameraPosition(
+    target: LatLng(_originLatitude, _originLongitude),
+    zoom: 13,
+  );
+
+  Set<Marker> _createMarker() {
+    List<Marker> markerList = [];
+
+    for (var i = 0; i < selectedPlaces.length; i++) {
+      double _latitude = double.parse(selectedPlaces[i].latitude);
+      double _longitude = double.parse(selectedPlaces[i].longitude);
+
+      markerList.add(Marker(
+        markerId: MarkerId(selectedPlaces[i].id),
+        position: LatLng(_latitude, _longitude),
+        infoWindow: InfoWindow(
+          title: selectedPlaces[i].name,
+        ),
+        icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueViolet,
+        ),
+      ));
+    }
+
+    return markerList.toSet();
+  }
+
+  PolylinePoints polylinePoints = PolylinePoints();
+  Map<PolylineId, Polyline> polylines = {};
+
+  void _getPolyline() async {
+    List<LatLng> polylineCoordinates = [];
+
+    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+      "AIzaSyA-EuCciDiU3RbI_axYIXGqghI_5nTPS-A",
+      PointLatLng(_originLatitude, _originLongitude),
+      PointLatLng(_destLatitude, _destLongitude),
+      travelMode: TravelMode.driving,
+    );
+    if (result.points.isNotEmpty) {
+      result.points.forEach((PointLatLng point) {
+        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+      });
+    } else {
+      print(result.errorMessage);
+    }
+    _addPolyLine(polylineCoordinates);
+  }
+
+  _addPolyLine(List<LatLng> polylineCoordinates) {
+    PolylineId id = PolylineId("poly");
+    Polyline polyline = Polyline(
+      polylineId: id,
+      color: Colors.pink,
+      points: polylineCoordinates,
+      width: 8,
+    );
+    polylines[id] = polyline;
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getPolyline();
+  }
 
   @override
   void dispose() {
@@ -49,10 +135,20 @@ class _TravelPlanState extends State<TravelPlan>
       ),
       body: Container(
         alignment: Alignment.center,
-        //TODO: EDIT PROFILE !!!
-        child: Text(
-          "Coming soon...",
-          style: TextStyle(fontSize: 25.0),
+        child: GoogleMap(
+          myLocationButtonEnabled: true,
+          mapType: MapType.normal,
+          initialCameraPosition: _initalCameraPosition,
+          zoomControlsEnabled: false,
+          tiltGesturesEnabled: true,
+          compassEnabled: true,
+          scrollGesturesEnabled: true,
+          zoomGesturesEnabled: true,
+          markers: _createMarker(),
+          polylines: Set<Polyline>.of(polylines.values),
+          onMapCreated: (GoogleMapController controller) {
+            _controller = controller;
+          },
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -60,7 +156,7 @@ class _TravelPlanState extends State<TravelPlan>
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => new CommentScreen(cityId, cityName)));
+                  builder: (context) => new CommentScreen(cityName, cityId)));
         },
         child: Icon(
           FontAwesomeIcons.arrowRight,

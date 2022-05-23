@@ -25,9 +25,12 @@ class DetailScreen extends StatefulWidget {
   final String name;
   final String rate;
   final String telephone;
+  String latitude;
+  String longitude;
   final String type;
   final List whoSee;
   final String cityName;
+  final String cityId;
 
   DetailScreen(
     this.id,
@@ -38,9 +41,12 @@ class DetailScreen extends StatefulWidget {
     this.rate,
     this.type,
     this.telephone,
+    this.latitude,
+    this.longitude,
     this.whoSee,
     this.hours,
     this.cityName,
+    this.cityId,
   );
 
   @override
@@ -53,9 +59,12 @@ class DetailScreen extends StatefulWidget {
         this.rate,
         this.type,
         this.telephone,
+        this.latitude,
+        this.longitude,
         this.whoSee,
         this.hours,
         this.cityName,
+        this.cityId,
       );
 }
 
@@ -69,9 +78,12 @@ class _DetailScreenState extends State<DetailScreen>
   String name;
   String rate;
   String telephone;
+  String latitude;
+  String longitude;
   String type;
   List whoSee;
   String cityName;
+  String cityId;
 
   _DetailScreenState(
     this.id,
@@ -82,9 +94,12 @@ class _DetailScreenState extends State<DetailScreen>
     this.rate,
     this.type,
     this.telephone,
+    this.latitude,
+    this.longitude,
     this.whoSee,
     this.hours,
     this.cityName,
+    this.cityId,
   );
 
   @override
@@ -196,8 +211,22 @@ class _DetailScreenState extends State<DetailScreen>
                                   telephone: telephone,
                                   hours: hours,
                                   description: description),
-                              PlaceLocationMap(),
-                              getComments(cityName, id),
+                              PlaceLocationMap(
+                                this.id,
+                                this.imageUrl,
+                                this.name,
+                                this.location,
+                                this.description,
+                                this.rate,
+                                this.type,
+                                this.telephone,
+                                this.latitude,
+                                this.longitude,
+                                this.whoSee,
+                                this.hours,
+                                this.cityId,
+                              ),
+                              getComments(cityId, id),
                             ],
                             controller: tabController,
                           ),
@@ -214,20 +243,19 @@ class _DetailScreenState extends State<DetailScreen>
                             rate,
                             type,
                             telephone,
+                            latitude,
+                            longitude,
                             whoSee,
                             hours,
                             cityName,
+                            cityId,
                           );
 
                           if (response) {
                             popUpMessage(
-                                context,
-                                "This place added to Travel List",
-                                FontAwesomeIcons.check);
+                                context, "Added", FontAwesomeIcons.check);
                           } else if (!response) {
-                            popUpMessage(
-                                context,
-                                "This place removed from Travel List",
+                            popUpMessage(context, "Removed",
                                 FontAwesomeIcons.exclamation);
                           }
                         },
@@ -251,13 +279,13 @@ class _DetailScreenState extends State<DetailScreen>
 
 getComments(String cityId, String placeId) {
   final firestoreInstance = FirebaseFirestore.instance;
-
+  print("CITY ID" + cityId);
   return StreamBuilder<QuerySnapshot>(
     stream: firestoreInstance
         .collection("Cities")
-        .doc("Gjp6AG8GF5DY0eL99Uc5")
+        .doc(cityId)
         .collection("Places")
-        .doc("MZUWZdKp6Rtzr3QFQIps")
+        .doc(placeId)
         .collection("Comments")
         .snapshots(),
     builder: (context, snapshot) {
@@ -284,7 +312,6 @@ getComments(String cityId, String placeId) {
           ),
         );
       }
-      print(comments.length);
       return CommentDisplay();
     },
   );
@@ -299,27 +326,19 @@ checkList(
   String rate,
   String type,
   String telephone,
+  String latitude,
+  String longitude,
   List whoSee,
   Map hours,
   String cityName,
+  String cityId,
 ) {
   if (selectedPlaces.length > 0) {
     for (int index = 0; index < selectedPlaces.length; index++) {
       if (id != selectedPlaces[index].id && type == "place") {
         selectedPlaces.add(
-          LocationsImage(
-            id,
-            imageUrl,
-            name,
-            location,
-            description,
-            rate,
-            type,
-            telephone,
-            whoSee,
-            hours,
-            cityName,
-          ),
+          LocationsImage(id, imageUrl, name, location, description, rate, type,
+              telephone, latitude, longitude, whoSee, hours, cityName, cityId),
         );
         return true;
       } else if (id == selectedPlaces[index].id && type == "place") {
@@ -329,19 +348,8 @@ checkList(
     }
   } else if (selectedPlaces.length == 0 && type == "place") {
     selectedPlaces.add(
-      LocationsImage(
-        id,
-        imageUrl,
-        name,
-        location,
-        description,
-        rate,
-        type,
-        telephone,
-        whoSee,
-        hours,
-        cityName,
-      ),
+      LocationsImage(id, imageUrl, name, location, description, rate, type,
+          telephone, latitude, longitude, whoSee, hours, cityName, cityId),
     );
     return true;
   }
@@ -349,19 +357,8 @@ checkList(
     for (int index = 0; index < selectedRestaurants.length; index++) {
       if (id != selectedRestaurants[index].id && type == "restaurant") {
         selectedRestaurants.add(
-          LocationsImage(
-            id,
-            imageUrl,
-            name,
-            location,
-            description,
-            rate,
-            type,
-            telephone,
-            whoSee,
-            hours,
-            cityName,
-          ),
+          LocationsImage(id, imageUrl, name, location, description, rate, type,
+              telephone, latitude, longitude, whoSee, hours, cityName, cityId),
         );
         return true;
       } else if (id == selectedRestaurants[index].id && type == "restaurant") {
@@ -371,19 +368,8 @@ checkList(
     }
   } else if (selectedRestaurants.length == 0 && type == "restaurant") {
     selectedRestaurants.add(
-      LocationsImage(
-        id,
-        imageUrl,
-        name,
-        location,
-        description,
-        rate,
-        type,
-        telephone,
-        whoSee,
-        hours,
-        cityName,
-      ),
+      LocationsImage(id, imageUrl, name, location, description, rate, type,
+          telephone, latitude, longitude, whoSee, hours, cityName, cityId),
     );
     return true;
   }

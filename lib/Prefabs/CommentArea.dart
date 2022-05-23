@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel_food/Utils/consts.dart';
 
 class CommentArea extends StatelessWidget {
@@ -14,8 +15,8 @@ class CommentArea extends StatelessWidget {
   final String telephone;
   final List whoSee;
   final Map hours;
-  final String cityId;
   final String cityName;
+  final String cityId;
 
   CommentArea(
       this.id,
@@ -28,8 +29,8 @@ class CommentArea extends StatelessWidget {
       this.telephone,
       this.whoSee,
       this.hours,
-      this.cityId,
-      this.cityName);
+      this.cityName,
+      this.cityId);
 
   final myController = TextEditingController();
 
@@ -215,35 +216,42 @@ class CommentArea extends StatelessWidget {
                                 FontAwesomeIcons.paperPlane,
                                 color: Colors.black54,
                               ),
-                              onTap: () {
+                              onTap: () async {
+                                SharedPreferences prefs =
+                                    await SharedPreferences.getInstance();
+
+                                String uName = prefs.getString("userName");
+                                String uSurname =
+                                    prefs.getString("userSurname");
+
                                 if (type == "place") {
                                   FirebaseFirestore.instance
                                       .collection("Cities")
-                                      .doc("Gjp6AG8GF5DY0eL99Uc5")
+                                      .doc(location)
                                       .collection("Places")
-                                      .doc("MZUWZdKp6Rtzr3QFQIps")
+                                      .doc(id)
                                       .collection("Comments")
                                       .add({
                                     "date": DateTime.now(),
                                     "id": id,
                                     "imageUrl": imageUrl,
                                     "message": myController.text,
-                                    "name": "Yusuf Emin Demirci",
+                                    "name": uName + " " + uSurname,
                                     "rate": "5",
                                   });
                                 } else if (type == "restaurant") {
                                   FirebaseFirestore.instance
                                       .collection("Cities")
-                                      .doc("Gjp6AG8GF5DY0eL99Uc5")
+                                      .doc(location)
                                       .collection("Restaurants")
-                                      .doc("MZUWZdKp6Rtzr3QFQIps")
+                                      .doc(id)
                                       .collection("Comments")
                                       .add({
                                     "date": DateTime.now(),
                                     "id": id,
                                     "imageUrl": imageUrl,
                                     "message": myController.text,
-                                    "name": "Yusuf Emin Demirci",
+                                    "name": uName + " " + uSurname,
                                     "rate": "5",
                                   });
                                 }
