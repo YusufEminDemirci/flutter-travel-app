@@ -279,7 +279,6 @@ class _DetailScreenState extends State<DetailScreen>
 
 getComments(String cityId, String placeId) {
   final firestoreInstance = FirebaseFirestore.instance;
-  print("CITY ID" + cityId);
   return StreamBuilder<QuerySnapshot>(
     stream: firestoreInstance
         .collection("Cities")

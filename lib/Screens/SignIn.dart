@@ -149,7 +149,6 @@ class _SignInPageState extends State<SignInPage> {
                             onPressed: () {
                               setState(() {
                                 _obscureText = !_obscureText;
-                                print(_obscureText);
                               });
                             },
                             icon: _obscureText

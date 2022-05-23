@@ -33,6 +33,13 @@ class CommentArea extends StatelessWidget {
       this.cityId);
 
   final myController = TextEditingController();
+  List<Icon> Stars = [
+    Icon(FontAwesomeIcons.star, color: korange),
+    Icon(FontAwesomeIcons.star, color: korange),
+    Icon(FontAwesomeIcons.star, color: korange),
+    Icon(FontAwesomeIcons.star, color: korange),
+    Icon(FontAwesomeIcons.star, color: korange),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -179,11 +186,11 @@ class CommentArea extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Icon(FontAwesomeIcons.solidStar, color: korange),
-                            Icon(FontAwesomeIcons.solidStar, color: korange),
-                            Icon(FontAwesomeIcons.solidStar, color: korange),
-                            Icon(FontAwesomeIcons.solidStar, color: korange),
-                            Icon(FontAwesomeIcons.star, color: korange),
+                            Stars[0],
+                            Stars[1],
+                            Stars[2],
+                            Stars[3],
+                            Stars[4],
                           ],
                         ),
                       ),

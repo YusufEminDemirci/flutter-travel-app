@@ -42,7 +42,6 @@ class _FormsState extends State<PasswordForm> {
             onPressed: () {
               setState(() {
                 _obscureText = !_obscureText;
-                print(_obscureText);
               });
             },
             icon: _obscureText

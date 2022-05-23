@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:travel_food/Lists/selectedPlaces.dart';
+import 'package:travel_food/Prefabs/PlanPlace.dart';
 import 'package:travel_food/Screens/TravelPlan.dart';
 import 'package:travel_food/Utils/TextStyles.dart';
 import 'package:travel_food/Utils/consts.dart';
-import 'package:travel_food/Prefabs/Locations.dart';
 
 class TravelList extends StatefulWidget {
   final String cityName;
@@ -92,7 +92,7 @@ class _TravelListState extends State<TravelList>
                 shrinkWrap: true,
                 children: List.generate(selectedPlaces.length, (index) {
                   if (selectedPlaces[index].type == "place") {
-                    return LocationsImage(
+                    return PlanPlace(
                         selectedPlaces[index].id,
                         selectedPlaces[index].imageUrl,
                         selectedPlaces[index].name,
@@ -121,7 +121,7 @@ class _TravelListState extends State<TravelList>
                 shrinkWrap: true,
                 children: List.generate(selectedPlaces.length, (index) {
                   if (selectedPlaces[index].type == "restaurant") {
-                    return LocationsImage(
+                    return PlanPlace(
                         selectedPlaces[index].id,
                         selectedPlaces[index].imageUrl,
                         selectedPlaces[index].name,

@@ -5,9 +5,15 @@ import 'package:travel_food/Utils/TextStyles.dart';
 import 'package:travel_food/Utils/consts.dart';
 
 class CommentDisplay extends StatelessWidget {
-  const CommentDisplay({
-    Key key,
-  }) : super(key: key);
+  double rateAverage = 0;
+
+  getAverage() {
+    comments.forEach((element) {
+      rateAverage += double.parse(element.comment.rate);
+    });
+    rateAverage = rateAverage / comments.length;
+    return rateAverage.toString();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +36,7 @@ class CommentDisplay extends StatelessWidget {
                         color: dayMainColor,
                         size: 25.0,
                       ),
-                      BoldText("3.5 Stars", 14.0, korange),
+                      BoldText(getAverage(), 14.0, korange),
                     ],
                   )
                 ],
@@ -49,7 +55,6 @@ class CommentDisplay extends StatelessWidget {
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
                 controller: scrollController,
-                physics: AlwaysScrollableScrollPhysics(),
                 itemCount: comments.length,
                 itemBuilder: (context, index) {
                   return comments[index];

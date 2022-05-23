@@ -239,7 +239,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           onPressed: () {
                             setState(() {
                               _obscureText = !_obscureText;
-                              print(_obscureText);
                             });
                           },
                           icon: _obscureText
