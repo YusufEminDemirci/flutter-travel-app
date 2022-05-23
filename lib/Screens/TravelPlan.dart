@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:travel_food/Lists/selectedPlaces.dart';
 import 'package:travel_food/Lists/selectedRestaurants.dart';
@@ -26,8 +27,6 @@ class TravelPlan extends StatefulWidget {
 
 double _originLatitude = 36.988558;
 double _originLongitude = 35.329461;
-double _destLatitude = 36.99;
-double _destLongitude = 35.33;
 
 class _TravelPlanState extends State<TravelPlan>
     with SingleTickerProviderStateMixin {
@@ -41,6 +40,18 @@ class _TravelPlanState extends State<TravelPlan>
 
   GoogleMapController _controller;
   List<Marker> markerList = [];
+  // Position _currentPosition;
+
+  // _getCurrentLocation() async {
+  //   await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+  //       .then((Position position) async {
+  //     setState(() {
+  //       _currentPosition = position;
+  //     });
+  //   }).catchError((e) {
+  //     print(e);
+  //   });
+  // }
 
   static final CameraPosition _initalCameraPosition = CameraPosition(
     target: LatLng(_originLatitude, _originLongitude),
@@ -74,17 +85,20 @@ class _TravelPlanState extends State<TravelPlan>
   void _getPolyline() async {
     List<LatLng> polylineCoordinates = [];
 
-    print(markerList[0].position.latitude);
-    print(markerList[0].position.longitude);
-    print(markerList[1].position.latitude);
-    print(markerList[1].position.longitude);
-
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       "AIzaSyA-EuCciDiU3RbI_axYIXGqghI_5nTPS-A",
+      // PointLatLng(
+      //   _currentPosition.latitude,
+      //   _currentPosition.longitude,
+      // ),
       PointLatLng(
-          markerList[0].position.latitude, markerList[0].position.longitude),
+        markerList[0].position.latitude,
+        markerList[0].position.longitude,
+      ),
       PointLatLng(
-          markerList[1].position.latitude, markerList[1].position.longitude),
+        markerList[markerList.length - 1].position.latitude,
+        markerList[markerList.length - 1].position.longitude,
+      ),
       travelMode: TravelMode.walking,
     );
     if (result.points.isNotEmpty) {
@@ -112,6 +126,7 @@ class _TravelPlanState extends State<TravelPlan>
   @override
   void initState() {
     super.initState();
+    // _getCurrentLocation();
     _createMarker();
     _getPolyline();
   }
@@ -124,13 +139,14 @@ class _TravelPlanState extends State<TravelPlan>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       backgroundColor: kwhite,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(30),
+        preferredSize: Size.fromHeight(40),
         child: AppBar(
-          leading: BackButton(color: dayMainColor),
-          backgroundColor: Colors.transparent,
-          title: BoldText("Travel Plan", 20, dayMainColor),
+          leading: BackButton(color: Colors.black),
+          backgroundColor: Colors.white70,
+          title: BoldText("Travel Plan", 20, Colors.black),
           centerTitle: true,
           elevation: 0.0,
           automaticallyImplyLeading: true,

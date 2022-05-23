@@ -15,7 +15,7 @@ class _EditProfile extends State<EditProfile> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(30),
+        preferredSize: Size.fromHeight(40),
         child: AppBar(
           leading: BackButton(color: dayMainColor),
           backgroundColor: Colors.transparent,

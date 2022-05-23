@@ -157,7 +157,7 @@ class _DetailScreenState extends State<DetailScreen>
                   height: 400,
                   child: Scaffold(
                     appBar: PreferredSize(
-                      preferredSize: Size.fromHeight(38.0),
+                      preferredSize: Size.fromHeight(40.0),
                       child: AppBar(
                         title: Column(
                           children: [

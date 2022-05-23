@@ -49,7 +49,7 @@ class _CommentScreenState extends State<CommentScreen>
     return Scaffold(
       backgroundColor: kwhite,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(30),
+        preferredSize: Size.fromHeight(40),
         child: AppBar(
           leading: BackButton(color: dayMainColor),
           backgroundColor: Colors.transparent,

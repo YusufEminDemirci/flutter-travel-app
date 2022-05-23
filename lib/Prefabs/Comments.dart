@@ -20,6 +20,7 @@ class CommentsImage extends StatelessWidget {
   getProfileImages() {
     FirebaseFirestore.instance.collection("Users").get().then((querySnapshot) {
       querySnapshot.docs.forEach((result) {
+        print(querySnapshot);
         String fullName =
             result.data()["name"] + " " + result.data()["surname"];
 
@@ -32,63 +33,78 @@ class CommentsImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Row(
-          children: <Widget>[
-            Container(
-              width: 24,
-              height: 24,
-              child: CircleAvatar(
-                backgroundColor: Colors.transparent,
-                child: Image.network(comment.imageUrl),
-              ),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            BoldText(comment.name, 16, kblack)
-          ],
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Row(
-          children: <Widget>[
-            Container(
-              width: 50.0,
-              decoration: BoxDecoration(
-                color: korange,
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.9,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Row(
                 children: <Widget>[
-                  Icon(
-                    Icons.star,
-                    color: kwhite,
-                    size: 15.0,
+                  Container(
+                    width: 50,
+                    height: 50,
+                    child: CircleAvatar(
+                      backgroundColor: Colors.transparent,
+                      child: Image.network(comment.imageUrl),
+                    ),
                   ),
-                  BoldText(comment.rate, 15.0, kwhite),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      BoldText(comment.name, 16, kblack),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      NormalText(comment.message, kblack, 12.0),
+                    ],
+                  ),
                 ],
               ),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            NormalText(comment.date, kgreyDark, 12.0)
-          ],
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        NormalText(comment.message, kblack, 12.0),
-        SizedBox(
-          height: 10,
-        ),
-      ],
+              Row(
+                children: [
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Container(
+                        width: 50.0,
+                        decoration: BoxDecoration(
+                          color: korange,
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(
+                              Icons.star,
+                              color: kwhite,
+                              size: 15.0,
+                            ),
+                            BoldText(comment.rate, 15.0, kwhite),
+                          ],
+                        ),
+                      ),
+                      NormalText(comment.date, kgreyDark, 12.0),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 10,
+          ),
+        ],
+      ),
     );
   }
 }

@@ -33,7 +33,7 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(30),
+        preferredSize: Size.fromHeight(40),
         child: AppBar(
           backgroundColor: Colors.transparent,
           title: BoldText("My Profile", 35, kwhite),

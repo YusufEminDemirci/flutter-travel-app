@@ -16,7 +16,7 @@ class _CitiesState extends State<Cities> {
     return Scaffold(
       backgroundColor: kwhite,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(30),
+        preferredSize: Size.fromHeight(40),
         child: AppBar(
           backgroundColor: Colors.transparent,
           title: BoldText("Cities", 35, dayMainColor),

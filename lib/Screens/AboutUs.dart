@@ -14,7 +14,7 @@ class _AboutUsState extends State<AboutUs> {
     return Scaffold(
       backgroundColor: kwhite,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(30),
+        preferredSize: Size.fromHeight(40),
         child: AppBar(
           leading: BackButton(color: dayMainColor),
           backgroundColor: kwhite,

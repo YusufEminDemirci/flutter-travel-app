@@ -56,14 +56,18 @@ class PlanPlace extends StatelessWidget {
         child: Stack(
           alignment: Alignment.topCenter,
           children: <Widget>[
-            Container(
-              child: ClipRRect(
-                borderRadius: new BorderRadius.only(
-                    topRight: Radius.circular(15.0),
-                    topLeft: Radius.circular(15.0)),
-                child: Image.network(
-                  imageUrl,
-                  fit: BoxFit.cover,
+            Padding(
+              padding: const EdgeInsets.only(bottom: 30.0),
+              child: Container(
+                height: MediaQuery.of(context).size.width * 0.4,
+                child: ClipRRect(
+                  borderRadius: new BorderRadius.only(
+                      topRight: Radius.circular(15.0),
+                      topLeft: Radius.circular(15.0)),
+                  child: Image.network(
+                    imageUrl,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),

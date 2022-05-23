@@ -48,7 +48,7 @@ class _TravelListState extends State<TravelList>
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(30),
+          preferredSize: Size.fromHeight(40),
           child: AppBar(
             backgroundColor: kwhite,
             title: BoldText("My Plan", 35, dayMainColor),
