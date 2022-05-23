@@ -93,6 +93,7 @@ class _ProfileState extends State<Profile> {
                           backgroundColor: Colors.white,
                           radius: 72,
                           child: CircleAvatar(
+                            backgroundColor: Colors.transparent,
                             backgroundImage: (userImageUrl != null)
                                 ? NetworkImage(userImageUrl)
                                 : AssetImage("assets/orangeProfile.png"),
@@ -141,34 +142,34 @@ class _ProfileState extends State<Profile> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    GestureDetector(
-                        child: Container(
-                          height: 130,
-                          width: 130,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: kwhite,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  blurRadius: 10,
-                                  spreadRadius: 5,
-                                ),
-                              ]),
-                          child: profileItem(
-                              FontAwesomeIcons.edit, "Edit Profile"),
-                        ),
-                        onTap: () async {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => new EditProfile()));
-                        }),
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //   children: [
+                //     GestureDetector(
+                //         child: Container(
+                //           height: 130,
+                //           width: 130,
+                //           decoration: BoxDecoration(
+                //               borderRadius: BorderRadius.circular(10),
+                //               color: kwhite,
+                //               boxShadow: [
+                //                 BoxShadow(
+                //                   color: Colors.black.withOpacity(0.2),
+                //                   blurRadius: 10,
+                //                   spreadRadius: 5,
+                //                 ),
+                //               ]),
+                //           child: profileItem(
+                //               FontAwesomeIcons.edit, "Edit Profile"),
+                //         ),
+                //         onTap: () async {
+                //           Navigator.push(
+                //               context,
+                //               MaterialPageRoute(
+                //                   builder: (context) => new EditProfile()));
+                //         }),
+                //   ],
+                // ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [

@@ -40,6 +40,7 @@ class _TravelPlanState extends State<TravelPlan>
   );
 
   GoogleMapController _controller;
+  List<Marker> markerList = [];
 
   static final CameraPosition _initalCameraPosition = CameraPosition(
     target: LatLng(_originLatitude, _originLongitude),
@@ -47,8 +48,7 @@ class _TravelPlanState extends State<TravelPlan>
   );
 
   Set<Marker> _createMarker() {
-    List<Marker> markerList = [];
-
+    markerList = [];
     for (var i = 0; i < selectedPlaces.length; i++) {
       double _latitude = double.parse(selectedPlaces[i].latitude);
       double _longitude = double.parse(selectedPlaces[i].longitude);
@@ -74,11 +74,18 @@ class _TravelPlanState extends State<TravelPlan>
   void _getPolyline() async {
     List<LatLng> polylineCoordinates = [];
 
+    print(markerList[0].position.latitude);
+    print(markerList[0].position.longitude);
+    print(markerList[1].position.latitude);
+    print(markerList[1].position.longitude);
+
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       "AIzaSyA-EuCciDiU3RbI_axYIXGqghI_5nTPS-A",
-      PointLatLng(_originLatitude, _originLongitude),
-      PointLatLng(_destLatitude, _destLongitude),
-      travelMode: TravelMode.driving,
+      PointLatLng(
+          markerList[0].position.latitude, markerList[0].position.longitude),
+      PointLatLng(
+          markerList[1].position.latitude, markerList[1].position.longitude),
+      travelMode: TravelMode.walking,
     );
     if (result.points.isNotEmpty) {
       result.points.forEach((PointLatLng point) {
@@ -96,7 +103,7 @@ class _TravelPlanState extends State<TravelPlan>
       polylineId: id,
       color: Colors.pink,
       points: polylineCoordinates,
-      width: 8,
+      width: 5,
     );
     polylines[id] = polyline;
     setState(() {});
@@ -105,6 +112,7 @@ class _TravelPlanState extends State<TravelPlan>
   @override
   void initState() {
     super.initState();
+    _createMarker();
     _getPolyline();
   }
 

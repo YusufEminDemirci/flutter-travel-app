@@ -45,38 +45,41 @@ class _CitiesImageState extends State<CitiesImage> {
           ],
         ),
         child: Stack(
+          // fit: StackFit.expand,
           alignment: Alignment.topCenter,
           children: <Widget>[
-            Container(
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => new Places(this.id, this.name)),
-                  );
-                },
-                child: ClipRRect(
-                  borderRadius: new BorderRadius.only(
-                      topRight: Radius.circular(15.0),
-                      topLeft: Radius.circular(15.0)),
-                  child: Image.network(
-                    imageUrl,
-                    fit: BoxFit.cover,
+            Padding(
+              padding: const EdgeInsets.only(bottom: 30.0),
+              child: Container(
+                height: MediaQuery.of(context).size.width * 0.4,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => new Places(this.id, this.name),
+                      ),
+                    );
+                  },
+                  child: ClipRRect(
+                    borderRadius: new BorderRadius.only(
+                        topRight: Radius.circular(15.0),
+                        topLeft: Radius.circular(15.0)),
+                    child: Image.network(
+                      imageUrl,
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  child: BoldText(
-                    name.toUpperCase(),
-                    22,
-                    kblack,
-                  ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                child: BoldText(
+                  name.toUpperCase(),
+                  22,
+                  kblack,
                 ),
               ),
             ),

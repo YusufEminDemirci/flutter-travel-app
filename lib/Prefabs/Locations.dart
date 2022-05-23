@@ -54,38 +54,42 @@ class LocationsImage extends StatelessWidget {
         child: Stack(
           alignment: Alignment.topCenter,
           children: <Widget>[
-            Container(
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => new DetailScreen(
-                        this.id,
-                        this.imageUrl,
-                        this.name,
-                        this.location,
-                        this.description,
-                        this.rate,
-                        this.type,
-                        this.telephone,
-                        this.latitude,
-                        this.longitude,
-                        this.whoSee,
-                        this.hours,
-                        this.cityName,
-                        this.cityId,
+            Padding(
+              padding: const EdgeInsets.only(bottom: 30.0),
+              child: Container(
+                height: MediaQuery.of(context).size.width * 0.4,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => new DetailScreen(
+                          this.id,
+                          this.imageUrl,
+                          this.name,
+                          this.location,
+                          this.description,
+                          this.rate,
+                          this.type,
+                          this.telephone,
+                          this.latitude,
+                          this.longitude,
+                          this.whoSee,
+                          this.hours,
+                          this.cityName,
+                          this.cityId,
+                        ),
                       ),
+                    );
+                  },
+                  child: ClipRRect(
+                    borderRadius: new BorderRadius.only(
+                        topRight: Radius.circular(15.0),
+                        topLeft: Radius.circular(15.0)),
+                    child: Image.network(
+                      imageUrl,
+                      fit: BoxFit.fill,
                     ),
-                  );
-                },
-                child: ClipRRect(
-                  borderRadius: new BorderRadius.only(
-                      topRight: Radius.circular(15.0),
-                      topLeft: Radius.circular(15.0)),
-                  child: Image.network(
-                    imageUrl,
-                    fit: BoxFit.cover,
                   ),
                 ),
               ),

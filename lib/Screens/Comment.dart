@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:travel_food/Lists/selectedPlaces.dart';
 import 'package:travel_food/Lists/selectedRestaurants.dart';
 import 'package:travel_food/Prefabs/CommentArea.dart';
+import 'package:travel_food/Screens/TravelFinished.dart';
 import 'package:travel_food/Utils/TextStyles.dart';
 import 'package:travel_food/Utils/consts.dart';
 
@@ -166,6 +167,24 @@ class _CommentScreenState extends State<CommentScreen>
               ),
             )
           ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: dayMainColor,
+        onPressed: () {
+          selectedPlaces = [];
+          selectedRestaurants = [];
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => new TravelFinished(),
+            ),
+            ModalRoute.withName("/Home"),
+          );
+        },
+        child: Icon(
+          Icons.arrow_forward_ios_rounded,
+          color: Colors.white,
         ),
       ),
     );

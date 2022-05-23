@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_food/Utils/TextStyles.dart';
 import 'package:travel_food/Utils/consts.dart';
@@ -12,6 +13,23 @@ class CommentsImage extends StatelessWidget {
     this.comment,
   );
 
+  void initState() {
+    getProfileImages();
+  }
+
+  getProfileImages() {
+    FirebaseFirestore.instance.collection("Users").get().then((querySnapshot) {
+      querySnapshot.docs.forEach((result) {
+        String fullName =
+            result.data()["name"] + " " + result.data()["surname"];
+
+        if (fullName == comment.name) {
+          comment.imageUrl = result.data()["imageUrl"];
+        }
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -24,11 +42,7 @@ class CommentsImage extends StatelessWidget {
               height: 24,
               child: CircleAvatar(
                 backgroundColor: Colors.transparent,
-                child: Icon(
-                  Icons.person_pin,
-                  size: 30,
-                  color: dayMainColor,
-                ),
+                child: Image.network(comment.imageUrl),
               ),
             ),
             SizedBox(

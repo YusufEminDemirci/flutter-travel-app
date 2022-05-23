@@ -24,7 +24,7 @@ final TextEditingController _emailController = TextEditingController();
 final TextEditingController _passwordController = TextEditingController();
 
 final stockProfilePictureLink =
-    "https://firebasestorage.googleapis.com/v0/b/projectx-b164c.appspot.com/o/WhatsApp%20Image%202021-12-17%20at%2015.51.24.jpeg?alt=media&token=d48e34d1-6978-4c9b-bd80-a7e735b7b60d";
+    "https://firebasestorage.googleapis.com/v0/b/projectx-b164c.appspot.com/o/person_110935.png?alt=media&token=2a3ad44f-ecd9-4a7e-b5a1-a32228eefeb8";
 
 bool _obscureText = true;
 
