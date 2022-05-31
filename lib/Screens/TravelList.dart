@@ -142,7 +142,7 @@ class _TravelListState extends State<TravelList>
         context,
         cityId,
         cityName,
-        TravelMode.driving,
+        TravelMode.walking,
       ),
     );
   }

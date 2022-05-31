@@ -20,10 +20,8 @@ bool _obscureText = true;
 bool _obscureCheckText = true;
 
 class _EditProfile extends State<EditProfile> {
-  Future<void> initState() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.getString('userImageUrl');
-    prefs.getString('userPassword');
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -176,39 +174,39 @@ class _EditProfile extends State<EditProfile> {
               height: 50,
             ),
             WideButton.bold("Save", () async {
-              SharedPreferences prefs = await SharedPreferences.getInstance();
+              // SharedPreferences prefs = await SharedPreferences.getInstance();
 
-              FirebaseFirestore.instance
-                  .collection("Users")
-                  .get()
-                  .then((querySnapshot) {
-                querySnapshot.docs.forEach((result) {
-                  String _email = result.data()["e-mail"];
-                  String _password = result.data()["password"];
+              // FirebaseFirestore.instance
+              //     .collection("Users")
+              //     .get()
+              //     .then((querySnapshot) {
+              //   querySnapshot.docs.forEach((result) {
+              //     String _email = result.data()["e-mail"];
+              //     String _password = result.data()["password"];
 
-                  String _name = result.data()["name"];
-                  String _surname = result.data()["surname"];
-                  String _imageUrl = result.data()["imageUrl"];
-                  String _id = result.data()["id"];
+              //     String _name = result.data()["name"];
+              //     String _surname = result.data()["surname"];
+              //     String _imageUrl = result.data()["imageUrl"];
+              //     String _id = result.data()["id"];
 
-                  prefs.setString('userEmail', _email);
-                  prefs.setString('userName', _name);
-                  prefs.setString('userSurname', _surname);
-                  prefs.setString('userImageUrl', _imageUrl);
-                  prefs.setString('userId', _id);
-                  prefs.setString('userPassword', _password);
+              //     prefs.setString('userEmail', _email);
+              //     prefs.setString('userName', _name);
+              //     prefs.setString('userSurname', _surname);
+              //     prefs.setString('userImageUrl', _imageUrl);
+              //     prefs.setString('userId', _id);
+              //     prefs.setString('userPassword', _password);
 
-                  prefs.setBool('isLoggedIn', true);
+              //     prefs.setBool('isLoggedIn', true);
 
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (context) => new Profile()),
-                      ModalRoute.withName("/Home"));
-                });
-              });
-              if (_passwordController.text == _passwordCheckController.text) {
-                prefs.setString('userPassword', _passwordController.text);
-              }
+              //     Navigator.pushAndRemoveUntil(
+              //         context,
+              //         MaterialPageRoute(builder: (context) => new Profile()),
+              //         ModalRoute.withName("/Home"));
+              //   });
+              // });
+              // if (_passwordController.text == _passwordCheckController.text) {
+              //   prefs.setString('userPassword', _passwordController.text);
+              // }
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (context) => new Profile()),

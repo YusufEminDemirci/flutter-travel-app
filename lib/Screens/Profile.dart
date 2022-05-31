@@ -40,20 +40,20 @@ class _ProfileState extends State<Profile> {
           centerTitle: true,
           elevation: 0.0,
           automaticallyImplyLeading: false,
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(
-                FontAwesomeIcons.solidBell,
-                color: kwhite,
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => new Notifications()),
-                );
-              },
-            )
-          ],
+          // actions: <Widget>[
+          //   IconButton(
+          //     icon: Icon(
+          //       FontAwesomeIcons.solidBell,
+          //       color: kwhite,
+          //     ),
+          //     onPressed: () {
+          //       Navigator.push(
+          //         context,
+          //         MaterialPageRoute(builder: (context) => new Notifications()),
+          //       );
+          //     },
+          //   )
+          // ],
         ),
       ),
       body: Stack(

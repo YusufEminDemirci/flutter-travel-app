@@ -121,6 +121,23 @@ class _DetailScreenState extends State<DetailScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(40),
+        child: AppBar(
+          leading: BackButton(color: Colors.black),
+          backgroundColor: Colors.white70,
+          centerTitle: true,
+          elevation: 0.0,
+          automaticallyImplyLeading: true,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(10),
+            ),
+          ),
+          title: BoldText(name, 25.0, kblack),
+        ),
+      ),
       backgroundColor: kwhite,
       body: Stack(
         children: <Widget>[
@@ -136,15 +153,9 @@ class _DetailScreenState extends State<DetailScreen>
             ),
           ),
           Positioned(
-            child: AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-            ),
-          ),
-          Positioned(
             child: SlidingUpPanel(
               maxHeight: MediaQuery.of(context).size.height * 0.62,
-              minHeight: MediaQuery.of(context).size.height * 0.18,
+              minHeight: MediaQuery.of(context).size.height * 0.10,
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20.0),
                   topRight: Radius.circular(20.0)),
@@ -152,125 +163,113 @@ class _DetailScreenState extends State<DetailScreen>
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(20.0),
                     topRight: Radius.circular(20.0)),
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 400,
-                  child: Scaffold(
-                    appBar: PreferredSize(
-                      preferredSize: Size.fromHeight(40.0),
-                      child: AppBar(
-                        title: Column(
-                          children: [
-                            Container(
-                                height: 3,
-                                width: 80,
-                                color: Colors.grey.shade300),
-                            BoldText(name, 25.0, kblack),
+                child: Column(
+                  children: [
+                    SizedBox(height: 10),
+                    Container(
+                        height: 2.5, width: 80, color: Colors.grey.shade300),
+                    SizedBox(height: 10),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.59,
+                      child: Scaffold(
+                        backgroundColor: kwhite,
+                        appBar: TabBar(
+                          labelColor: dayMainColor,
+                          unselectedLabelColor: kdarkBlue,
+                          labelStyle: TextStyle(
+                            fontFamily: "nunito",
+                            fontWeight: FontWeight.bold,
+                          ),
+                          controller: tabController,
+                          indicatorColor: dayMainColor,
+                          tabs: <Widget>[
+                            Tab(
+                              text: "Information",
+                              icon: Icon(FontAwesomeIcons.info),
+                              height: 53,
+                            ),
+                            Tab(
+                              text: "Location",
+                              icon: Icon(FontAwesomeIcons.mapMarkedAlt),
+                              height: 53,
+                            ),
+                            Tab(
+                              text: "Reviews",
+                              icon: Icon(FontAwesomeIcons.solidComment),
+                              height: 53,
+                            ),
                           ],
                         ),
-                        centerTitle: true,
-                        backgroundColor: kwhite,
-                        elevation: 0,
-                      ),
-                    ),
-                    backgroundColor: kwhite,
-                    body: Scaffold(
-                      backgroundColor: kwhite,
-                      appBar: TabBar(
-                        labelColor: dayMainColor,
-                        unselectedLabelColor: kdarkBlue,
-                        labelStyle: TextStyle(
-                          fontFamily: "nunito",
-                          fontWeight: FontWeight.bold,
+                        body: Stack(
+                          children: <Widget>[
+                            TabBarView(
+                              children: <Widget>[
+                                CityInfo(
+                                    telephone: telephone,
+                                    hours: hours,
+                                    description: description),
+                                PlaceLocationMap(
+                                  this.id,
+                                  this.imageUrl,
+                                  this.name,
+                                  this.location,
+                                  this.description,
+                                  this.rate,
+                                  this.type,
+                                  this.telephone,
+                                  this.latitude,
+                                  this.longitude,
+                                  this.whoSee,
+                                  this.hours,
+                                  this.cityId,
+                                ),
+                                getComments(cityId, id),
+                              ],
+                              controller: tabController,
+                            ),
+                          ],
                         ),
-                        controller: tabController,
-                        indicatorColor: dayMainColor,
-                        tabs: <Widget>[
-                          Tab(
-                            text: "Information",
-                            icon: Icon(FontAwesomeIcons.info),
-                            height: 53,
-                          ),
-                          Tab(
-                            text: "Location",
-                            icon: Icon(FontAwesomeIcons.mapMarkedAlt),
-                            height: 53,
-                          ),
-                          Tab(
-                            text: "Reviews",
-                            icon: Icon(FontAwesomeIcons.solidComment),
-                            height: 53,
-                          ),
-                        ],
-                      ),
-                      body: Stack(
-                        children: <Widget>[
-                          TabBarView(
-                            children: <Widget>[
-                              CityInfo(
-                                  telephone: telephone,
-                                  hours: hours,
-                                  description: description),
-                              PlaceLocationMap(
-                                this.id,
-                                this.imageUrl,
-                                this.name,
-                                this.location,
-                                this.description,
-                                this.rate,
-                                this.type,
-                                this.telephone,
-                                this.latitude,
-                                this.longitude,
-                                this.whoSee,
-                                this.hours,
-                                this.cityId,
-                              ),
-                              getComments(cityId, id),
-                            ],
-                            controller: tabController,
-                          ),
-                        ],
-                      ),
-                      floatingActionButton: FloatingActionButton(
-                        onPressed: () {
-                          String response = checkList(
-                            id,
-                            imageUrl,
-                            name,
-                            location,
-                            description,
-                            rate,
-                            type,
-                            telephone,
-                            latitude,
-                            longitude,
-                            whoSee,
-                            hours,
-                            cityName,
-                            cityId,
-                          );
+                        floatingActionButton: FloatingActionButton(
+                          onPressed: () {
+                            String response = checkList(
+                              id,
+                              imageUrl,
+                              name,
+                              location,
+                              description,
+                              rate,
+                              type,
+                              telephone,
+                              latitude,
+                              longitude,
+                              whoSee,
+                              hours,
+                              cityName,
+                              cityId,
+                            );
 
-                          if (response == "Added") {
-                            popUpMessage(
-                                context, "Added", FontAwesomeIcons.check);
-                          } else if (response == "Removed") {
-                            popUpMessage(context, "Removed",
-                                FontAwesomeIcons.exclamation);
-                          } else if (response ==
-                              "Listeye farklı şehirden yerler eklenemez") {
-                            popUpMessage(context, response.toString(),
-                                FontAwesomeIcons.exclamation);
-                          }
-                        },
-                        child: Icon(
-                          FontAwesomeIcons.plus,
-                          color: kwhite,
+                            if (response == "Added") {
+                              popUpMessage(
+                                  context, "Added", FontAwesomeIcons.check);
+                            } else if (response == "Removed") {
+                              popUpMessage(context, "Removed",
+                                  FontAwesomeIcons.exclamation);
+                            } else if (response ==
+                                "Listeye farklı şehirden yerler eklenemez") {
+                              popUpMessage(context, response.toString(),
+                                  FontAwesomeIcons.exclamation);
+                            }
+                          },
+                          child: Icon(
+                            FontAwesomeIcons.plus,
+                            color: kwhite,
+                          ),
+                          backgroundColor: dayMainColor,
                         ),
-                        backgroundColor: dayMainColor,
                       ),
                     ),
-                  ),
+                  ],
                 ),
               ),
             ),

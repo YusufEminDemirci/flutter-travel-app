@@ -32,14 +32,14 @@ class _CitiesState extends State<Cities> {
       ),
       body: CustomScrollView(
         slivers: <Widget>[
-          SliverAppBar(
-            elevation: 0.0,
-            backgroundColor: Colors.transparent,
-            flexibleSpace: FlexibleSpaceBar(
-              background: SearchBar(),
-            ),
-            automaticallyImplyLeading: false,
-          ),
+          // SliverAppBar(
+          //   elevation: 0.0,
+          //   backgroundColor: Colors.transparent,
+          //   flexibleSpace: FlexibleSpaceBar(
+          //     background: SearchBar(),
+          //   ),
+          //   automaticallyImplyLeading: false,
+          // ),
           SliverFillRemaining(
             child: GridView(
               padding: const EdgeInsets.only(
