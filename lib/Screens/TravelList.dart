@@ -52,7 +52,7 @@ class _TravelListState extends State<TravelList>
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(40),
         child: AppBar(
-          backgroundColor: kwhite,
+          backgroundColor: Colors.white70,
           title: BoldText("My Plan", 35, dayMainColor),
           centerTitle: true,
           elevation: 0.0,
