@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_food/Lists/commentsList.dart';
 import 'package:travel_food/Screens/Detail.dart';
@@ -15,7 +16,7 @@ class CommentDisplay extends StatelessWidget {
     if (rateAverage.isNaN) {
       return "Derecelendirme Yok";
     } else {
-      return rateAverage.toString();
+      return rateAverage.toStringAsFixed(1);
     }
   }
 

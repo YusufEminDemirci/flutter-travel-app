@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:travel_food/Lists/selectedPlaces.dart';
 import 'package:travel_food/Prefabs/CommentPlace.dart';
 import 'package:travel_food/Utils/consts.dart';
 
 class CommentArea extends StatelessWidget {
   final String id;
-  final String imageUrl;
+  String imageUrl;
   final String name;
   final String location;
   final String description;
@@ -144,6 +143,21 @@ class CommentArea extends StatelessWidget {
                                   String uName = prefs.getString("userName");
                                   String uSurname =
                                       prefs.getString("userSurname");
+
+                                  await FirebaseFirestore.instance
+                                      .collection("Users")
+                                      .get()
+                                      .then((querySnapshot) {
+                                    querySnapshot.docs.forEach((result) {
+                                      String fullName = result.data()["name"] +
+                                          " " +
+                                          result.data()["surname"];
+
+                                      if (fullName == uName + " " + uSurname) {
+                                        imageUrl = result.data()["imageUrl"];
+                                      }
+                                    });
+                                  });
 
                                   FirebaseFirestore.instance
                                       .collection("Cities")

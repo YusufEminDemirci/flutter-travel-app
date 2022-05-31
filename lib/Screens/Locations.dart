@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:travel_food/Lists/commentsList.dart';
 import 'package:travel_food/Lists/places.dart';
 import 'package:travel_food/Lists/restaurants.dart';
+import 'package:travel_food/Models/comment.dart';
+import 'package:travel_food/Prefabs/Comments.dart';
 import 'package:travel_food/Prefabs/Locations.dart';
 import 'package:travel_food/Utils/TextStyles.dart';
 import 'package:travel_food/Utils/consts.dart';
@@ -163,13 +166,13 @@ getPlacesInfo(String cityId, String cityName) async {
       .collection("Places")
       .get()
       .then((querySnapshot) {
-    querySnapshot.docs.forEach((result) {
-      String _id = result.data()["id"];
+    querySnapshot.docs.forEach((result) async {
+      String id = result.data()["id"];
       String _imageUrl = result.data()["imageUrl"];
       String _name = result.data()["name"];
       String _location = result.data()["location"];
       String _description = result.data()["description"];
-      String _rate = result.data()["rate"];
+      String rate = "0.0";
       String _type = result.data()["type"];
       String _telephone = result.data()["telephone"];
       String _latitude = result.data()["latitude"];
@@ -177,14 +180,44 @@ getPlacesInfo(String cityId, String cityName) async {
       List _whoSee = [];
       Map _hours = result.data()["Hours"];
 
+      List rateList = [];
+
+      await firestoreInstance
+          .collection("Cities")
+          .doc(cityId)
+          .collection("Places")
+          .doc(id)
+          .collection("Comments")
+          .get()
+          .then((querySnapshot) {
+        final commentList = querySnapshot.docs;
+        rateList = [];
+        for (var comment in commentList) {
+          String rate = comment.data()["rate"];
+          rateList.add(rate);
+        }
+        double rateAverage = 0;
+        for (var rate in rateList) {
+          rateAverage += double.parse(rate);
+        }
+        rateAverage = rateAverage / rateList.length;
+        if (rateAverage.isNaN) {
+          rate = "0.0";
+        } else {
+          rate = rateAverage.toStringAsFixed(1);
+        }
+      });
+      print(rate);
+
       if (_type == "place" && _location == cityId) {
-        places.add(LocationsImage(
-            _id,
+        places.add(
+          LocationsImage(
+            id,
             _imageUrl,
             _name,
             _location,
             _description,
-            _rate,
+            rate,
             _type,
             _telephone,
             _latitude,
@@ -192,16 +225,19 @@ getPlacesInfo(String cityId, String cityName) async {
             _whoSee,
             _hours,
             cityName,
-            cityId));
+            cityId,
+          ),
+        );
       }
       if (_type == "restaurant" && _location == cityId) {
-        restaurants.add(LocationsImage(
-            _id,
+        restaurants.add(
+          LocationsImage(
+            id,
             _imageUrl,
             _name,
             _location,
             _description,
-            _rate,
+            rate,
             _type,
             _telephone,
             _latitude,
@@ -209,7 +245,9 @@ getPlacesInfo(String cityId, String cityName) async {
             _whoSee,
             _hours,
             cityName,
-            cityId));
+            cityId,
+          ),
+        );
       }
     });
   });
