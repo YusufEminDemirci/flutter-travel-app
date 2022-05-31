@@ -150,14 +150,19 @@ class PlanPlace extends StatelessWidget {
               right: 0,
               child: ElevatedButton(
                 onPressed: () {
-                  if (selectedPlaces.length > 0) {
+                  if (selectedPlaces.length > 0 ||
+                      selectedRestaurants.length > 0) {
                     for (int index = 0;
                         index < selectedPlaces.length;
                         index++) {
-                      if (id == selectedPlaces[index].id && type == "place") {
+                      if (id == selectedPlaces[index].id) {
                         selectedPlaces.remove(selectedPlaces[index]);
-                      } else if (id == selectedRestaurants[index].id &&
-                          type == "restaurant") {
+                      }
+                    }
+                    for (int index = 0;
+                        index < selectedRestaurants.length;
+                        index++) {
+                      if (id == selectedRestaurants[index].id) {
                         selectedRestaurants.remove(selectedRestaurants[index]);
                       }
                     }

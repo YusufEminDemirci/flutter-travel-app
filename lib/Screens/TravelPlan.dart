@@ -13,29 +13,31 @@ import 'package:travel_food/Utils/consts.dart';
 class TravelPlan extends StatefulWidget {
   final String cityName;
   final String cityId;
+  final TravelMode travelMode;
 
   TravelPlan(
     this.cityName,
     this.cityId,
+    this.travelMode,
   );
   @override
   _TravelPlanState createState() => _TravelPlanState(
         this.cityName,
         this.cityId,
+        this.travelMode,
       );
 }
-
-double _originLatitude = 36.988558;
-double _originLongitude = 35.329461;
 
 class _TravelPlanState extends State<TravelPlan>
     with SingleTickerProviderStateMixin {
   String cityName;
   String cityId;
+  TravelMode travelMode;
 
   _TravelPlanState(
     this.cityName,
     this.cityId,
+    this.travelMode,
   );
 
   GoogleMapController _controller;
@@ -53,11 +55,6 @@ class _TravelPlanState extends State<TravelPlan>
   //   });
   // }
 
-  static final CameraPosition _initalCameraPosition = CameraPosition(
-    target: LatLng(_originLatitude, _originLongitude),
-    zoom: 13,
-  );
-
   Set<Marker> _createMarker() {
     markerList = [];
     for (var i = 0; i < selectedPlaces.length; i++) {
@@ -69,6 +66,21 @@ class _TravelPlanState extends State<TravelPlan>
         position: LatLng(_latitude, _longitude),
         infoWindow: InfoWindow(
           title: selectedPlaces[i].name,
+        ),
+        icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueViolet,
+        ),
+      ));
+    }
+    for (var i = 0; i < selectedRestaurants.length; i++) {
+      double _latitude = double.parse(selectedRestaurants[i].latitude);
+      double _longitude = double.parse(selectedRestaurants[i].longitude);
+
+      markerList.add(Marker(
+        markerId: MarkerId(selectedRestaurants[i].id),
+        position: LatLng(_latitude, _longitude),
+        infoWindow: InfoWindow(
+          title: selectedRestaurants[i].name,
         ),
         icon: BitmapDescriptor.defaultMarkerWithHue(
           BitmapDescriptor.hueViolet,
@@ -99,7 +111,7 @@ class _TravelPlanState extends State<TravelPlan>
         markerList[markerList.length - 1].position.latitude,
         markerList[markerList.length - 1].position.longitude,
       ),
-      travelMode: TravelMode.walking,
+      travelMode: travelMode,
     );
     if (result.points.isNotEmpty) {
       result.points.forEach((PointLatLng point) {
@@ -138,6 +150,13 @@ class _TravelPlanState extends State<TravelPlan>
 
   @override
   Widget build(BuildContext context) {
+    List<TravelMode> travelModes = [
+      TravelMode.bicycling,
+      TravelMode.driving,
+      TravelMode.transit,
+      TravelMode.walking,
+    ];
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: kwhite,
@@ -146,7 +165,44 @@ class _TravelPlanState extends State<TravelPlan>
         child: AppBar(
           leading: BackButton(color: Colors.black),
           backgroundColor: Colors.white70,
-          title: BoldText("Travel Plan", 20, Colors.black),
+          title: Stack(
+            children: [
+              Align(
+                alignment: Alignment(-0.2, -0.8),
+                child: BoldText(cityName, 20, Colors.black),
+              ),
+              Align(
+                alignment: Alignment(0.9, -0.8),
+                child: DropdownButton<TravelMode>(
+                  value: travelMode,
+                  icon: const Icon(Icons.route_rounded),
+                  elevation: 16,
+                  style: const TextStyle(color: Colors.black),
+                  underline: Container(
+                    height: 2,
+                    color: Colors.deepOrangeAccent,
+                  ),
+                  onChanged: (TravelMode newValue) {
+                    setState(() {
+                      travelMode = newValue;
+                      _getPolyline();
+                    });
+                  },
+                  items: travelModes
+                      .map<DropdownMenuItem<TravelMode>>((TravelMode value) {
+                    return DropdownMenuItem<TravelMode>(
+                      value: value,
+                      child: Text(
+                        value.toString().split(".")[1][0].toUpperCase() +
+                            value.toString().split(".")[1].substring(1) +
+                            " Mode",
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
+            ],
+          ),
           centerTitle: true,
           elevation: 0.0,
           automaticallyImplyLeading: true,
@@ -157,23 +213,24 @@ class _TravelPlanState extends State<TravelPlan>
           ),
         ),
       ),
-      body: Container(
-        alignment: Alignment.center,
-        child: GoogleMap(
-          myLocationButtonEnabled: true,
-          mapType: MapType.normal,
-          initialCameraPosition: _initalCameraPosition,
-          zoomControlsEnabled: false,
-          tiltGesturesEnabled: true,
-          compassEnabled: true,
-          scrollGesturesEnabled: true,
-          zoomGesturesEnabled: true,
-          markers: _createMarker(),
-          polylines: Set<Polyline>.of(polylines.values),
-          onMapCreated: (GoogleMapController controller) {
-            _controller = controller;
-          },
+      body: GoogleMap(
+        myLocationButtonEnabled: true,
+        mapType: MapType.normal,
+        initialCameraPosition: CameraPosition(
+          target: LatLng(markerList[0].position.latitude,
+              markerList[0].position.longitude),
+          zoom: 13,
         ),
+        zoomControlsEnabled: false,
+        tiltGesturesEnabled: true,
+        compassEnabled: false,
+        scrollGesturesEnabled: true,
+        zoomGesturesEnabled: true,
+        markers: _createMarker(),
+        polylines: Set<Polyline>.of(polylines.values),
+        onMapCreated: (GoogleMapController controller) {
+          _controller = controller;
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

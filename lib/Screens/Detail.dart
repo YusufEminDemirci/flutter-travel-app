@@ -234,7 +234,7 @@ class _DetailScreenState extends State<DetailScreen>
                       ),
                       floatingActionButton: FloatingActionButton(
                         onPressed: () {
-                          bool response = checkList(
+                          String response = checkList(
                             id,
                             imageUrl,
                             name,
@@ -251,11 +251,15 @@ class _DetailScreenState extends State<DetailScreen>
                             cityId,
                           );
 
-                          if (response) {
+                          if (response == "Added") {
                             popUpMessage(
                                 context, "Added", FontAwesomeIcons.check);
-                          } else if (!response) {
+                          } else if (response == "Removed") {
                             popUpMessage(context, "Removed",
+                                FontAwesomeIcons.exclamation);
+                          } else if (response ==
+                              "Listeye farklı şehirden yerler eklenemez") {
+                            popUpMessage(context, response.toString(),
                                 FontAwesomeIcons.exclamation);
                           }
                         },
@@ -335,14 +339,31 @@ checkList(
   if (selectedPlaces.length > 0) {
     for (int index = 0; index < selectedPlaces.length; index++) {
       if (id != selectedPlaces[index].id && type == "place") {
-        selectedPlaces.add(
-          LocationsImage(id, imageUrl, name, location, description, rate, type,
-              telephone, latitude, longitude, whoSee, hours, cityName, cityId),
-        );
-        return true;
+        if (cityId != selectedPlaces[0].cityId) {
+          return "Listeye farklı şehirden yerler eklenemez";
+        } else {
+          selectedPlaces.add(
+            LocationsImage(
+                id,
+                imageUrl,
+                name,
+                location,
+                description,
+                rate,
+                type,
+                telephone,
+                latitude,
+                longitude,
+                whoSee,
+                hours,
+                cityName,
+                cityId),
+          );
+          return "Added";
+        }
       } else if (id == selectedPlaces[index].id && type == "place") {
         selectedPlaces.remove(selectedPlaces[index]);
-        return false;
+        return "Removed";
       }
     }
   } else if (selectedPlaces.length == 0 && type == "place") {
@@ -350,19 +371,36 @@ checkList(
       LocationsImage(id, imageUrl, name, location, description, rate, type,
           telephone, latitude, longitude, whoSee, hours, cityName, cityId),
     );
-    return true;
+    return "Added";
   }
   if (selectedRestaurants.length > 0) {
     for (int index = 0; index < selectedRestaurants.length; index++) {
       if (id != selectedRestaurants[index].id && type == "restaurant") {
-        selectedRestaurants.add(
-          LocationsImage(id, imageUrl, name, location, description, rate, type,
-              telephone, latitude, longitude, whoSee, hours, cityName, cityId),
-        );
-        return true;
+        if (cityId != selectedPlaces[0].cityId) {
+          return "Listeye farklı şehirden yerler eklenemez";
+        } else {
+          selectedRestaurants.add(
+            LocationsImage(
+                id,
+                imageUrl,
+                name,
+                location,
+                description,
+                rate,
+                type,
+                telephone,
+                latitude,
+                longitude,
+                whoSee,
+                hours,
+                cityName,
+                cityId),
+          );
+          return "Added";
+        }
       } else if (id == selectedRestaurants[index].id && type == "restaurant") {
         selectedRestaurants.remove(selectedRestaurants[index]);
-        return false;
+        return "Removed";
       }
     }
   } else if (selectedRestaurants.length == 0 && type == "restaurant") {
@@ -370,9 +408,9 @@ checkList(
       LocationsImage(id, imageUrl, name, location, description, rate, type,
           telephone, latitude, longitude, whoSee, hours, cityName, cityId),
     );
-    return true;
+    return "Added";
   }
-  return false;
+  return "Removed";
 }
 
 Future<Object> popUpMessage(

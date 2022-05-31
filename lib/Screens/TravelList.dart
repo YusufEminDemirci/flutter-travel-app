@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:travel_food/Lists/selectedPlaces.dart';
+import 'package:travel_food/Lists/selectedRestaurants.dart';
 import 'package:travel_food/Prefabs/PlanPlace.dart';
 import 'package:travel_food/Screens/TravelPlan.dart';
 import 'package:travel_food/Utils/TextStyles.dart';
@@ -47,118 +49,119 @@ class _TravelListState extends State<TravelList>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(40),
-          child: AppBar(
-            backgroundColor: kwhite,
-            title: BoldText("My Plan", 35, dayMainColor),
-            centerTitle: true,
-            elevation: 0.0,
-            automaticallyImplyLeading: false,
-          ),
-        ),
-        body: Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(40),
+        child: AppBar(
           backgroundColor: kwhite,
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(55.0),
-            child: TabBar(
-              labelColor: dayMainColor,
-              unselectedLabelColor: kdarkBlue,
-              labelStyle:
-                  TextStyle(fontFamily: "nunito", fontWeight: FontWeight.bold),
-              controller: tabController,
-              indicatorColor: dayMainColor,
-              tabs: <Widget>[
-                Tab(
-                  text: "Places",
-                  icon: Icon(FontAwesomeIcons.tree),
-                ),
-                Tab(
-                  text: "Restaurants",
-                  icon: Icon(FontAwesomeIcons.pizzaSlice),
-                ),
-              ],
-            ),
-          ),
-          body: TabBarView(
+          title: BoldText("My Plan", 35, dayMainColor),
+          centerTitle: true,
+          elevation: 0.0,
+          automaticallyImplyLeading: false,
+        ),
+      ),
+      body: Scaffold(
+        backgroundColor: kwhite,
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(55.0),
+          child: TabBar(
+            labelColor: dayMainColor,
+            unselectedLabelColor: kdarkBlue,
+            labelStyle:
+                TextStyle(fontFamily: "nunito", fontWeight: FontWeight.bold),
             controller: tabController,
-            children: <Widget>[
-              GridView(
-                padding: const EdgeInsets.only(
-                    left: 20.0, right: 16.0, bottom: 16.0, top: 25.0),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                ),
-                shrinkWrap: true,
-                children: List.generate(selectedPlaces.length, (index) {
-                  if (selectedPlaces[index].type == "place") {
-                    return PlanPlace(
-                        selectedPlaces[index].id,
-                        selectedPlaces[index].imageUrl,
-                        selectedPlaces[index].name,
-                        selectedPlaces[index].location,
-                        selectedPlaces[index].description,
-                        selectedPlaces[index].rate,
-                        selectedPlaces[index].type,
-                        selectedPlaces[index].telephone,
-                        selectedPlaces[index].latitude,
-                        selectedPlaces[index].longitude,
-                        selectedPlaces[index].whoSee,
-                        selectedPlaces[index].hours,
-                        cityName,
-                        cityId);
-                  } else {
-                    return Container();
-                  }
-                }),
+            indicatorColor: dayMainColor,
+            tabs: <Widget>[
+              Tab(
+                text: "Places",
+                icon: Icon(FontAwesomeIcons.tree),
               ),
-              GridView(
-                padding: const EdgeInsets.only(
-                    left: 40.0, right: 16.0, bottom: 16.0, top: 25.0),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                ),
-                shrinkWrap: true,
-                children: List.generate(selectedPlaces.length, (index) {
-                  if (selectedPlaces[index].type == "restaurant") {
-                    return PlanPlace(
-                        selectedPlaces[index].id,
-                        selectedPlaces[index].imageUrl,
-                        selectedPlaces[index].name,
-                        selectedPlaces[index].location,
-                        selectedPlaces[index].description,
-                        selectedPlaces[index].rate,
-                        selectedPlaces[index].type,
-                        selectedPlaces[index].telephone,
-                        selectedPlaces[index].latitude,
-                        selectedPlaces[index].longitude,
-                        selectedPlaces[index].whoSee,
-                        selectedPlaces[index].hours,
-                        cityName,
-                        cityId);
-                  } else {
-                    return Container();
-                  }
-                }),
-              )
+              Tab(
+                text: "Restaurants",
+                icon: Icon(FontAwesomeIcons.pizzaSlice),
+              ),
             ],
           ),
         ),
-        floatingActionButton: floatingButtonStatus(context, cityId, cityName));
+        body: TabBarView(
+          controller: tabController,
+          children: <Widget>[
+            GridView(
+              padding: const EdgeInsets.only(
+                  left: 20.0, right: 16.0, bottom: 16.0, top: 25.0),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+              ),
+              shrinkWrap: true,
+              children: List.generate(selectedPlaces.length, (index) {
+                return PlanPlace(
+                    selectedPlaces[index].id,
+                    selectedPlaces[index].imageUrl,
+                    selectedPlaces[index].name,
+                    selectedPlaces[index].location,
+                    selectedPlaces[index].description,
+                    selectedPlaces[index].rate,
+                    selectedPlaces[index].type,
+                    selectedPlaces[index].telephone,
+                    selectedPlaces[index].latitude,
+                    selectedPlaces[index].longitude,
+                    selectedPlaces[index].whoSee,
+                    selectedPlaces[index].hours,
+                    cityName,
+                    cityId);
+              }),
+            ),
+            GridView(
+              padding: const EdgeInsets.only(
+                  left: 20.0, right: 16.0, bottom: 16.0, top: 25.0),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+              ),
+              shrinkWrap: true,
+              children: List.generate(selectedRestaurants.length, (index) {
+                return PlanPlace(
+                    selectedRestaurants[index].id,
+                    selectedRestaurants[index].imageUrl,
+                    selectedRestaurants[index].name,
+                    selectedRestaurants[index].location,
+                    selectedRestaurants[index].description,
+                    selectedRestaurants[index].rate,
+                    selectedRestaurants[index].type,
+                    selectedRestaurants[index].telephone,
+                    selectedRestaurants[index].latitude,
+                    selectedRestaurants[index].longitude,
+                    selectedRestaurants[index].whoSee,
+                    selectedRestaurants[index].hours,
+                    cityName,
+                    cityId);
+              }),
+            )
+          ],
+        ),
+      ),
+      floatingActionButton: floatingButtonStatus(
+        context,
+        cityId,
+        cityName,
+        TravelMode.driving,
+      ),
+    );
   }
 }
 
-floatingButtonStatus(BuildContext context, String cityId, String cityName) {
-  if (selectedPlaces.length > 0) {
+floatingButtonStatus(
+  BuildContext context,
+  String cityId,
+  String cityName,
+  TravelMode travelMode,
+) {
+  if (selectedPlaces.length > 0 || selectedRestaurants.length > 0) {
     return FloatingActionButton(
       onPressed: () {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => new TravelPlan(
-                      cityName,
-                      cityId,
-                    )));
+                builder: (context) =>
+                    new TravelPlan(cityName, cityId, travelMode)));
       },
       child: Icon(
         FontAwesomeIcons.arrowRight,

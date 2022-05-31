@@ -17,16 +17,20 @@ class CommentsImage extends StatelessWidget {
     getProfileImages();
   }
 
-  getProfileImages() {
-    FirebaseFirestore.instance.collection("Users").get().then((querySnapshot) {
+  getProfileImages() async {
+    await FirebaseFirestore.instance
+        .collection("Users")
+        .get()
+        .then((querySnapshot) {
+      print(querySnapshot);
       querySnapshot.docs.forEach((result) {
-        print(querySnapshot);
-        String fullName =
-            result.data()["name"] + " " + result.data()["surname"];
+        print(result);
+        // String fullName =
+        //     result.data()["name"] + " " + result.data()["surname"];
 
-        if (fullName == comment.name) {
-          comment.imageUrl = result.data()["imageUrl"];
-        }
+        // if (fullName == comment.name) {
+        //   comment.imageUrl = result.data()["imageUrl"];
+        // }
       });
     });
   }

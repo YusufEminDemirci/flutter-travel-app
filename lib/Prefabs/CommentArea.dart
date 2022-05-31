@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:travel_food/Lists/selectedPlaces.dart';
+import 'package:travel_food/Prefabs/CommentPlace.dart';
 import 'package:travel_food/Utils/consts.dart';
 
 class CommentArea extends StatelessWidget {
@@ -33,16 +36,11 @@ class CommentArea extends StatelessWidget {
       this.cityId);
 
   final myController = TextEditingController();
-  List<Icon> Stars = [
-    Icon(FontAwesomeIcons.star, color: korange),
-    Icon(FontAwesomeIcons.star, color: korange),
-    Icon(FontAwesomeIcons.star, color: korange),
-    Icon(FontAwesomeIcons.star, color: korange),
-    Icon(FontAwesomeIcons.star, color: korange),
-  ];
 
   @override
   Widget build(BuildContext context) {
+    double starRating = 0.0;
+
     return Column(
       children: [
         Container(
@@ -63,110 +61,19 @@ class CommentArea extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                width: 150,
-                height: 150,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.white,
-                ),
-                child: Stack(
-                  alignment: Alignment.topCenter,
-                  children: <Widget>[
-                    Container(
-                      child: ClipRRect(
-                        borderRadius: new BorderRadius.only(
-                            topRight: Radius.circular(15.0),
-                            topLeft: Radius.circular(15.0)),
-                        child: Image.network(
-                          imageUrl,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 8.0,
-                        right: 8.0,
-                        top: 85.0,
-                      ),
-                      child: Text(
-                        name,
-                        style: TextStyle(
-                          color: kwhite,
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 8.0,
-                        top: 120.0,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          SizedBox(
-                            child: Icon(
-                              Icons.location_on,
-                              color: kblack,
-                              size: 17.0,
-                            ),
-                          ),
-                          SizedBox(
-                            child: Text(
-                              cityName,
-                              style: TextStyle(
-                                color: kblack,
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            width: 50,
-                          ),
-                          SizedBox(
-                            width: 15,
-                          ),
-                          SizedBox(
-                            child: Container(
-                              width: 50.0,
-                              decoration: BoxDecoration(
-                                color: korange,
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.star,
-                                    color: kwhite,
-                                    size: 16.0,
-                                  ),
-                                  Text(
-                                    rate.toString(),
-                                    style: TextStyle(
-                                      color: kwhite,
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+              CommentPlace(
+                id,
+                imageUrl,
+                name,
+                location,
+                description,
+                rate,
+                type,
+                telephone,
+                whoSee,
+                hours,
+                cityName,
+                cityId,
               ),
               SizedBox(
                 width: 2,
@@ -181,17 +88,22 @@ class CommentArea extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding:
-                            const EdgeInsets.only(top: 20, left: 10, right: 25),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Stars[0],
-                            Stars[1],
-                            Stars[2],
-                            Stars[3],
-                            Stars[4],
-                          ],
+                        padding: const EdgeInsets.only(top: 15.0),
+                        child: RatingBar.builder(
+                          initialRating: 3,
+                          minRating: 0.5,
+                          direction: Axis.horizontal,
+                          allowHalfRating: true,
+                          itemCount: 5,
+                          itemSize: 35.0,
+                          itemBuilder: (context, _) => Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                          ),
+                          onRatingUpdate: (rating) {
+                            print(rating);
+                            starRating = rating;
+                          },
                         ),
                       ),
                       Row(
@@ -224,14 +136,15 @@ class CommentArea extends StatelessWidget {
                                 color: Colors.black54,
                               ),
                               onTap: () async {
-                                SharedPreferences prefs =
-                                    await SharedPreferences.getInstance();
+                                if (myController != null &&
+                                    myController.text.length > 6) {
+                                  SharedPreferences prefs =
+                                      await SharedPreferences.getInstance();
 
-                                String uName = prefs.getString("userName");
-                                String uSurname =
-                                    prefs.getString("userSurname");
+                                  String uName = prefs.getString("userName");
+                                  String uSurname =
+                                      prefs.getString("userSurname");
 
-                                if (type == "place") {
                                   FirebaseFirestore.instance
                                       .collection("Cities")
                                       .doc(location)
@@ -244,22 +157,7 @@ class CommentArea extends StatelessWidget {
                                     "imageUrl": imageUrl,
                                     "message": myController.text,
                                     "name": uName + " " + uSurname,
-                                    "rate": "5",
-                                  });
-                                } else if (type == "restaurant") {
-                                  FirebaseFirestore.instance
-                                      .collection("Cities")
-                                      .doc(location)
-                                      .collection("Restaurants")
-                                      .doc(id)
-                                      .collection("Comments")
-                                      .add({
-                                    "date": DateTime.now(),
-                                    "id": id,
-                                    "imageUrl": imageUrl,
-                                    "message": myController.text,
-                                    "name": uName + " " + uSurname,
-                                    "rate": "5",
+                                    "rate": starRating.toString(),
                                   });
                                 }
                               },

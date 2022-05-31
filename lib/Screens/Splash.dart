@@ -40,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 size: 70,
               ),
               SizedBox(height: 50),
-              BoldText("Graduation Project 1", 35.0, kdarkBlue),
+              BoldText("Graduation Project 1-2", 35.0, kdarkBlue),
               TypewriterAnimatedTextKit(
                 text: ["Travel & Food"],
                 textStyle: TextStyle(

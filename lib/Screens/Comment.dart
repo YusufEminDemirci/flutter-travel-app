@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:travel_food/Lists/selectedPlaces.dart';
@@ -96,34 +98,19 @@ class _CommentScreenState extends State<CommentScreen>
               child: ListView.builder(
                 itemCount: selectedPlaces.length,
                 itemBuilder: (context, index) {
-                  return Dismissible(
-                    key: UniqueKey(),
-                    onDismissed: (direction) {
-                      setState(() {
-                        selectedPlaces.removeAt(index);
-                      });
-                    },
-                    background: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Container(
-                        height: 100,
-                        color: Colors.red,
-                      ),
-                    ),
-                    child: CommentArea(
-                      selectedPlaces[index].id,
-                      selectedPlaces[index].imageUrl,
-                      selectedPlaces[index].name,
-                      selectedPlaces[index].location,
-                      selectedPlaces[index].description,
-                      selectedPlaces[index].rate,
-                      selectedPlaces[index].type,
-                      selectedPlaces[index].telephone,
-                      selectedPlaces[index].whoSee,
-                      selectedPlaces[index].hours,
-                      cityName,
-                      cityId,
-                    ),
+                  return CommentArea(
+                    selectedPlaces[index].id,
+                    selectedPlaces[index].imageUrl,
+                    selectedPlaces[index].name,
+                    selectedPlaces[index].location,
+                    selectedPlaces[index].description,
+                    selectedPlaces[index].rate,
+                    selectedPlaces[index].type,
+                    selectedPlaces[index].telephone,
+                    selectedPlaces[index].whoSee,
+                    selectedPlaces[index].hours,
+                    cityName,
+                    cityId,
                   );
                 },
               ),
@@ -134,34 +121,19 @@ class _CommentScreenState extends State<CommentScreen>
               child: ListView.builder(
                 itemCount: selectedRestaurants.length,
                 itemBuilder: (context, index) {
-                  return Dismissible(
-                    key: UniqueKey(),
-                    onDismissed: (direction) {
-                      setState(() {
-                        selectedPlaces.removeAt(index);
-                      });
-                    },
-                    background: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Container(
-                        height: 100,
-                        color: Colors.red,
-                      ),
-                    ),
-                    child: CommentArea(
-                      selectedRestaurants[index].id,
-                      selectedRestaurants[index].imageUrl,
-                      selectedRestaurants[index].name,
-                      selectedRestaurants[index].location,
-                      selectedRestaurants[index].description,
-                      selectedRestaurants[index].rate,
-                      selectedRestaurants[index].type,
-                      selectedRestaurants[index].telephone,
-                      selectedRestaurants[index].whoSee,
-                      selectedRestaurants[index].hours,
-                      cityName,
-                      cityId,
-                    ),
+                  return CommentArea(
+                    selectedRestaurants[index].id,
+                    selectedRestaurants[index].imageUrl,
+                    selectedRestaurants[index].name,
+                    selectedRestaurants[index].location,
+                    selectedRestaurants[index].description,
+                    selectedRestaurants[index].rate,
+                    selectedRestaurants[index].type,
+                    selectedRestaurants[index].telephone,
+                    selectedRestaurants[index].whoSee,
+                    selectedRestaurants[index].hours,
+                    cityName,
+                    cityId,
                   );
                 },
               ),

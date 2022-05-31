@@ -34,29 +34,31 @@ class _EditProfile extends State<EditProfile> {
 
                 FirebaseFirestore.instance
                     .collection("Cities")
-                    .doc("Gjp6AG8GF5DY0eL99Uc5")
+                    .doc("bwHzr7Tg3E8ceJPE6ccU")
                     .collection("Places")
-                    .doc("6C2cj72RCmalvwSjtd4b")
+                    .doc("jyrDJRrRsauF1RRdOwqB")
                     .set({
                   "Hours": {
-                    "Friday": "09:00 - 17:00",
-                    "Monday": "09:00 - 17:00",
-                    "Saturday": "CLOSED",
-                    "Sunday": "CLOSED",
-                    "Thursday": "09:00 - 17:00",
-                    "Tuesday": "09:00 - 17:00",
-                    "Wednesday": "09:00 - 17:00",
+                    "Friday": "11:00 - 02:00",
+                    "Monday": "11:00 - 02:00",
+                    "Saturday": "11:00 - 02:00",
+                    "Sunday": "11:00 - 02:00",
+                    "Thursday": "11:00 - 02:00",
+                    "Tuesday": "11:00 - 02:00",
+                    "Wednesday": "11:00 - 02:00",
                   },
                   "imageUrl":
-                      "https://firebasestorage.googleapis.com/v0/b/projectx-b164c.appspot.com/o/Adana.jpg?alt=media&token=480896ff-d4d3-4eeb-91e1-894d8488d8cd",
-                  "description": "description",
-                  "id": "6C2cj72RCmalvwSjtd4b",
-                  "location": "Gjp6AG8GF5DY0eL99Uc5",
-                  "name": "Köfteci Yusuf",
-                  "rate": "5",
-                  "telephone": "555 55 55",
-                  "type": "restaurant",
+                      "https://firebasestorage.googleapis.com/v0/b/projectx-b164c.appspot.com/o/midyeci-ahmet.jpg?alt=media&token=36859e96-0abb-4ec6-b574-9101a17c73df",
+                  "description": "Midyeci",
+                  "id": "jyrDJRrRsauF1RRdOwqB",
+                  "location": "bwHzr7Tg3E8ceJPE6ccU",
+                  "name": "Midyeci Ahmet",
+                  "rate": "3.1",
+                  "telephone": "02324044556",
+                  "type": "place",
                   "whoSee": {},
+                  "latitude": "38.4353292",
+                  "longitude": "27.145659",
                 });
               },
             )

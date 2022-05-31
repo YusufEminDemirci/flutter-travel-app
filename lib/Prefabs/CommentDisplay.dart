@@ -12,7 +12,11 @@ class CommentDisplay extends StatelessWidget {
       rateAverage += double.parse(element.comment.rate);
     });
     rateAverage = rateAverage / comments.length;
-    return rateAverage.toString();
+    if (rateAverage.isNaN) {
+      return "Derecelendirme Yok";
+    } else {
+      return rateAverage.toString();
+    }
   }
 
   @override
@@ -31,12 +35,12 @@ class CommentDisplay extends StatelessWidget {
                       comments.length.toString() + " Reviews", 20.0, kblack),
                   Row(
                     children: [
+                      BoldText(getAverage(), 15.0, korange),
                       Icon(
                         Icons.star,
                         color: dayMainColor,
                         size: 25.0,
                       ),
-                      BoldText(getAverage(), 14.0, korange),
                     ],
                   )
                 ],
