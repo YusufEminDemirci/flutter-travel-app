@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:material_dialogs/material_dialogs.dart';
@@ -11,11 +13,13 @@ import 'package:travel_food/Utils/TextStyles.dart';
 import 'package:travel_food/Utils/consts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:travel_food/Utils/storage_service.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 String userName;
 String userSurname;
 String userImageUrl;
+String userEmail;
 
 class Profile extends StatefulWidget {
   @override
@@ -30,6 +34,8 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
+    final Storage storage = Storage();
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: PreferredSize(
@@ -89,15 +95,60 @@ class _ProfileState extends State<Profile> {
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.height / 2.75,
                         ),
-                        CircleAvatar(
-                          backgroundColor: Colors.white,
-                          radius: 72,
+                        GestureDetector(
+                          onTap: () async {
+                            final results = await FilePicker.platform.pickFiles(
+                              type: FileType.custom,
+                              allowedExtensions: ['jpg', 'png'],
+                            );
+
+                            if (results == null) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("No file selected"),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                            }
+                            SharedPreferences prefs =
+                                await SharedPreferences.getInstance();
+
+                            userEmail = prefs.getString("userEmail");
+
+                            final path = results.files.single.path;
+                            final fileName = userEmail;
+
+                            storage
+                                .uploadFile(path, fileName)
+                                .then((value) => print("done"));
+                            String downloadUrl =
+                                await storage.getDownloadUrl(userEmail);
+
+                            prefs.setString("imageUrl", downloadUrl);
+
+                            FirebaseFirestore.instance
+                                .collection("Users")
+                                .doc("t3KQm4jM3SaQTHysNkKR")
+                                .set({
+                              "imageUrl": downloadUrl,
+                              "name": "Yusuf Emin",
+                              "password": "admin",
+                              "surname": "Demirci",
+                              "e-mail": "admin@admin.com",
+                              "id": "a5247c0e-e076-42fc-a27d-46e2bab74f37",
+                            });
+                            userImageUrl = downloadUrl;
+                          },
                           child: CircleAvatar(
-                            backgroundColor: Colors.transparent,
-                            backgroundImage: (userImageUrl != null)
-                                ? NetworkImage(userImageUrl)
-                                : AssetImage("assets/orangeProfile.png"),
-                            radius: 70,
+                            backgroundColor: Colors.white,
+                            radius: 72,
+                            child: CircleAvatar(
+                              backgroundColor: Colors.transparent,
+                              backgroundImage: (userImageUrl != null)
+                                  ? NetworkImage(userImageUrl)
+                                  : AssetImage("assets/orangeProfile.png"),
+                              radius: 70,
+                            ),
                           ),
                         ),
                         Padding(
@@ -142,34 +193,34 @@ class _ProfileState extends State<Profile> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    GestureDetector(
-                        child: Container(
-                          height: 130,
-                          width: 130,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: kwhite,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  blurRadius: 10,
-                                  spreadRadius: 5,
-                                ),
-                              ]),
-                          child: profileItem(
-                              FontAwesomeIcons.edit, "Edit Profile"),
-                        ),
-                        onTap: () async {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => new EditProfile()));
-                        }),
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //   children: [
+                //     GestureDetector(
+                //         child: Container(
+                //           height: 130,
+                //           width: 130,
+                //           decoration: BoxDecoration(
+                //               borderRadius: BorderRadius.circular(10),
+                //               color: kwhite,
+                //               boxShadow: [
+                //                 BoxShadow(
+                //                   color: Colors.black.withOpacity(0.2),
+                //                   blurRadius: 10,
+                //                   spreadRadius: 5,
+                //                 ),
+                //               ]),
+                //           child: profileItem(
+                //               FontAwesomeIcons.edit, "Edit Profile"),
+                //         ),
+                //         onTap: () async {
+                //           Navigator.push(
+                //               context,
+                //               MaterialPageRoute(
+                //                   builder: (context) => new EditProfile()));
+                //         }),
+                //   ],
+                // ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
