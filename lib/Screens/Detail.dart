@@ -350,9 +350,14 @@ checkList(
   String cityId,
   BuildContext context,
 ) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String userMail = prefs.getString("userEmail");
+
+  print(userMail);
+
   FirebaseFirestore.instance
       .collection('Users')
-      .doc('yBeXEnvLJ1QlTxzqh8LM')
+      .doc(userMail)
       .collection('selected')
       .get()
       .then((value) => {
@@ -372,7 +377,7 @@ checkList(
                   {
                     FirebaseFirestore.instance
                         .collection('Users')
-                        .doc('yBeXEnvLJ1QlTxzqh8LM')
+                        .doc(userMail)
                         .collection('selected')
                         .doc(id)
                         .delete(),
@@ -387,7 +392,7 @@ checkList(
                   {
                     FirebaseFirestore.instance
                         .collection('Users')
-                        .doc('yBeXEnvLJ1QlTxzqh8LM')
+                        .doc(userMail)
                         .collection('selected')
                         .doc(id)
                         .set({
@@ -418,7 +423,7 @@ checkList(
               {
                 FirebaseFirestore.instance
                     .collection('Users')
-                    .doc('yBeXEnvLJ1QlTxzqh8LM')
+                    .doc(userMail)
                     .collection('selected')
                     .doc(id)
                     .set({

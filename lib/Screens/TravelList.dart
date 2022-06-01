@@ -2,9 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:travel_food/Lists/selectedPlaces.dart';
-import 'package:travel_food/Lists/selectedRestaurants.dart';
-import 'package:travel_food/Prefabs/Locations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel_food/Prefabs/PlanPlace.dart';
 import 'package:travel_food/Screens/TravelPlan.dart';
 import 'package:travel_food/Utils/TextStyles.dart';
@@ -15,8 +13,8 @@ class TravelList extends StatefulWidget {
   final String cityId;
 
   TravelList({
-    this.cityName = "Adana",
-    this.cityId = "",
+    this.cityName,
+    this.cityId,
   });
   @override
   _TravelListState createState() => _TravelListState(
@@ -24,6 +22,8 @@ class TravelList extends StatefulWidget {
         this.cityId,
       );
 }
+
+String userMail;
 
 class _TravelListState extends State<TravelList>
     with SingleTickerProviderStateMixin {
@@ -40,6 +40,12 @@ class _TravelListState extends State<TravelList>
   void initState() {
     tabController = new TabController(length: 2, vsync: this);
     super.initState();
+    getUserMail();
+  }
+
+  getUserMail() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    userMail = prefs.getString("userEmail");
   }
 
   @override
@@ -90,7 +96,7 @@ class _TravelListState extends State<TravelList>
             StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection("Users")
-                  .doc("yBeXEnvLJ1QlTxzqh8LM")
+                  .doc(userMail)
                   .collection("selected")
                   .where("type", isEqualTo: "place")
                   .snapshots(),
@@ -131,7 +137,7 @@ class _TravelListState extends State<TravelList>
             StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection("Users")
-                  .doc("yBeXEnvLJ1QlTxzqh8LM")
+                  .doc(userMail)
                   .collection("selected")
                   .where("type", isEqualTo: "restaurant")
                   .snapshots(),
@@ -172,47 +178,43 @@ class _TravelListState extends State<TravelList>
           ],
         ),
       ),
-      floatingActionButton: floatingButtonStatus(
-        context,
-        cityId,
-        cityName,
-        TravelMode.walking,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          FirebaseFirestore.instance
+              .collection("Users")
+              .doc(userMail)
+              .collection("selected")
+              .get()
+              .then((querySnapshot) {
+            if (querySnapshot.docs.length > 0) {
+              cityId = querySnapshot.docs[0].data()["location"];
+              print(querySnapshot.docs);
+              print(cityName);
+              print(cityId);
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) =>
+              //         new TravelPlan(cityName, cityId, TravelMode.walking),
+              //   ),
+              // );
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text(
+                      "Your list is empty, first you need to add a place to your list"),
+                  backgroundColor: Colors.redAccent,
+                ),
+              );
+            }
+          });
+        },
+        child: Icon(
+          FontAwesomeIcons.arrowRight,
+          color: kwhite,
+        ),
+        backgroundColor: dayMainColor,
       ),
-    );
-  }
-}
-
-floatingButtonStatus(
-  BuildContext context,
-  String cityId,
-  String cityName,
-  TravelMode travelMode,
-) {
-  if (selectedPlaces.length > 0 || selectedRestaurants.length > 0) {
-    return FloatingActionButton(
-      onPressed: () {
-        if (selectedPlaces.length > 0 || selectedRestaurants.length > 0) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) =>
-                  new TravelPlan(cityName, cityId, travelMode),
-            ),
-          );
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text("Your List is empty"),
-              backgroundColor: Colors.redAccent,
-            ),
-          );
-        }
-      },
-      child: Icon(
-        FontAwesomeIcons.arrowRight,
-        color: kwhite,
-      ),
-      backgroundColor: dayMainColor,
     );
   }
 }

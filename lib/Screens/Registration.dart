@@ -351,7 +351,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
                           var _uuid = Uuid().v4();
 
-                          FirebaseFirestore.instance.collection("Users").add({
+                          FirebaseFirestore.instance
+                              .collection('Users')
+                              .doc(_emailController.text)
+                              .set({
                             "id": _uuid,
                             "imageUrl": stockProfilePictureLink,
                             "name": _nameController.text,
