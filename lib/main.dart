@@ -18,7 +18,7 @@ Future<void> main() async {
     new DynamicTheme(
         defaultBrightness: Brightness.light,
         data: (brightness) => new ThemeData(
-              primarySwatch: Colors.indigo,
+              primarySwatch: Colors.amber,
               brightness: brightness,
             ),
         themedWidgetBuilder: (context, theme) {

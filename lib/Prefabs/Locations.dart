@@ -115,7 +115,7 @@ class LocationsImage extends StatelessWidget {
                   SizedBox(
                     child: Icon(
                       Icons.location_on,
-                      color: kblack,
+                      color: dayTextColor,
                       size: 17.0,
                     ),
                   ),
@@ -123,7 +123,7 @@ class LocationsImage extends StatelessWidget {
                     child: Text(
                       cityName,
                       style: TextStyle(
-                        color: kblack,
+                        color: dayTextColor,
                         fontSize: 14.0,
                         fontWeight: FontWeight.bold,
                       ),
@@ -139,7 +139,7 @@ class LocationsImage extends StatelessWidget {
                     child: Container(
                       width: 50.0,
                       decoration: BoxDecoration(
-                        color: korange,
+                        color: dayMainColor,
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       child: Row(
@@ -148,7 +148,7 @@ class LocationsImage extends StatelessWidget {
                         children: <Widget>[
                           Icon(
                             Icons.star,
-                            color: kwhite,
+                            color: Colors.amber,
                             size: 16.0,
                           ),
                           Text(

@@ -59,7 +59,7 @@ class CommentsImage extends StatelessWidget {
                       Container(
                         width: 50.0,
                         decoration: BoxDecoration(
-                          color: korange,
+                          color: dayTextColor,
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: Row(
@@ -67,7 +67,7 @@ class CommentsImage extends StatelessWidget {
                           children: <Widget>[
                             Icon(
                               Icons.star,
-                              color: kwhite,
+                              color: Colors.amber,
                               size: 15.0,
                             ),
                             BoldText(comment.rate, 15.0, kwhite),

@@ -31,16 +31,16 @@ class CommentDisplay extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  BoldText(
-                      comments.length.toString() + " Reviews", 20.0, kblack),
+                  BoldText(comments.length.toString() + " Reviews", 20.0,
+                      Colors.amber),
                   Row(
                     children: [
-                      BoldText(getAverage(), 15.0, korange),
                       Icon(
                         Icons.star,
-                        color: dayMainColor,
+                        color: Colors.amber,
                         size: 25.0,
                       ),
+                      BoldText(getAverage(), 15.0, dayTextColor),
                     ],
                   )
                 ],

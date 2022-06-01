@@ -48,7 +48,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           preferredSize: Size.fromHeight(40),
           child: AppBar(
             backgroundColor: kwhite,
-            title: BoldText("Register", 35, dayMainColor),
+            title: BoldText("Register", 35, dayTextColor),
             centerTitle: true,
             elevation: 0.0,
             automaticallyImplyLeading: false,
@@ -72,8 +72,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     size: 35,
                   ),
                   SizedBox(height: 10),
-                  BoldText("Graduation Project 1", 30.0, kdarkBlue),
-                  NormalText("Travel & Food", kdarkBlue, 30.0),
+                  BoldText("Graduation Project 1-2", 30.0, dayMainColor),
+                  NormalText("Travel & Food", dayMainColor, 30.0),
                   SizedBox(
                     height: 20,
                   ),
@@ -83,7 +83,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         style: TextStyle(
                             fontFamily: "nunito",
                             fontWeight: FontWeight.w500,
-                            color: kgreyDark,
+                            color: dayTextColor,
                             fontSize: 15.5),
                         keyboardType: TextInputType.name,
                         controller: _nameController,
@@ -104,7 +104,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             hintStyle: TextStyle(
                                 fontFamily: "nunito",
                                 fontWeight: FontWeight.w500,
-                                color: kgreyDark,
+                                color: dayTextColor,
                                 fontSize: 15.5),
                             contentPadding: const EdgeInsets.only(
                                 left: 14.0, bottom: 8.0, top: 8.0),
@@ -127,7 +127,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       style: TextStyle(
                           fontFamily: "nunito",
                           fontWeight: FontWeight.w500,
-                          color: kgreyDark,
+                          color: dayTextColor,
                           fontSize: 15.5),
                       keyboardType: TextInputType.name,
                       controller: _surnameController,
@@ -172,7 +172,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       style: TextStyle(
                           fontFamily: "nunito",
                           fontWeight: FontWeight.w500,
-                          color: kgreyDark,
+                          color: dayTextColor,
                           fontSize: 15.5),
                       keyboardType: TextInputType.emailAddress,
                       controller: _emailController,
@@ -217,7 +217,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       style: TextStyle(
                           fontFamily: "nunito",
                           fontWeight: FontWeight.w500,
-                          color: kgreyDark,
+                          color: dayTextColor,
                           fontSize: 15.5),
                       obscureText: _obscureText,
                       keyboardType: TextInputType.text,
@@ -340,7 +340,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          NormalText("Have an account ?", kdarkBlue, 12.5),
+                          NormalText("Have an account ?", dayTextColor, 12.5),
                           SizedBox(
                             width: 5,
                           ),
@@ -353,14 +353,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               ));
                             },
                             child: BoldText.veryBold(
-                                "Sign In ?", 12.5, dayMainColor, true),
+                                "Sign In ?", 12.5, dayTextColor, true),
                           ),
                         ],
                       ),
                       Container(
                         height: 2,
                         width: 75,
-                        color: kdarkBlue,
+                        color: dayTextColor,
                       ),
                     ],
                   ),

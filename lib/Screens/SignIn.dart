@@ -47,7 +47,7 @@ class _SignInPageState extends State<SignInPage> {
           preferredSize: Size.fromHeight(40),
           child: AppBar(
             backgroundColor: kwhite,
-            title: BoldText("Sign In", 35, dayMainColor),
+            title: BoldText("Sign In", 35, dayTextColor),
             centerTitle: true,
             elevation: 0.0,
             automaticallyImplyLeading: false,
@@ -71,8 +71,8 @@ class _SignInPageState extends State<SignInPage> {
                     size: 35,
                   ),
                   SizedBox(height: 10),
-                  BoldText("Graduation Project 1", 30.0, kdarkBlue),
-                  NormalText("Travel & Food", kdarkBlue, 30.0),
+                  BoldText("Graduation Project 1", 30.0, dayMainColor),
+                  NormalText("Travel & Food", dayMainColor, 30.0),
                   SizedBox(
                     height: 60,
                   ),
@@ -82,7 +82,7 @@ class _SignInPageState extends State<SignInPage> {
                       style: TextStyle(
                           fontFamily: "nunito",
                           fontWeight: FontWeight.w500,
-                          color: kgreyDark,
+                          color: dayTextColor,
                           fontSize: 15.5),
                       keyboardType: TextInputType.emailAddress,
                       controller: _emailController,
@@ -127,7 +127,7 @@ class _SignInPageState extends State<SignInPage> {
                       style: TextStyle(
                           fontFamily: "nunito",
                           fontWeight: FontWeight.w500,
-                          color: kgreyDark,
+                          color: dayTextColor,
                           fontSize: 15.5),
                       obscureText: _obscureText,
                       keyboardType: TextInputType.text,
@@ -166,7 +166,7 @@ class _SignInPageState extends State<SignInPage> {
                           hintStyle: TextStyle(
                               fontFamily: "nunito",
                               fontWeight: FontWeight.w500,
-                              color: kgreyDark,
+                              color: dayTextColor,
                               fontSize: 15.5),
                           contentPadding: const EdgeInsets.only(
                               left: 14.0, bottom: 8.0, top: 8.0),
@@ -269,7 +269,7 @@ class _SignInPageState extends State<SignInPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           NormalText(
-                              "Don't have an account ?", kdarkBlue, 12.5),
+                              "Don't have an account ?", dayTextColor, 12.5),
                           SizedBox(
                             width: 5,
                           ),
@@ -282,14 +282,14 @@ class _SignInPageState extends State<SignInPage> {
                               ));
                             },
                             child: BoldText.veryBold(
-                                "Register ?", 12.5, dayMainColor, true),
+                                "Register ?", 12.5, dayTextColor, true),
                           ),
                         ],
                       ),
                       Container(
                         height: 2,
                         width: 75,
-                        color: kdarkBlue,
+                        color: dayTextColor,
                       ),
                     ],
                   ),

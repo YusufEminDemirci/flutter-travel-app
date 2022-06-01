@@ -30,8 +30,8 @@ class CityInfo extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  BoldText("Telephone: ", 20.0, kblack),
-                  NormalText(telephone, kblack, 15.0),
+                  BoldText("Telephone: ", 20.0, dayTextColor),
+                  NormalText(telephone, dayTextColor, 15.0),
                 ],
               ),
               SizedBox(
@@ -51,16 +51,20 @@ class CityInfo extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      NormalText("MONDAY / " + hours["Monday"], kblack, 12.0),
-                      NormalText("TUESDAY / " + hours["Tuesday"], kblack, 12.0),
                       NormalText(
-                          "WEDNESDEY / " + hours["Wednesday"], kblack, 12.0),
+                          "MONDAY / " + hours["Monday"], dayTextColor, 12.0),
                       NormalText(
-                          "THURSDAY / " + hours["Thursday"], kblack, 12.0),
-                      NormalText("FRIDAY / " + hours["Friday"], kblack, 12.0),
+                          "TUESDAY / " + hours["Tuesday"], dayTextColor, 12.0),
+                      NormalText("WEDNESDEY / " + hours["Wednesday"],
+                          dayTextColor, 12.0),
+                      NormalText("THURSDAY / " + hours["Thursday"],
+                          dayTextColor, 12.0),
                       NormalText(
-                          "SATURDAY / " + hours["Saturday"], kblack, 12.0),
-                      NormalText("SUNDAY / " + hours["Sunday"], kblack, 12.0),
+                          "FRIDAY / " + hours["Friday"], dayTextColor, 12.0),
+                      NormalText("SATURDAY / " + hours["Saturday"],
+                          dayTextColor, 12.0),
+                      NormalText(
+                          "SUNDAY / " + hours["Sunday"], dayTextColor, 12.0),
                     ],
                   )
                 ],
@@ -80,13 +84,13 @@ class CityInfo extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              BoldText("About this place", 20.0, kblack),
+              BoldText("About this place", 20.0, dayTextColor),
             ],
           ),
           SizedBox(
             height: 10,
           ),
-          NormalText(description, kblack, 12.0),
+          NormalText(description, dayTextColor, 12.0),
         ],
       ),
     );

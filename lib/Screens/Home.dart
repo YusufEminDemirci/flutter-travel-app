@@ -82,7 +82,7 @@ class _HomeState extends State<Home> {
               BottomNavyBarItem(
                 icon: Icon(FontAwesomeIcons.searchLocation),
                 activeColor: dayMainColor,
-                inactiveColor: kgreyDark,
+                inactiveColor: dayTextColor,
                 title: Text(
                   "Cities",
                   style: TextStyle(fontFamily: "nunito"),

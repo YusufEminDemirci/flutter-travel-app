@@ -61,31 +61,35 @@ class _TravelPlanState extends State<TravelPlan>
       double _latitude = double.parse(selectedPlaces[i].latitude);
       double _longitude = double.parse(selectedPlaces[i].longitude);
 
-      markerList.add(Marker(
-        markerId: MarkerId(selectedPlaces[i].id),
-        position: LatLng(_latitude, _longitude),
-        infoWindow: InfoWindow(
-          title: selectedPlaces[i].name,
+      markerList.add(
+        Marker(
+          markerId: MarkerId(selectedPlaces[i].id),
+          position: LatLng(_latitude, _longitude),
+          infoWindow: InfoWindow(
+            title: selectedPlaces[i].name,
+          ),
+          icon: BitmapDescriptor.defaultMarkerWithHue(
+            BitmapDescriptor.hueViolet,
+          ),
         ),
-        icon: BitmapDescriptor.defaultMarkerWithHue(
-          BitmapDescriptor.hueViolet,
-        ),
-      ));
+      );
     }
     for (var i = 0; i < selectedRestaurants.length; i++) {
       double _latitude = double.parse(selectedRestaurants[i].latitude);
       double _longitude = double.parse(selectedRestaurants[i].longitude);
 
-      markerList.add(Marker(
-        markerId: MarkerId(selectedRestaurants[i].id),
-        position: LatLng(_latitude, _longitude),
-        infoWindow: InfoWindow(
-          title: selectedRestaurants[i].name,
+      markerList.add(
+        Marker(
+          markerId: MarkerId(selectedRestaurants[i].id),
+          position: LatLng(_latitude, _longitude),
+          infoWindow: InfoWindow(
+            title: selectedRestaurants[i].name,
+          ),
+          icon: BitmapDescriptor.defaultMarkerWithHue(
+            BitmapDescriptor.hueViolet,
+          ),
         ),
-        icon: BitmapDescriptor.defaultMarkerWithHue(
-          BitmapDescriptor.hueViolet,
-        ),
-      ));
+      );
     }
 
     return markerList.toSet();
@@ -163,13 +167,13 @@ class _TravelPlanState extends State<TravelPlan>
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(40),
         child: AppBar(
-          leading: BackButton(color: Colors.black),
+          leading: BackButton(color: dayTextColor),
           backgroundColor: Colors.white70,
           title: Stack(
             children: [
               Align(
                 alignment: Alignment(-0.2, -0.8),
-                child: BoldText(cityName, 20, Colors.black),
+                child: BoldText(cityName, 20, dayTextColor),
               ),
               Align(
                 alignment: Alignment(0.9, -0.8),
@@ -177,7 +181,7 @@ class _TravelPlanState extends State<TravelPlan>
                   value: travelMode,
                   icon: const Icon(Icons.route_rounded),
                   elevation: 16,
-                  style: const TextStyle(color: Colors.black),
+                  style: TextStyle(color: dayTextColor),
                   underline: Container(
                     height: 2,
                     color: Colors.deepOrangeAccent,

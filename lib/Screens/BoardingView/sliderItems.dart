@@ -34,7 +34,7 @@ class SlideItem extends StatelessWidget {
         SizedBox(
           height: 60.0,
         ),
-        BoldText(sliderArrayList[index].sliderHeading, 20.5, kblack),
+        BoldText(sliderArrayList[index].sliderHeading, 20.5, dayTextColor),
         SizedBox(
           height: 15.0,
         ),
@@ -42,12 +42,12 @@ class SlideItem extends StatelessWidget {
           child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 40.0),
               child: index != 2
-                  ? NormalText(
-                      sliderArrayList[index].sliderSubHeading, kblack, 12.5)
+                  ? NormalText(sliderArrayList[index].sliderSubHeading,
+                      dayTextColor, 12.5)
                   : Column(
                       children: <Widget>[
                         NormalText(sliderArrayList[index].sliderSubHeading,
-                            kblack, 12.5),
+                            dayTextColor, 12.5),
                         SizedBox(
                           height: 50,
                         ),

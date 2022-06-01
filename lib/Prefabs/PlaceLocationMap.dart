@@ -116,7 +116,7 @@ class _PlaceLocationMap extends State<PlaceLocationMap>
           children: <Widget>[
             SizedBox(height: 20.0),
             SizedBox(
-              height: 330,
+              height: 380,
               width: 400,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20.0),

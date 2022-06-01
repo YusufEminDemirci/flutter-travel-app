@@ -43,7 +43,7 @@ class _ProfileState extends State<Profile> {
         preferredSize: Size.fromHeight(40),
         child: AppBar(
           backgroundColor: Colors.transparent,
-          title: BoldText("My Profile", 35, kwhite),
+          title: BoldText("My Profile", 35, dayTextColor),
           centerTitle: true,
           elevation: 0.0,
           automaticallyImplyLeading: false,
@@ -176,7 +176,7 @@ class _ProfileState extends State<Profile> {
                                   ),
                                   child: Icon(
                                     Icons.mode_edit_rounded,
-                                    color: kblack,
+                                    color: dayTextColor,
                                     size: 40,
                                   ),
                                 ),
@@ -293,8 +293,8 @@ class _ProfileState extends State<Profile> {
                                   spreadRadius: 5,
                                 ),
                               ]),
-                          child: profileItem(
-                              FontAwesomeIcons.signOutAlt, "Sign Out"),
+                          child:
+                              exitItem(FontAwesomeIcons.signOutAlt, "Sign Out"),
                         ),
                         onTap: () {
                           Dialogs.materialDialog(
@@ -305,9 +305,9 @@ class _ProfileState extends State<Profile> {
                             actions: [
                               IconsOutlineButton(
                                 text: 'Cancel',
-                                textStyle: TextStyle(color: Colors.grey),
+                                textStyle: TextStyle(color: dayTextColor),
                                 iconData: Icons.cancel_outlined,
-                                iconColor: Colors.grey,
+                                iconColor: dayTextColor,
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                 },
@@ -362,14 +362,38 @@ class _ProfileState extends State<Profile> {
         children: <Widget>[
           Icon(
             icon,
-            color: kdarkBlue,
+            color: dayTextColor,
             size: 35,
           ),
           Text(
             text,
             style: TextStyle(
               fontSize: 20,
-              color: kblack,
+              color: dayTextColor,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget exitItem(IconData icon, String text) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 16),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          Icon(
+            icon,
+            color: Colors.redAccent,
+            size: 35,
+          ),
+          Text(
+            text,
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.redAccent,
             ),
             textAlign: TextAlign.center,
           ),

@@ -43,7 +43,7 @@ class _TravelFinished extends State<TravelFinished> {
                 style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
-                    color: Colors.blueAccent),
+                    color: dayTextColor),
               ),
             ],
           ),

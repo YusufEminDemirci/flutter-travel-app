@@ -122,7 +122,7 @@ class CommentArea extends StatelessWidget {
                               style: TextStyle(
                                   fontFamily: "nunito",
                                   fontWeight: FontWeight.w500,
-                                  color: kgreyDark,
+                                  color: dayTextColor,
                                   fontSize: 12.5),
                             ),
                           ),

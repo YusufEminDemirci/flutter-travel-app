@@ -125,7 +125,7 @@ class _DetailScreenState extends State<DetailScreen>
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(40),
         child: AppBar(
-          leading: BackButton(color: Colors.black),
+          leading: BackButton(color: dayTextColor),
           backgroundColor: Colors.white70,
           centerTitle: true,
           elevation: 0.0,
@@ -135,7 +135,7 @@ class _DetailScreenState extends State<DetailScreen>
               bottom: Radius.circular(10),
             ),
           ),
-          title: BoldText(name, 25.0, kblack),
+          title: BoldText(name, 25.0, dayTextColor),
         ),
       ),
       backgroundColor: kwhite,
@@ -176,7 +176,7 @@ class _DetailScreenState extends State<DetailScreen>
                         backgroundColor: kwhite,
                         appBar: TabBar(
                           labelColor: dayMainColor,
-                          unselectedLabelColor: kdarkBlue,
+                          unselectedLabelColor: dayTextColor,
                           labelStyle: TextStyle(
                             fontFamily: "nunito",
                             fontWeight: FontWeight.bold,

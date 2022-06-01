@@ -92,7 +92,7 @@ class PlanPlace extends StatelessWidget {
                   SizedBox(
                     child: Icon(
                       Icons.location_on,
-                      color: kblack,
+                      color: dayTextColor,
                       size: 17.0,
                     ),
                   ),
@@ -100,7 +100,7 @@ class PlanPlace extends StatelessWidget {
                     child: Text(
                       cityName,
                       style: TextStyle(
-                        color: kblack,
+                        color: dayTextColor,
                         fontSize: 14.0,
                         fontWeight: FontWeight.bold,
                       ),
@@ -116,7 +116,7 @@ class PlanPlace extends StatelessWidget {
                     child: Container(
                       width: 50.0,
                       decoration: BoxDecoration(
-                        color: korange,
+                        color: dayMainColor,
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       child: Row(
@@ -125,7 +125,7 @@ class PlanPlace extends StatelessWidget {
                         children: <Widget>[
                           Icon(
                             Icons.star,
-                            color: kwhite,
+                            color: Colors.amber,
                             size: 16.0,
                           ),
                           Text(
@@ -173,7 +173,7 @@ class PlanPlace extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   primary: Colors.red,
                   onPrimary: Colors.white,
-                  shadowColor: Colors.black,
+                  shadowColor: dayTextColor,
                   elevation: 4.0,
                   padding: const EdgeInsets.only(
                       top: 4.0, bottom: 4.0, right: 4.0, left: 4.0),

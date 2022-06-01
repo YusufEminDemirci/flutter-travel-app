@@ -53,7 +53,7 @@ class _TravelListState extends State<TravelList>
         preferredSize: Size.fromHeight(40),
         child: AppBar(
           backgroundColor: Colors.white70,
-          title: BoldText("My Plan", 35, dayMainColor),
+          title: BoldText("My Plan", 35, dayTextColor),
           centerTitle: true,
           elevation: 0.0,
           automaticallyImplyLeading: false,
@@ -65,7 +65,7 @@ class _TravelListState extends State<TravelList>
           preferredSize: Size.fromHeight(55.0),
           child: TabBar(
             labelColor: dayMainColor,
-            unselectedLabelColor: kdarkBlue,
+            unselectedLabelColor: dayTextColor,
             labelStyle:
                 TextStyle(fontFamily: "nunito", fontWeight: FontWeight.bold),
             controller: tabController,

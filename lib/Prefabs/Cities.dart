@@ -79,7 +79,7 @@ class _CitiesImageState extends State<CitiesImage> {
                 child: BoldText(
                   name.toUpperCase(),
                   22,
-                  kblack,
+                  dayTextColor,
                 ),
               ),
             ),

@@ -16,7 +16,7 @@ class SlideDots extends StatelessWidget {
         color: isActive ? kwhite : Colors.grey,
         border: isActive
             ? Border.all(
-                color: korange,
+                color: dayMainColor,
                 width: 2.0,
               )
             : Border.all(
