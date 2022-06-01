@@ -14,9 +14,11 @@ final newPalettePink = const Color(0xff3f59);
 final newPaletteDarkBlue = const Color(0x282750);
 
 final dayMainColor = Colors.amber;
+// final dayMainColor = Color.fromRGBO(0, 190, 180, 1);
 final daySecondaryColor = Colors.white;
 
 final nightMainColor = Colors.blueGrey;
+// final nightMainColor = Color.fromRGBO(63, 77, 89, 1);
 final nightSecondaryColor = Colors.black;
 
 final transparentColor = Colors.transparent;

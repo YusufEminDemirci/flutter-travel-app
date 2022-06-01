@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -49,13 +50,16 @@ class _ProfileState extends State<Profile> {
           // actions: <Widget>[
           //   IconButton(
           //     icon: Icon(
-          //       FontAwesomeIcons.solidBell,
+          //       FontAwesomeIcons.palette,
           //       color: kwhite,
           //     ),
           //     onPressed: () {
-          //       Navigator.push(
-          //         context,
-          //         MaterialPageRoute(builder: (context) => new Notifications()),
+          //       DynamicTheme.of(context).setThemeData(
+          //         new ThemeData(
+          //             primaryColor:
+          //                 Theme.of(context).primaryColor == Colors.amber
+          //                     ? Color.fromRGBO(0, 190, 180, 1)
+          //                     : Colors.amber),
           //       );
           //     },
           //   )
