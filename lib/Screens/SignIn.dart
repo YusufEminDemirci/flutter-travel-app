@@ -153,11 +153,11 @@ class _SignInPageState extends State<SignInPage> {
                             },
                             icon: _obscureText
                                 ? Icon(
-                                    FontAwesomeIcons.eye,
+                                    FontAwesomeIcons.eyeSlash,
                                     color: Colors.grey.shade700,
                                   )
                                 : Icon(
-                                    FontAwesomeIcons.eyeSlash,
+                                    FontAwesomeIcons.eye,
                                     color: Colors.grey.shade700,
                                   ),
                             iconSize: 20,
@@ -193,8 +193,6 @@ class _SignInPageState extends State<SignInPage> {
                     height: 25,
                   ),
                   WideButton.bold("SIGN IN", () async {
-                    _signInWithEmailAndPassword();
-
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
 
@@ -205,6 +203,8 @@ class _SignInPageState extends State<SignInPage> {
                       querySnapshot.docs.forEach((result) {
                         String _email = result.data()["e-mail"];
                         String _password = result.data()["password"];
+
+                        _signInWithEmailAndPassword();
 
                         if (_emailController.text == _email &&
                             _passwordController.text == _password) {
