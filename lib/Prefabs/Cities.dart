@@ -122,6 +122,7 @@ getPlacesInfo(String cityId, String cityName) async {
       Map _hours = result.data()["Hours"];
 
       List rateList = [];
+      double rateAverage = 0;
 
       await firestoreInstance
           .collection("Cities")
@@ -137,15 +138,14 @@ getPlacesInfo(String cityId, String cityName) async {
           String rate = comment.data()["rate"];
           rateList.add(rate);
         }
-        double rateAverage = 0;
         for (var rate in rateList) {
           rateAverage += double.parse(rate);
         }
         rateAverage = rateAverage / rateList.length;
         if (rateAverage.isNaN) {
-          rate = "0.0";
+          return rate = "0.0";
         } else {
-          rate = rateAverage.toStringAsFixed(1);
+          return rate = rateAverage.toStringAsFixed(1);
         }
       });
       print(rate);

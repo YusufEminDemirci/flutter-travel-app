@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -86,62 +87,88 @@ class _TravelListState extends State<TravelList>
         body: TabBarView(
           controller: tabController,
           children: <Widget>[
-            GridView.builder(
-                padding: const EdgeInsets.only(
-                    left: 20.0, right: 16.0, bottom: 16.0, top: 25.0),
-                itemCount: selectedPlaces.length,
-                shrinkWrap: true,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2),
-                itemBuilder: (BuildContext context, int index) {
-                  if (selectedPlaces.length > 0) {
-                    return PlanPlace(
-                        selectedPlaces[index].id,
-                        selectedPlaces[index].imageUrl,
-                        selectedPlaces[index].name,
-                        selectedPlaces[index].location,
-                        selectedPlaces[index].description,
-                        selectedPlaces[index].rate,
-                        selectedPlaces[index].type,
-                        selectedPlaces[index].telephone,
-                        selectedPlaces[index].latitude,
-                        selectedPlaces[index].longitude,
-                        selectedPlaces[index].whoSee,
-                        selectedPlaces[index].hours,
-                        cityName,
-                        cityId);
-                  } else {
-                    return Container();
-                  }
-                }),
-            GridView.builder(
-                padding: const EdgeInsets.only(
-                    left: 20.0, right: 16.0, bottom: 16.0, top: 25.0),
-                itemCount: selectedPlaces.length,
-                shrinkWrap: true,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2),
-                itemBuilder: (BuildContext context, int index) {
-                  if (selectedRestaurants.length > 0) {
-                    return PlanPlace(
-                        selectedRestaurants[index].id,
-                        selectedRestaurants[index].imageUrl,
-                        selectedRestaurants[index].name,
-                        selectedRestaurants[index].location,
-                        selectedRestaurants[index].description,
-                        selectedRestaurants[index].rate,
-                        selectedRestaurants[index].type,
-                        selectedRestaurants[index].telephone,
-                        selectedRestaurants[index].latitude,
-                        selectedRestaurants[index].longitude,
-                        selectedRestaurants[index].whoSee,
-                        selectedRestaurants[index].hours,
-                        cityName,
-                        cityId);
-                  } else {
-                    return Container();
-                  }
-                }),
+            StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection("Users")
+                  .doc("yBeXEnvLJ1QlTxzqh8LM")
+                  .collection("selected")
+                  .where("type", isEqualTo: "place")
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return GridView.builder(
+                      padding: const EdgeInsets.only(
+                          left: 20.0, right: 16.0, bottom: 16.0, top: 25.0),
+                      shrinkWrap: true,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2),
+                      itemCount: snapshot.data.documents.length,
+                      itemBuilder: (context, index) {
+                        return PlanPlace(
+                            snapshot.data.documents[index].data()["id"],
+                            snapshot.data.documents[index].data()["imageUrl"],
+                            snapshot.data.documents[index].data()["name"],
+                            snapshot.data.documents[index].data()["location"],
+                            snapshot.data.documents[index]
+                                .data()["description"],
+                            snapshot.data.documents[index].data()["rate"],
+                            snapshot.data.documents[index].data()["type"],
+                            snapshot.data.documents[index].data()["telephone"],
+                            snapshot.data.documents[index].data()["latitude"],
+                            snapshot.data.documents[index].data()["longitude"],
+                            [],
+                            snapshot.data.documents[index].data()["Hours"],
+                            cityName,
+                            cityId);
+                      });
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+            ),
+            StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection("Users")
+                  .doc("yBeXEnvLJ1QlTxzqh8LM")
+                  .collection("selected")
+                  .where("type", isEqualTo: "restaurant")
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return GridView.builder(
+                      padding: const EdgeInsets.only(
+                          left: 20.0, right: 16.0, bottom: 16.0, top: 25.0),
+                      shrinkWrap: true,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2),
+                      itemCount: snapshot.data.documents.length,
+                      itemBuilder: (context, index) {
+                        return PlanPlace(
+                            snapshot.data.documents[index].data()["id"],
+                            snapshot.data.documents[index].data()["imageUrl"],
+                            snapshot.data.documents[index].data()["name"],
+                            snapshot.data.documents[index].data()["location"],
+                            snapshot.data.documents[index]
+                                .data()["description"],
+                            snapshot.data.documents[index].data()["rate"],
+                            snapshot.data.documents[index].data()["type"],
+                            snapshot.data.documents[index].data()["telephone"],
+                            snapshot.data.documents[index].data()["latitude"],
+                            snapshot.data.documents[index].data()["longitude"],
+                            [],
+                            snapshot.data.documents[index].data()["Hours"],
+                            cityName,
+                            cityId);
+                      });
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+            ),
           ],
         ),
       ),

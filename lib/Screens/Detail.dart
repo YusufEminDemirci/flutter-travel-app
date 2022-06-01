@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel_food/Lists/commentsList.dart';
 import 'package:travel_food/Lists/selectedPlaces.dart';
 import 'package:travel_food/Lists/selectedRestaurants.dart';
@@ -231,8 +232,8 @@ class _DetailScreenState extends State<DetailScreen>
                           ],
                         ),
                         floatingActionButton: FloatingActionButton(
-                          onPressed: () {
-                            String response = checkList(
+                          onPressed: () async {
+                            String response = await checkList(
                               id,
                               imageUrl,
                               name,
@@ -247,6 +248,7 @@ class _DetailScreenState extends State<DetailScreen>
                               hours,
                               cityName,
                               cityId,
+                              context,
                             );
 
                             if (response == "Added") {
@@ -346,82 +348,103 @@ checkList(
   Map hours,
   String cityName,
   String cityId,
-) {
-  if (selectedPlaces.length > 0) {
-    for (int index = 0; index < selectedPlaces.length; index++) {
-      if (id != selectedPlaces[index].id && type == "place") {
-        if (cityId != selectedPlaces[0].cityId) {
-          return "Listeye farklı şehirden yerler eklenemez";
-        } else {
-          selectedPlaces.add(
-            LocationsImage(
-                id,
-                imageUrl,
-                name,
-                location,
-                description,
-                rate,
-                type,
-                telephone,
-                latitude,
-                longitude,
-                whoSee,
-                hours,
-                cityName,
-                cityId),
-          );
-          return "Added";
-        }
-      } else if (id == selectedPlaces[index].id && type == "place") {
-        selectedPlaces.remove(selectedPlaces[index]);
-        return "Removed";
-      }
-    }
-  } else if (selectedPlaces.length == 0 && type == "place") {
-    selectedPlaces.add(
-      LocationsImage(id, imageUrl, name, location, description, rate, type,
-          telephone, latitude, longitude, whoSee, hours, cityName, cityId),
-    );
-    return "Added";
-  }
-  if (selectedRestaurants.length > 0) {
-    for (int index = 0; index < selectedRestaurants.length; index++) {
-      if (id != selectedRestaurants[index].id && type == "restaurant") {
-        if (cityId != selectedPlaces[0].cityId) {
-          return "Listeye farklı şehirden yerler eklenemez";
-        } else {
-          selectedRestaurants.add(
-            LocationsImage(
-                id,
-                imageUrl,
-                name,
-                location,
-                description,
-                rate,
-                type,
-                telephone,
-                latitude,
-                longitude,
-                whoSee,
-                hours,
-                cityName,
-                cityId),
-          );
-          return "Added";
-        }
-      } else if (id == selectedRestaurants[index].id && type == "restaurant") {
-        selectedRestaurants.remove(selectedRestaurants[index]);
-        return "Removed";
-      }
-    }
-  } else if (selectedRestaurants.length == 0 && type == "restaurant") {
-    selectedRestaurants.add(
-      LocationsImage(id, imageUrl, name, location, description, rate, type,
-          telephone, latitude, longitude, whoSee, hours, cityName, cityId),
-    );
-    return "Added";
-  }
-  return "Removed";
+  BuildContext context,
+) async {
+  FirebaseFirestore.instance
+      .collection('Users')
+      .doc('yBeXEnvLJ1QlTxzqh8LM')
+      .collection('selected')
+      .get()
+      .then((value) => {
+            if (value.docs.length > 0)
+              {
+                if (cityId != value.docs[0]["cityId"])
+                  {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                            "Places from different cities cannot be added to the list"),
+                        backgroundColor: Colors.redAccent,
+                      ),
+                    )
+                  }
+                else if (id == value.docs[0]["id"])
+                  {
+                    FirebaseFirestore.instance
+                        .collection('Users')
+                        .doc('yBeXEnvLJ1QlTxzqh8LM')
+                        .collection('selected')
+                        .doc(id)
+                        .delete(),
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(name + " removed"),
+                        backgroundColor: Colors.redAccent,
+                      ),
+                    )
+                  }
+                else
+                  {
+                    FirebaseFirestore.instance
+                        .collection('Users')
+                        .doc('yBeXEnvLJ1QlTxzqh8LM')
+                        .collection('selected')
+                        .doc(id)
+                        .set({
+                      "id": id,
+                      "imageUrl": imageUrl,
+                      "name": name,
+                      "location": location,
+                      "description": description,
+                      "rate": rate,
+                      "type": type,
+                      "telephone": telephone,
+                      "latitude": latitude,
+                      "longitude": longitude,
+                      "whoSee": whoSee,
+                      "hours": hours,
+                      "cityName": cityName,
+                      "cityId": cityId
+                    }),
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(name + " added"),
+                        backgroundColor: Colors.greenAccent,
+                      ),
+                    )
+                  }
+              }
+            else
+              {
+                FirebaseFirestore.instance
+                    .collection('Users')
+                    .doc('yBeXEnvLJ1QlTxzqh8LM')
+                    .collection('selected')
+                    .doc(id)
+                    .set({
+                  "id": id,
+                  "imageUrl": imageUrl,
+                  "name": name,
+                  "location": location,
+                  "description": description,
+                  "rate": rate,
+                  "type": type,
+                  "telephone": telephone,
+                  "latitude": latitude,
+                  "longitude": longitude,
+                  "whoSee": whoSee,
+                  "hours": hours,
+                  "cityName": cityName,
+                  "cityId": cityId
+                }),
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(name + " added"),
+                    backgroundColor: Colors.greenAccent,
+                  ),
+                )
+              }
+          });
 }
 
 Future<Object> popUpMessage(

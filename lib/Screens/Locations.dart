@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:travel_food/Lists/places.dart';
@@ -81,72 +82,90 @@ class _PlacesState extends State<Places> with SingleTickerProviderStateMixin {
         body: TabBarView(
           controller: tabController,
           children: <Widget>[
-            RefreshIndicator(
-              onRefresh: () async {
-                setState(() {});
+            StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection("Cities")
+                  .doc(cityId)
+                  .collection("Places")
+                  .where("location", isEqualTo: cityId)
+                  .where("type", isEqualTo: "place")
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return GridView.builder(
+                      padding: const EdgeInsets.only(
+                          left: 20.0, right: 16.0, bottom: 16.0, top: 25.0),
+                      shrinkWrap: true,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2),
+                      itemCount: snapshot.data.documents.length,
+                      itemBuilder: (context, index) {
+                        return LocationsImage(
+                            snapshot.data.documents[index].data()["id"],
+                            snapshot.data.documents[index].data()["imageUrl"],
+                            snapshot.data.documents[index].data()["name"],
+                            snapshot.data.documents[index].data()["location"],
+                            snapshot.data.documents[index]
+                                .data()["description"],
+                            snapshot.data.documents[index].data()["rate"],
+                            snapshot.data.documents[index].data()["type"],
+                            snapshot.data.documents[index].data()["telephone"],
+                            snapshot.data.documents[index].data()["latitude"],
+                            snapshot.data.documents[index].data()["longitude"],
+                            [],
+                            snapshot.data.documents[index].data()["Hours"],
+                            cityName,
+                            cityId);
+                      });
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
               },
-              child: GridView.builder(
-                  padding: const EdgeInsets.only(
-                      left: 20.0, right: 16.0, bottom: 16.0, top: 25.0),
-                  itemCount: places.length,
-                  shrinkWrap: true,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2),
-                  itemBuilder: (BuildContext context, int index) {
-                    if (places.length > 0) {
-                      return LocationsImage(
-                          places[index].id,
-                          places[index].imageUrl,
-                          places[index].name,
-                          places[index].location,
-                          places[index].description,
-                          places[index].rate,
-                          places[index].type,
-                          places[index].telephone,
-                          places[index].latitude,
-                          places[index].longitude,
-                          places[index].whoSee,
-                          places[index].hours,
-                          cityName,
-                          cityId);
-                    } else {
-                      return Container();
-                    }
-                  }),
             ),
-            RefreshIndicator(
-              onRefresh: () async {
-                setState(() {});
-              },
-              child: GridView.builder(
-                  padding: const EdgeInsets.only(
-                      left: 20.0, right: 16.0, bottom: 16.0, top: 25.0),
-                  itemCount: restaurants.length,
-                  shrinkWrap: true,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2),
-                  itemBuilder: (BuildContext context, int index) {
-                    if (restaurants.length > 0) {
+            StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection("Cities")
+                  .doc(cityId)
+                  .collection("Places")
+                  .where("location", isEqualTo: cityId)
+                  .where("type", isEqualTo: "restaurant")
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return GridView.builder(
+                    padding: const EdgeInsets.only(
+                        left: 20.0, right: 16.0, bottom: 16.0, top: 25.0),
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2),
+                    itemCount: snapshot.data.documents.length,
+                    itemBuilder: (context, index) {
                       return LocationsImage(
-                          restaurants[index].id,
-                          restaurants[index].imageUrl,
-                          restaurants[index].name,
-                          restaurants[index].location,
-                          restaurants[index].description,
-                          restaurants[index].rate,
-                          restaurants[index].type,
-                          restaurants[index].telephone,
-                          restaurants[index].latitude,
-                          restaurants[index].longitude,
-                          restaurants[index].whoSee,
-                          restaurants[index].hours,
+                          snapshot.data.documents[index].data()["id"],
+                          snapshot.data.documents[index].data()["imageUrl"],
+                          snapshot.data.documents[index].data()["name"],
+                          snapshot.data.documents[index].data()["location"],
+                          snapshot.data.documents[index].data()["description"],
+                          snapshot.data.documents[index].data()["rate"],
+                          snapshot.data.documents[index].data()["type"],
+                          snapshot.data.documents[index].data()["telephone"],
+                          snapshot.data.documents[index].data()["latitude"],
+                          snapshot.data.documents[index].data()["longitude"],
+                          [],
+                          snapshot.data.documents[index].data()["Hours"],
                           cityName,
                           cityId);
-                    } else {
-                      return Container();
-                    }
-                  }),
-            )
+                    },
+                  );
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+            ),
           ],
         ),
       ),

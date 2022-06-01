@@ -196,6 +196,8 @@ class _SignInPageState extends State<SignInPage> {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
 
+                    bool success = false;
+
                     FirebaseFirestore.instance
                         .collection("Users")
                         .get()
@@ -222,6 +224,8 @@ class _SignInPageState extends State<SignInPage> {
 
                           prefs.setBool('isLoggedIn', true);
 
+                          success = true;
+
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text("Logged In"),
@@ -238,16 +242,20 @@ class _SignInPageState extends State<SignInPage> {
                           _emailController.text = "";
                           _passwordController.text = "";
                         } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text(
-                                  "The information you entered is incorrect, please check your information"),
-                              backgroundColor: Colors.redAccent,
-                            ),
-                          );
+                          success = false;
                         }
                       });
                     });
+
+                    if (!success) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                              "The information you entered is incorrect, please check your information"),
+                          backgroundColor: Colors.redAccent,
+                        ),
+                      );
+                    }
                   }, true),
                   SizedBox(
                     height: 10,

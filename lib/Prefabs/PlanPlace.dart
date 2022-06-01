@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_food/Lists/selectedPlaces.dart';
 import 'package:travel_food/Lists/selectedRestaurants.dart';
@@ -151,35 +152,18 @@ class PlanPlace extends StatelessWidget {
               right: 0,
               child: ElevatedButton(
                 onPressed: () {
-                  if (selectedPlaces.length > 0 ||
-                      selectedRestaurants.length > 0) {
-                    for (int index = 0;
-                        index < selectedPlaces.length;
-                        index++) {
-                      if (id == selectedPlaces[index].id) {
-                        selectedPlaces.remove(selectedPlaces[index]);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(name + " removed from list"),
-                            backgroundColor: Colors.redAccent,
-                          ),
-                        );
-                      }
-                    }
-                    for (int index = 0;
-                        index < selectedRestaurants.length;
-                        index++) {
-                      if (id == selectedRestaurants[index].id) {
-                        selectedRestaurants.remove(selectedRestaurants[index]);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(name + " removed from list"),
-                            backgroundColor: Colors.redAccent,
-                          ),
-                        );
-                      }
-                    }
-                  }
+                  FirebaseFirestore.instance
+                      .collection('Users')
+                      .doc('yBeXEnvLJ1QlTxzqh8LM')
+                      .collection('selected')
+                      .doc(id)
+                      .delete();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(name + " removed"),
+                      backgroundColor: Colors.redAccent,
+                    ),
+                  );
                 },
                 child: Icon(Icons.delete),
                 style: ElevatedButton.styleFrom(
