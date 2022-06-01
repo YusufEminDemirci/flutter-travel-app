@@ -110,11 +110,7 @@ class _PlacesState extends State<Places> with SingleTickerProviderStateMixin {
                           cityName,
                           cityId);
                     } else {
-                      return Container(
-                        child: Center(
-                          child: Text("Empty"),
-                        ),
-                      );
+                      return Container();
                     }
                   }),
             ),
@@ -147,11 +143,7 @@ class _PlacesState extends State<Places> with SingleTickerProviderStateMixin {
                           cityName,
                           cityId);
                     } else {
-                      return Container(
-                        child: Center(
-                          child: Text("Empty"),
-                        ),
-                      );
+                      return Container();
                     }
                   }),
             )
