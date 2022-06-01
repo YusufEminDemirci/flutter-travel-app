@@ -22,11 +22,13 @@ final TextEditingController _nameController = TextEditingController();
 final TextEditingController _surnameController = TextEditingController();
 final TextEditingController _emailController = TextEditingController();
 final TextEditingController _passwordController = TextEditingController();
+final TextEditingController _repeatPasswordController = TextEditingController();
 
 final stockProfilePictureLink =
     "https://firebasestorage.googleapis.com/v0/b/projectx-b164c.appspot.com/o/person_110935.png?alt=media&token=2a3ad44f-ecd9-4a7e-b5a1-a32228eefeb8";
 
 bool _obscureText = true;
+bool _repeatObscureText = true;
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -243,11 +245,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           },
                           icon: _obscureText
                               ? Icon(
-                                  FontAwesomeIcons.eye,
+                                  FontAwesomeIcons.eyeSlash,
                                   color: Colors.grey.shade700,
                                 )
                               : Icon(
-                                  FontAwesomeIcons.eyeSlash,
+                                  FontAwesomeIcons.eye,
                                   color: Colors.grey.shade700,
                                 ),
                           iconSize: 20,
@@ -273,57 +275,131 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     ),
                   ),
                   SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    width: 340.0,
+                    child: TextFormField(
+                      style: TextStyle(
+                          fontFamily: "nunito",
+                          fontWeight: FontWeight.w500,
+                          color: dayTextColor,
+                          fontSize: 15.5),
+                      obscureText: _repeatObscureText,
+                      keyboardType: TextInputType.text,
+                      controller: _repeatPasswordController,
+                      validator: (String value) {
+                        if (value.isEmpty) {
+                          return 'This Field Cannot Be Left Blank !';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.grey.shade100,
+                        prefixIcon: Icon(
+                          Icons.lock,
+                          color: Colors.grey.shade700,
+                        ),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _repeatObscureText = !_repeatObscureText;
+                            });
+                          },
+                          icon: _repeatObscureText
+                              ? Icon(
+                                  FontAwesomeIcons.eyeSlash,
+                                  color: Colors.grey.shade700,
+                                )
+                              : Icon(
+                                  FontAwesomeIcons.eye,
+                                  color: Colors.grey.shade700,
+                                ),
+                          iconSize: 20,
+                        ),
+                        hintText: "Repeat Password",
+                        hintStyle: TextStyle(
+                            fontFamily: "nunito",
+                            fontWeight: FontWeight.w500,
+                            color: kgreyDark,
+                            fontSize: 15.5),
+                        contentPadding: const EdgeInsets.only(
+                            left: 14.0, bottom: 8.0, top: 8.0),
+                        focusColor: Colors.grey.shade700,
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
                     height: 30,
                   ),
                   WideButton.bold("Register", () async {
                     if (_formKey.currentState.validate()) {
-                      _register();
+                      if (_passwordController.text ==
+                          _repeatPasswordController.text) {
+                        _register();
 
-                      var _uuid = Uuid().v4();
+                        var _uuid = Uuid().v4();
 
-                      FirebaseFirestore.instance.collection("Users").add({
-                        "id": _uuid,
-                        "imageUrl": stockProfilePictureLink,
-                        "name": _nameController.text,
-                        "surname": _surnameController.text,
-                        "e-mail": _emailController.text,
-                        "password": _passwordController.text,
-                      });
+                        FirebaseFirestore.instance.collection("Users").add({
+                          "id": _uuid,
+                          "imageUrl": stockProfilePictureLink,
+                          "name": _nameController.text,
+                          "surname": _surnameController.text,
+                          "e-mail": _emailController.text,
+                          "password": _passwordController.text,
+                        });
 
-                      SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
 
-                      prefs.setString('userEmail', _emailController.text);
-                      prefs.setString('userName', _nameController.text);
-                      prefs.setString('userSurname', _surnameController.text);
-                      prefs.setString('userImageUrl', stockProfilePictureLink);
-                      prefs.setString('userId', _uuid);
-                      prefs.setString('userPassword', _passwordController.text);
+                        prefs.setString('userEmail', _emailController.text);
+                        prefs.setString('userName', _nameController.text);
+                        prefs.setString('userSurname', _surnameController.text);
+                        prefs.setString(
+                            'userImageUrl', stockProfilePictureLink);
+                        prefs.setString('userId', _uuid);
+                        prefs.setString(
+                            'userPassword', _passwordController.text);
 
-                      prefs.setBool('isLoggedIn', true);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("Registration successful"),
+                            backgroundColor: Colors.greenAccent,
+                          ),
+                        );
 
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(builder: (context) => new Home()),
-                          ModalRoute.withName("/Home"));
+                        prefs.setBool('isLoggedIn', true);
+
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(builder: (context) => new Home()),
+                            ModalRoute.withName("/Home"));
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                                "Passwords are different from each other, please try again"),
+                            backgroundColor: Colors.redAccent,
+                          ),
+                        );
+                      }
                     } else {
-                      Dialogs.materialDialog(
-                          title: "Registration Error",
-                          msg: "Please check fields and try again",
-                          color: Colors.white,
-                          context: context,
-                          actions: [
-                            IconsButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              text: 'Ok',
-                              iconData: Icons.check,
-                              color: Colors.red,
-                              textStyle: TextStyle(color: Colors.white),
-                              iconColor: Colors.white,
-                            ),
-                          ]);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                              "Registration Error, Please check fields and try again"),
+                          backgroundColor: Colors.redAccent,
+                        ),
+                      );
                     }
                   }, true),
                   SizedBox(
@@ -346,11 +422,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              Navigator.of(context, rootNavigator: true)
-                                  .push(CupertinoPageRoute<bool>(
-                                fullscreenDialog: true,
-                                builder: (context) => SignInPage(),
-                              ));
+                              Navigator.of(context, rootNavigator: true).push(
+                                CupertinoPageRoute<bool>(
+                                  fullscreenDialog: true,
+                                  builder: (context) => SignInPage(),
+                                ),
+                              );
                             },
                             child: BoldText.veryBold(
                                 "Sign In ?", 12.5, dayTextColor, true),

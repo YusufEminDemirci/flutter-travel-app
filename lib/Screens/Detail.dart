@@ -250,15 +250,27 @@ class _DetailScreenState extends State<DetailScreen>
                             );
 
                             if (response == "Added") {
-                              popUpMessage(
-                                  context, "Added", FontAwesomeIcons.check);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("Added"),
+                                  backgroundColor: Colors.greenAccent,
+                                ),
+                              );
                             } else if (response == "Removed") {
-                              popUpMessage(context, "Removed",
-                                  FontAwesomeIcons.exclamation);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("Removed"),
+                                  backgroundColor: Colors.redAccent,
+                                ),
+                              );
                             } else if (response ==
                                 "Listeye farklı şehirden yerler eklenemez") {
-                              popUpMessage(context, response.toString(),
-                                  FontAwesomeIcons.exclamation);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(response),
+                                  backgroundColor: Colors.redAccent,
+                                ),
+                              );
                             }
                           },
                           child: Icon(

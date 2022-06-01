@@ -157,11 +157,22 @@ floatingButtonStatus(
   if (selectedPlaces.length > 0 || selectedRestaurants.length > 0) {
     return FloatingActionButton(
       onPressed: () {
-        Navigator.push(
+        if (selectedPlaces.length > 0 || selectedRestaurants.length > 0) {
+          Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) =>
-                    new TravelPlan(cityName, cityId, travelMode)));
+              builder: (context) =>
+                  new TravelPlan(cityName, cityId, travelMode),
+            ),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Your List is empty"),
+              backgroundColor: Colors.redAccent,
+            ),
+          );
+        }
       },
       child: Icon(
         FontAwesomeIcons.arrowRight,

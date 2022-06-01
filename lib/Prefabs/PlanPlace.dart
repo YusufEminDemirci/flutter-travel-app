@@ -167,7 +167,17 @@ class PlanPlace extends StatelessWidget {
                       }
                     }
                   }
-                  setState() {}
+                  setState() {
+                    selectedPlaces = selectedPlaces;
+                    selectedRestaurants = selectedRestaurants;
+                  }
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Removed"),
+                      backgroundColor: Colors.redAccent,
+                    ),
+                  );
                 },
                 child: Icon(Icons.delete),
                 style: ElevatedButton.styleFrom(

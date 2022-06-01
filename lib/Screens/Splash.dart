@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: dayTextColor,
+        backgroundColor: dayMainColor,
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -40,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 size: 70,
               ),
               SizedBox(height: 50),
-              BoldText("Graduation Project 1-2", 35.0, dayMainColor),
+              BoldText("Graduation Project 1-2", 35.0, dayTextColor),
               TypewriterAnimatedTextKit(
                 text: ["Travel & Food"],
                 textStyle: TextStyle(

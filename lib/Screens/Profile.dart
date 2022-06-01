@@ -91,6 +91,13 @@ class _ProfileState extends State<Profile> {
 
                           prefs.setBool('isLoggedIn', false);
 
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Logged Out"),
+                              backgroundColor: Colors.greenAccent,
+                            ),
+                          );
+
                           Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
@@ -156,6 +163,14 @@ class _ProfileState extends State<Profile> {
                                       const SnackBar(
                                         content: Text("No file selected"),
                                         backgroundColor: Colors.red,
+                                      ),
+                                    );
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content:
+                                            Text("Profile picture changed"),
+                                        backgroundColor: Colors.greenAccent,
                                       ),
                                     );
                                   }

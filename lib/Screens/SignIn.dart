@@ -222,30 +222,25 @@ class _SignInPageState extends State<SignInPage> {
 
                           prefs.setBool('isLoggedIn', true);
 
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Logged In"),
+                              backgroundColor: Colors.greenAccent,
+                            ),
+                          );
+
                           Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => new Home()),
                               ModalRoute.withName("/Home"));
                         } else {
-                          Dialogs.materialDialog(
-                            title: "SignIn Failed",
-                            msg:
-                                "No registered user found with this informations, please register first",
-                            color: Colors.white,
-                            context: context,
-                            actions: [
-                              IconsButton(
-                                color: Colors.red,
-                                text: 'Ok',
-                                textStyle: TextStyle(color: Colors.white),
-                                iconData: Icons.check,
-                                iconColor: Colors.white,
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                  "No registered user found with this informations, please register first"),
+                              backgroundColor: Colors.redAccent,
+                            ),
                           );
                         }
                       });
