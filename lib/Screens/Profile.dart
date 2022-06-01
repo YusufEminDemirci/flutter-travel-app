@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
+import 'package:travel_food/Lists/creators.dart';
 import 'package:travel_food/Screens/EditProfile.dart';
 import 'package:travel_food/Screens/Notifications.dart';
 import 'package:travel_food/Screens/AboutUs.dart';
@@ -47,23 +48,62 @@ class _ProfileState extends State<Profile> {
           centerTitle: true,
           elevation: 0.0,
           automaticallyImplyLeading: false,
-          // actions: <Widget>[
-          //   IconButton(
-          //     icon: Icon(
-          //       FontAwesomeIcons.palette,
-          //       color: kwhite,
-          //     ),
-          //     onPressed: () {
-          //       DynamicTheme.of(context).setThemeData(
-          //         new ThemeData(
-          //             primaryColor:
-          //                 Theme.of(context).primaryColor == Colors.amber
-          //                     ? Color.fromRGBO(0, 190, 180, 1)
-          //                     : Colors.amber),
-          //       );
-          //     },
-          //   )
-          // ],
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(
+                FontAwesomeIcons.signOutAlt,
+                color: kwhite,
+                size: 35,
+              ),
+              onPressed: () {
+                Dialogs.materialDialog(
+                  msg: 'Are you sure ?',
+                  title: "Sign Out",
+                  color: Colors.white,
+                  context: context,
+                  actions: [
+                    IconsOutlineButton(
+                      text: 'Cancel',
+                      textStyle: TextStyle(color: dayTextColor),
+                      iconData: Icons.cancel_outlined,
+                      iconColor: dayTextColor,
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    IconsButton(
+                      color: Colors.red,
+                      text: 'Sign Out',
+                      textStyle: TextStyle(color: Colors.white),
+                      iconData: FontAwesomeIcons.signOutAlt,
+                      iconColor: Colors.white,
+                      onPressed: () async {
+                        if (_auth.currentUser != null) {
+                          SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+
+                          prefs.setString('userEmail', "");
+                          prefs.setString('userName', "");
+                          prefs.setString('userSurname', "");
+                          prefs.setString('userImageUrl', "");
+                          prefs.setString('userId', "");
+                          prefs.setString('userPassword', "");
+
+                          prefs.setBool('isLoggedIn', false);
+
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => new SignInPage()),
+                              ModalRoute.withName("/Home"));
+                        }
+                      },
+                    ),
+                  ],
+                );
+              },
+            )
+          ],
         ),
       ),
       body: Stack(
@@ -222,7 +262,7 @@ class _ProfileState extends State<Profile> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 350.0),
+            padding: const EdgeInsets.only(top: 300.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -254,96 +294,39 @@ class _ProfileState extends State<Profile> {
                 //         }),
                 //   ],
                 // ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    GestureDetector(
-                        child: Container(
-                          height: 130,
-                          width: 130,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: kwhite,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  blurRadius: 10,
-                                  spreadRadius: 5,
-                                ),
-                              ]),
-                          child: profileItem(FontAwesomeIcons.info, "About Us"),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Column(
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: kgreyDark,
+                          backgroundImage: AssetImage("assets/kku-logo.jpeg"),
+                          radius: 60,
                         ),
-                        onTap: () async {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => new AboutUs()));
-                        }),
-                    GestureDetector(
-                        child: Container(
-                          height: 130,
-                          width: 130,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: kwhite,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  blurRadius: 10,
-                                  spreadRadius: 5,
-                                ),
-                              ]),
-                          child:
-                              exitItem(FontAwesomeIcons.signOutAlt, "Sign Out"),
+                        BoldText("KIRIKKALE ÜNİVERSİTESİ", 20, dayTextColor),
+                        NormalText("2021-2022", dayTextColor, 20),
+                        NormalText("Bitirme Projesi 1-2", dayTextColor, 20),
+                      ],
+                    ),
+                    SizedBox(height: 20.0),
+                    Column(
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: kgreyDark,
+                          backgroundImage: NetworkImage(
+                            "https://firebasestorage.googleapis.com/v0/b/projectx-b164c.appspot.com/o/WhatsApp%20Image%202021-12-17%20at%2015.51.24.jpeg?alt=media&token=d48e34d1-6978-4c9b-bd80-a7e735b7b60d",
+                          ),
+                          radius: 60,
                         ),
-                        onTap: () {
-                          Dialogs.materialDialog(
-                            msg: 'Are you sure ?',
-                            title: "Sign Out",
-                            color: Colors.white,
-                            context: context,
-                            actions: [
-                              IconsOutlineButton(
-                                text: 'Cancel',
-                                textStyle: TextStyle(color: dayTextColor),
-                                iconData: Icons.cancel_outlined,
-                                iconColor: dayTextColor,
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                              IconsButton(
-                                color: Colors.red,
-                                text: 'Sign Out',
-                                textStyle: TextStyle(color: Colors.white),
-                                iconData: FontAwesomeIcons.signOutAlt,
-                                iconColor: Colors.white,
-                                onPressed: () async {
-                                  if (_auth.currentUser != null) {
-                                    SharedPreferences prefs =
-                                        await SharedPreferences.getInstance();
-
-                                    prefs.setString('userEmail', "");
-                                    prefs.setString('userName', "");
-                                    prefs.setString('userSurname', "");
-                                    prefs.setString('userImageUrl', "");
-                                    prefs.setString('userId', "");
-                                    prefs.setString('userPassword', "");
-
-                                    prefs.setBool('isLoggedIn', false);
-
-                                    Navigator.pushAndRemoveUntil(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                new SignInPage()),
-                                        ModalRoute.withName("/Home"));
-                                  }
-                                },
-                              ),
-                            ],
-                          );
-                        }),
+                        BoldText(
+                            creators[0]["name"] + " " + creators[0]["surname"],
+                            20,
+                            dayTextColor),
+                        NormalText(creators[0]["e-mail"], dayTextColor, 20),
+                      ],
+                    ),
                   ],
                 ),
               ],
@@ -354,53 +337,29 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-  Widget profileItem(IconData icon, String text) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 16),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Icon(
-            icon,
-            color: dayTextColor,
-            size: 35,
-          ),
-          Text(
-            text,
-            style: TextStyle(
-              fontSize: 20,
-              color: dayTextColor,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget exitItem(IconData icon, String text) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 16),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Icon(
-            icon,
-            color: Colors.redAccent,
-            size: 35,
-          ),
-          Text(
-            text,
-            style: TextStyle(
-              fontSize: 20,
-              color: Colors.redAccent,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget profileItem(IconData icon, String text) {
+  //   return Padding(
+  //     padding: const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 16),
+  //     child: Column(
+  //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //       children: <Widget>[
+  //         Icon(
+  //           icon,
+  //           color: dayTextColor,
+  //           size: 35,
+  //         ),
+  //         Text(
+  //           text,
+  //           style: TextStyle(
+  //             fontSize: 20,
+  //             color: dayTextColor,
+  //           ),
+  //           textAlign: TextAlign.center,
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }
 
 getUserInfo() async {
