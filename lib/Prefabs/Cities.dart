@@ -30,9 +30,6 @@ class _CitiesImageState extends State<CitiesImage> {
   @override
   void initState() {
     super.initState();
-    setState(() {
-      getPlacesInfo(id, name);
-    });
   }
 
   @override
@@ -61,6 +58,9 @@ class _CitiesImageState extends State<CitiesImage> {
                 height: MediaQuery.of(context).size.width * 0.4,
                 child: GestureDetector(
                   onTap: () {
+                    setState(() {
+                      getPlacesInfo(id, name);
+                    });
                     Navigator.push(
                       context,
                       MaterialPageRoute(
