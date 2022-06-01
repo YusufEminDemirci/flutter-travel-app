@@ -135,44 +135,71 @@ class CommentArea extends StatelessWidget {
                                 color: Colors.black54,
                               ),
                               onTap: () async {
-                                if (myController != null &&
-                                    myController.text.length > 6) {
-                                  SharedPreferences prefs =
-                                      await SharedPreferences.getInstance();
+                                if (myController != null) {
+                                  if (myController.text.length > 6) {
+                                    SharedPreferences prefs =
+                                        await SharedPreferences.getInstance();
 
-                                  String uName = prefs.getString("userName");
-                                  String uSurname =
-                                      prefs.getString("userSurname");
+                                    String uName = prefs.getString("userName");
+                                    String uSurname =
+                                        prefs.getString("userSurname");
 
-                                  await FirebaseFirestore.instance
-                                      .collection("Users")
-                                      .get()
-                                      .then((querySnapshot) {
-                                    querySnapshot.docs.forEach((result) {
-                                      String fullName = result.data()["name"] +
-                                          " " +
-                                          result.data()["surname"];
+                                    await FirebaseFirestore.instance
+                                        .collection("Users")
+                                        .get()
+                                        .then((querySnapshot) {
+                                      querySnapshot.docs.forEach((result) {
+                                        String fullName =
+                                            result.data()["name"] +
+                                                " " +
+                                                result.data()["surname"];
 
-                                      if (fullName == uName + " " + uSurname) {
-                                        imageUrl = result.data()["imageUrl"];
-                                      }
+                                        if (fullName ==
+                                            uName + " " + uSurname) {
+                                          imageUrl = result.data()["imageUrl"];
+                                        }
+                                      });
                                     });
-                                  });
 
-                                  FirebaseFirestore.instance
-                                      .collection("Cities")
-                                      .doc(location)
-                                      .collection("Places")
-                                      .doc(id)
-                                      .collection("Comments")
-                                      .add({
-                                    "date": DateTime.now(),
-                                    "id": id,
-                                    "imageUrl": imageUrl,
-                                    "message": myController.text,
-                                    "name": uName + " " + uSurname,
-                                    "rate": starRating.toString(),
-                                  });
+                                    FirebaseFirestore.instance
+                                        .collection("Cities")
+                                        .doc(location)
+                                        .collection("Places")
+                                        .doc(id)
+                                        .collection("Comments")
+                                        .add({
+                                      "date": DateTime.now(),
+                                      "id": id,
+                                      "imageUrl": imageUrl,
+                                      "message": myController.text,
+                                      "name": uName + " " + uSurname,
+                                      "rate": starRating.toString(),
+                                    });
+
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content:
+                                            Text("Comment successfully made"),
+                                        backgroundColor: Colors.greenAccent,
+                                      ),
+                                    );
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                            "Comment cannot be less than 6 characters"),
+                                        backgroundColor: Colors.greenAccent,
+                                      ),
+                                    );
+                                  }
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content:
+                                          Text("Comment cannot be left blank"),
+                                      backgroundColor: Colors.greenAccent,
+                                    ),
+                                  );
                                 }
                               },
                             ),

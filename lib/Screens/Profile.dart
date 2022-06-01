@@ -166,43 +166,44 @@ class _ProfileState extends State<Profile> {
                                       ),
                                     );
                                   } else {
+                                    SharedPreferences prefs =
+                                        await SharedPreferences.getInstance();
+
+                                    userEmail = prefs.getString("userEmail");
+
+                                    final path = results.files.single.path;
+                                    final fileName = userEmail;
+
+                                    storage
+                                        .uploadFile(path, fileName)
+                                        .then((value) => print("done"));
+                                    String downloadUrl =
+                                        await storage.getDownloadUrl(userEmail);
+
+                                    prefs.setString("imageUrl", downloadUrl);
+
+                                    FirebaseFirestore.instance
+                                        .collection("Users")
+                                        .doc("yBeXEnvLJ1QlTxzqh8LM")
+                                        .set({
+                                      "imageUrl": downloadUrl,
+                                      "name": "Yusuf Emin",
+                                      "password": "adminadmin",
+                                      "surname": "Demirci",
+                                      "e-mail": "admin@admin.com",
+                                      "id":
+                                          "e6d76119-910b-440a-a202-62c150b385b3",
+                                    });
+                                    userImageUrl = downloadUrl;
+
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
-                                        content:
-                                            Text("Profile picture changed"),
+                                        content: Text(
+                                            "Profile picture changed. Implementation may vary depending on your internet speed"),
                                         backgroundColor: Colors.greenAccent,
                                       ),
                                     );
                                   }
-                                  SharedPreferences prefs =
-                                      await SharedPreferences.getInstance();
-
-                                  userEmail = prefs.getString("userEmail");
-
-                                  final path = results.files.single.path;
-                                  final fileName = userEmail;
-
-                                  storage
-                                      .uploadFile(path, fileName)
-                                      .then((value) => print("done"));
-                                  String downloadUrl =
-                                      await storage.getDownloadUrl(userEmail);
-
-                                  prefs.setString("imageUrl", downloadUrl);
-
-                                  FirebaseFirestore.instance
-                                      .collection("Users")
-                                      .doc("t3KQm4jM3SaQTHysNkKR")
-                                      .set({
-                                    "imageUrl": downloadUrl,
-                                    "name": "Yusuf Emin",
-                                    "password": "admin",
-                                    "surname": "Demirci",
-                                    "e-mail": "admin@admin.com",
-                                    "id":
-                                        "a5247c0e-e076-42fc-a27d-46e2bab74f37",
-                                  });
-                                  userImageUrl = downloadUrl;
                                 },
                                 child: CircleAvatar(
                                   backgroundColor: Colors.white,
