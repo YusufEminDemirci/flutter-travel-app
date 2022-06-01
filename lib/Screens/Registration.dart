@@ -345,44 +345,57 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     if (_formKey.currentState.validate()) {
                       if (_passwordController.text ==
                           _repeatPasswordController.text) {
-                        _register();
+                        if (_passwordController.text.length > 5 &&
+                            _repeatPasswordController.text.length > 5) {
+                          _register();
 
-                        var _uuid = Uuid().v4();
+                          var _uuid = Uuid().v4();
 
-                        FirebaseFirestore.instance.collection("Users").add({
-                          "id": _uuid,
-                          "imageUrl": stockProfilePictureLink,
-                          "name": _nameController.text,
-                          "surname": _surnameController.text,
-                          "e-mail": _emailController.text,
-                          "password": _passwordController.text,
-                        });
+                          FirebaseFirestore.instance.collection("Users").add({
+                            "id": _uuid,
+                            "imageUrl": stockProfilePictureLink,
+                            "name": _nameController.text,
+                            "surname": _surnameController.text,
+                            "e-mail": _emailController.text,
+                            "password": _passwordController.text,
+                          });
 
-                        SharedPreferences prefs =
-                            await SharedPreferences.getInstance();
+                          SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
 
-                        prefs.setString('userEmail', _emailController.text);
-                        prefs.setString('userName', _nameController.text);
-                        prefs.setString('userSurname', _surnameController.text);
-                        prefs.setString(
-                            'userImageUrl', stockProfilePictureLink);
-                        prefs.setString('userId', _uuid);
-                        prefs.setString(
-                            'userPassword', _passwordController.text);
+                          prefs.setString('userEmail', _emailController.text);
+                          prefs.setString('userName', _nameController.text);
+                          prefs.setString(
+                              'userSurname', _surnameController.text);
+                          prefs.setString(
+                              'userImageUrl', stockProfilePictureLink);
+                          prefs.setString('userId', _uuid);
+                          prefs.setString(
+                              'userPassword', _passwordController.text);
 
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text("Registration successful"),
-                            backgroundColor: Colors.greenAccent,
-                          ),
-                        );
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Registration successful"),
+                              backgroundColor: Colors.greenAccent,
+                            ),
+                          );
 
-                        prefs.setBool('isLoggedIn', true);
+                          prefs.setBool('isLoggedIn', true);
 
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(builder: (context) => new Home()),
-                            ModalRoute.withName("/Home"));
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => new Home()),
+                              ModalRoute.withName("/Home"));
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                  "Passwords must be at least 6 characters, please try again"),
+                              backgroundColor: Colors.redAccent,
+                            ),
+                          );
+                        }
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
@@ -401,6 +414,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         ),
                       );
                     }
+
+                    _nameController.text = "";
+                    _surnameController.text = "";
+                    _emailController.text = "";
+                    _passwordController.text = "";
+                    _repeatPasswordController.text = "";
                   }, true),
                   SizedBox(
                     height: 20,

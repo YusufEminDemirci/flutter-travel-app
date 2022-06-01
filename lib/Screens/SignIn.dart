@@ -230,15 +230,18 @@ class _SignInPageState extends State<SignInPage> {
                           );
 
                           Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => new Home()),
-                              ModalRoute.withName("/Home"));
+                            context,
+                            MaterialPageRoute(builder: (context) => new Home()),
+                            ModalRoute.withName("/Home"),
+                          );
+
+                          _emailController.text = "";
+                          _passwordController.text = "";
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text(
-                                  "No registered user found with this informations, please register first"),
+                                  "The information you entered is incorrect, please check your information"),
                               backgroundColor: Colors.redAccent,
                             ),
                           );
