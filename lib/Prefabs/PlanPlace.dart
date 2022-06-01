@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel_food/Lists/selectedPlaces.dart';
 import 'package:travel_food/Lists/selectedRestaurants.dart';
+import 'package:travel_food/Prefabs/Locations.dart';
 import 'package:travel_food/Screens/Detail.dart';
 import 'package:travel_food/Utils/consts.dart';
 
@@ -157,6 +158,12 @@ class PlanPlace extends StatelessWidget {
                         index++) {
                       if (id == selectedPlaces[index].id) {
                         selectedPlaces.remove(selectedPlaces[index]);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(name + " removed from list"),
+                            backgroundColor: Colors.redAccent,
+                          ),
+                        );
                       }
                     }
                     for (int index = 0;
@@ -164,20 +171,15 @@ class PlanPlace extends StatelessWidget {
                         index++) {
                       if (id == selectedRestaurants[index].id) {
                         selectedRestaurants.remove(selectedRestaurants[index]);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(name + " removed from list"),
+                            backgroundColor: Colors.redAccent,
+                          ),
+                        );
                       }
                     }
                   }
-                  setState() {
-                    selectedPlaces = selectedPlaces;
-                    selectedRestaurants = selectedRestaurants;
-                  }
-
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text("Removed"),
-                      backgroundColor: Colors.redAccent,
-                    ),
-                  );
                 },
                 child: Icon(Icons.delete),
                 style: ElevatedButton.styleFrom(

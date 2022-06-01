@@ -251,20 +251,20 @@ class _DetailScreenState extends State<DetailScreen>
 
                             if (response == "Added") {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text("Added"),
+                                SnackBar(
+                                  content: Text(name + " added to list"),
                                   backgroundColor: Colors.greenAccent,
                                 ),
                               );
                             } else if (response == "Removed") {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text("Removed"),
+                                SnackBar(
+                                  content: Text(name + " removed from list"),
                                   backgroundColor: Colors.redAccent,
                                 ),
                               );
                             } else if (response ==
-                                "Listeye farklı şehirden yerler eklenemez") {
+                                "Places from different cities cannot be added to the list") {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(response),

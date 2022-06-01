@@ -81,7 +81,7 @@ class CommentPlace extends StatelessWidget {
                 SizedBox(
                   child: Icon(
                     Icons.location_on,
-                    color: dayTextColor,
+                    color: kblack,
                     size: 17.0,
                   ),
                 ),

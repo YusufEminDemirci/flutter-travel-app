@@ -1,11 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:travel_food/Lists/commentsList.dart';
 import 'package:travel_food/Lists/places.dart';
 import 'package:travel_food/Lists/restaurants.dart';
-import 'package:travel_food/Models/comment.dart';
-import 'package:travel_food/Prefabs/Comments.dart';
 import 'package:travel_food/Prefabs/Locations.dart';
 import 'package:travel_food/Utils/TextStyles.dart';
 import 'package:travel_food/Utils/consts.dart';
@@ -31,10 +27,6 @@ class _PlacesState extends State<Places> with SingleTickerProviderStateMixin {
   void initState() {
     tabController = new TabController(length: 2, vsync: this);
     super.initState();
-
-    setState(() {
-      getPlacesInfo(cityId, cityName);
-    });
   }
 
   @override
@@ -93,162 +85,79 @@ class _PlacesState extends State<Places> with SingleTickerProviderStateMixin {
               onRefresh: () async {
                 setState(() {});
               },
-              child: GridView(
-                padding: const EdgeInsets.only(
-                    left: 20.0, right: 16.0, bottom: 16.0, top: 25.0),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                ),
-                shrinkWrap: true,
-                children: List.generate(places.length, (index) {
-                  return LocationsImage(
-                      places[index].id,
-                      places[index].imageUrl,
-                      places[index].name,
-                      places[index].location,
-                      places[index].description,
-                      places[index].rate,
-                      places[index].type,
-                      places[index].telephone,
-                      places[index].latitude,
-                      places[index].longitude,
-                      places[index].whoSee,
-                      places[index].hours,
-                      cityName,
-                      cityId);
-                }),
-              ),
+              child: GridView.builder(
+                  padding: const EdgeInsets.only(
+                      left: 20.0, right: 16.0, bottom: 16.0, top: 25.0),
+                  itemCount: places.length,
+                  shrinkWrap: true,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2),
+                  itemBuilder: (BuildContext context, int index) {
+                    if (places.length > 0) {
+                      return LocationsImage(
+                          places[index].id,
+                          places[index].imageUrl,
+                          places[index].name,
+                          places[index].location,
+                          places[index].description,
+                          places[index].rate,
+                          places[index].type,
+                          places[index].telephone,
+                          places[index].latitude,
+                          places[index].longitude,
+                          places[index].whoSee,
+                          places[index].hours,
+                          cityName,
+                          cityId);
+                    } else {
+                      return Container(
+                        child: Center(
+                          child: Text("Empty"),
+                        ),
+                      );
+                    }
+                  }),
             ),
             RefreshIndicator(
               onRefresh: () async {
                 setState(() {});
               },
-              child: GridView(
-                padding: const EdgeInsets.only(
-                    left: 20.0, right: 16.0, bottom: 16.0, top: 25.0),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                ),
-                shrinkWrap: true,
-                children: List.generate(restaurants.length, (index) {
-                  return LocationsImage(
-                      restaurants[index].id,
-                      restaurants[index].imageUrl,
-                      restaurants[index].name,
-                      restaurants[index].location,
-                      restaurants[index].description,
-                      restaurants[index].rate,
-                      restaurants[index].type,
-                      restaurants[index].telephone,
-                      restaurants[index].latitude,
-                      restaurants[index].longitude,
-                      restaurants[index].whoSee,
-                      restaurants[index].hours,
-                      cityName,
-                      cityId);
-                }),
-              ),
+              child: GridView.builder(
+                  padding: const EdgeInsets.only(
+                      left: 20.0, right: 16.0, bottom: 16.0, top: 25.0),
+                  itemCount: restaurants.length,
+                  shrinkWrap: true,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2),
+                  itemBuilder: (BuildContext context, int index) {
+                    if (restaurants.length > 0) {
+                      return LocationsImage(
+                          restaurants[index].id,
+                          restaurants[index].imageUrl,
+                          restaurants[index].name,
+                          restaurants[index].location,
+                          restaurants[index].description,
+                          restaurants[index].rate,
+                          restaurants[index].type,
+                          restaurants[index].telephone,
+                          restaurants[index].latitude,
+                          restaurants[index].longitude,
+                          restaurants[index].whoSee,
+                          restaurants[index].hours,
+                          cityName,
+                          cityId);
+                    } else {
+                      return Container(
+                        child: Center(
+                          child: Text("Empty"),
+                        ),
+                      );
+                    }
+                  }),
             )
           ],
         ),
       ),
     );
   }
-}
-
-getPlacesInfo(String cityId, String cityName) async {
-  final firestoreInstance = FirebaseFirestore.instance;
-  places = [];
-  restaurants = [];
-  firestoreInstance
-      .collection("Cities")
-      .doc(cityId)
-      .collection("Places")
-      .get()
-      .then((querySnapshot) {
-    querySnapshot.docs.forEach((result) async {
-      String id = result.data()["id"];
-      String _imageUrl = result.data()["imageUrl"];
-      String _name = result.data()["name"];
-      String _location = result.data()["location"];
-      String _description = result.data()["description"];
-      String rate = "0.0";
-      String _type = result.data()["type"];
-      String _telephone = result.data()["telephone"];
-      String _latitude = result.data()["latitude"];
-      String _longitude = result.data()["longitude"];
-      List _whoSee = [];
-      Map _hours = result.data()["Hours"];
-
-      List rateList = [];
-
-      await firestoreInstance
-          .collection("Cities")
-          .doc(cityId)
-          .collection("Places")
-          .doc(id)
-          .collection("Comments")
-          .get()
-          .then((querySnapshot) {
-        final commentList = querySnapshot.docs;
-        rateList = [];
-        for (var comment in commentList) {
-          String rate = comment.data()["rate"];
-          rateList.add(rate);
-        }
-        double rateAverage = 0;
-        for (var rate in rateList) {
-          rateAverage += double.parse(rate);
-        }
-        rateAverage = rateAverage / rateList.length;
-        if (rateAverage.isNaN) {
-          rate = "0.0";
-        } else {
-          rate = rateAverage.toStringAsFixed(1);
-        }
-      });
-      print(rate);
-
-      if (_type == "place" && _location == cityId) {
-        places.add(
-          LocationsImage(
-            id,
-            _imageUrl,
-            _name,
-            _location,
-            _description,
-            rate,
-            _type,
-            _telephone,
-            _latitude,
-            _longitude,
-            _whoSee,
-            _hours,
-            cityName,
-            cityId,
-          ),
-        );
-      }
-      if (_type == "restaurant" && _location == cityId) {
-        restaurants.add(
-          LocationsImage(
-            id,
-            _imageUrl,
-            _name,
-            _location,
-            _description,
-            rate,
-            _type,
-            _telephone,
-            _latitude,
-            _longitude,
-            _whoSee,
-            _hours,
-            cityName,
-            cityId,
-          ),
-        );
-      }
-    });
-  });
 }

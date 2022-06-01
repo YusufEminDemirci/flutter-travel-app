@@ -31,7 +31,10 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   void initState() {
     super.initState();
-    getUserInfo();
+
+    if (mounted == true) {
+      getUserInfo();
+    }
   }
 
   @override
@@ -260,10 +263,7 @@ class _ProfileState extends State<Profile> {
                                     ),
                               Container(
                                 height: 2,
-                                width: ((userName + " " + userSurname)
-                                        .length
-                                        .toDouble()) *
-                                    20,
+                                width: 300,
                                 color: kwhite,
                               ),
                               SizedBox(height: 25.0),

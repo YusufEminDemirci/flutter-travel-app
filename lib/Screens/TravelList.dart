@@ -3,6 +3,7 @@ import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:travel_food/Lists/selectedPlaces.dart';
 import 'package:travel_food/Lists/selectedRestaurants.dart';
+import 'package:travel_food/Prefabs/Locations.dart';
 import 'package:travel_food/Prefabs/PlanPlace.dart';
 import 'package:travel_food/Screens/TravelPlan.dart';
 import 'package:travel_food/Utils/TextStyles.dart';
@@ -85,56 +86,62 @@ class _TravelListState extends State<TravelList>
         body: TabBarView(
           controller: tabController,
           children: <Widget>[
-            GridView(
-              padding: const EdgeInsets.only(
-                  left: 20.0, right: 16.0, bottom: 16.0, top: 25.0),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-              ),
-              shrinkWrap: true,
-              children: List.generate(selectedPlaces.length, (index) {
-                return PlanPlace(
-                    selectedPlaces[index].id,
-                    selectedPlaces[index].imageUrl,
-                    selectedPlaces[index].name,
-                    selectedPlaces[index].location,
-                    selectedPlaces[index].description,
-                    selectedPlaces[index].rate,
-                    selectedPlaces[index].type,
-                    selectedPlaces[index].telephone,
-                    selectedPlaces[index].latitude,
-                    selectedPlaces[index].longitude,
-                    selectedPlaces[index].whoSee,
-                    selectedPlaces[index].hours,
-                    cityName,
-                    cityId);
-              }),
-            ),
-            GridView(
-              padding: const EdgeInsets.only(
-                  left: 20.0, right: 16.0, bottom: 16.0, top: 25.0),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-              ),
-              shrinkWrap: true,
-              children: List.generate(selectedRestaurants.length, (index) {
-                return PlanPlace(
-                    selectedRestaurants[index].id,
-                    selectedRestaurants[index].imageUrl,
-                    selectedRestaurants[index].name,
-                    selectedRestaurants[index].location,
-                    selectedRestaurants[index].description,
-                    selectedRestaurants[index].rate,
-                    selectedRestaurants[index].type,
-                    selectedRestaurants[index].telephone,
-                    selectedRestaurants[index].latitude,
-                    selectedRestaurants[index].longitude,
-                    selectedRestaurants[index].whoSee,
-                    selectedRestaurants[index].hours,
-                    cityName,
-                    cityId);
-              }),
-            )
+            GridView.builder(
+                padding: const EdgeInsets.only(
+                    left: 20.0, right: 16.0, bottom: 16.0, top: 25.0),
+                itemCount: selectedPlaces.length,
+                shrinkWrap: true,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2),
+                itemBuilder: (BuildContext context, int index) {
+                  if (selectedPlaces.length > 0) {
+                    return PlanPlace(
+                        selectedPlaces[index].id,
+                        selectedPlaces[index].imageUrl,
+                        selectedPlaces[index].name,
+                        selectedPlaces[index].location,
+                        selectedPlaces[index].description,
+                        selectedPlaces[index].rate,
+                        selectedPlaces[index].type,
+                        selectedPlaces[index].telephone,
+                        selectedPlaces[index].latitude,
+                        selectedPlaces[index].longitude,
+                        selectedPlaces[index].whoSee,
+                        selectedPlaces[index].hours,
+                        cityName,
+                        cityId);
+                  } else {
+                    return Container();
+                  }
+                }),
+            GridView.builder(
+                padding: const EdgeInsets.only(
+                    left: 20.0, right: 16.0, bottom: 16.0, top: 25.0),
+                itemCount: selectedPlaces.length,
+                shrinkWrap: true,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2),
+                itemBuilder: (BuildContext context, int index) {
+                  if (selectedRestaurants.length > 0) {
+                    return PlanPlace(
+                        selectedRestaurants[index].id,
+                        selectedRestaurants[index].imageUrl,
+                        selectedRestaurants[index].name,
+                        selectedRestaurants[index].location,
+                        selectedRestaurants[index].description,
+                        selectedRestaurants[index].rate,
+                        selectedRestaurants[index].type,
+                        selectedRestaurants[index].telephone,
+                        selectedRestaurants[index].latitude,
+                        selectedRestaurants[index].longitude,
+                        selectedRestaurants[index].whoSee,
+                        selectedRestaurants[index].hours,
+                        cityName,
+                        cityId);
+                  } else {
+                    return Container();
+                  }
+                }),
           ],
         ),
       ),
