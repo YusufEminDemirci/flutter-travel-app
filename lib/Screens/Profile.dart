@@ -95,61 +95,90 @@ class _ProfileState extends State<Profile> {
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.height / 2.75,
                         ),
-                        GestureDetector(
-                          onTap: () async {
-                            final results = await FilePicker.platform.pickFiles(
-                              type: FileType.custom,
-                              allowedExtensions: ['jpg', 'png'],
-                            );
+                        Stack(
+                          children: [
+                            Align(
+                              alignment: Alignment(0, 0),
+                              child: GestureDetector(
+                                onTap: () async {
+                                  final results =
+                                      await FilePicker.platform.pickFiles(
+                                    type: FileType.custom,
+                                    allowedExtensions: ['jpg', 'png'],
+                                  );
 
-                            if (results == null) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text("No file selected"),
-                                  backgroundColor: Colors.red,
+                                  if (results == null) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text("No file selected"),
+                                        backgroundColor: Colors.red,
+                                      ),
+                                    );
+                                  }
+                                  SharedPreferences prefs =
+                                      await SharedPreferences.getInstance();
+
+                                  userEmail = prefs.getString("userEmail");
+
+                                  final path = results.files.single.path;
+                                  final fileName = userEmail;
+
+                                  storage
+                                      .uploadFile(path, fileName)
+                                      .then((value) => print("done"));
+                                  String downloadUrl =
+                                      await storage.getDownloadUrl(userEmail);
+
+                                  prefs.setString("imageUrl", downloadUrl);
+
+                                  FirebaseFirestore.instance
+                                      .collection("Users")
+                                      .doc("t3KQm4jM3SaQTHysNkKR")
+                                      .set({
+                                    "imageUrl": downloadUrl,
+                                    "name": "Yusuf Emin",
+                                    "password": "admin",
+                                    "surname": "Demirci",
+                                    "e-mail": "admin@admin.com",
+                                    "id":
+                                        "a5247c0e-e076-42fc-a27d-46e2bab74f37",
+                                  });
+                                  userImageUrl = downloadUrl;
+                                },
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.white,
+                                  radius: 72,
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.transparent,
+                                    backgroundImage: (userImageUrl != null)
+                                        ? NetworkImage(userImageUrl)
+                                        : AssetImage(
+                                            "assets/orangeProfile.png"),
+                                    radius: 70,
+                                  ),
                                 ),
-                              );
-                            }
-                            SharedPreferences prefs =
-                                await SharedPreferences.getInstance();
-
-                            userEmail = prefs.getString("userEmail");
-
-                            final path = results.files.single.path;
-                            final fileName = userEmail;
-
-                            storage
-                                .uploadFile(path, fileName)
-                                .then((value) => print("done"));
-                            String downloadUrl =
-                                await storage.getDownloadUrl(userEmail);
-
-                            prefs.setString("imageUrl", downloadUrl);
-
-                            FirebaseFirestore.instance
-                                .collection("Users")
-                                .doc("t3KQm4jM3SaQTHysNkKR")
-                                .set({
-                              "imageUrl": downloadUrl,
-                              "name": "Yusuf Emin",
-                              "password": "admin",
-                              "surname": "Demirci",
-                              "e-mail": "admin@admin.com",
-                              "id": "a5247c0e-e076-42fc-a27d-46e2bab74f37",
-                            });
-                            userImageUrl = downloadUrl;
-                          },
-                          child: CircleAvatar(
-                            backgroundColor: Colors.white,
-                            radius: 72,
-                            child: CircleAvatar(
-                              backgroundColor: Colors.transparent,
-                              backgroundImage: (userImageUrl != null)
-                                  ? NetworkImage(userImageUrl)
-                                  : AssetImage("assets/orangeProfile.png"),
-                              radius: 70,
+                              ),
                             ),
-                          ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 100.0),
+                              child: Align(
+                                alignment: Alignment(0.25, 0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: new BorderRadius.all(
+                                      Radius.circular(15.0),
+                                    ),
+                                    color: kwhite.withOpacity(0.6),
+                                  ),
+                                  child: Icon(
+                                    Icons.mode_edit_rounded,
+                                    color: kblack,
+                                    size: 40,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 200.0),
