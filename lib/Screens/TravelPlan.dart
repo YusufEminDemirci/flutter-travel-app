@@ -1,41 +1,41 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:travel_food/Lists/selectedPlaces.dart';
-import 'package:travel_food/Lists/selectedRestaurants.dart';
-import 'package:travel_food/Prefabs/CommentArea.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel_food/Screens/Comment.dart';
 import 'package:travel_food/Utils/TextStyles.dart';
 import 'package:travel_food/Utils/consts.dart';
 
 class TravelPlan extends StatefulWidget {
-  final String cityName;
+  final List selectedPlaces;
   final String cityId;
   final TravelMode travelMode;
 
   TravelPlan(
-    this.cityName,
+    this.selectedPlaces,
     this.cityId,
     this.travelMode,
   );
   @override
   _TravelPlanState createState() => _TravelPlanState(
-        this.cityName,
+        this.selectedPlaces,
         this.cityId,
         this.travelMode,
       );
 }
 
+String userMail;
+
 class _TravelPlanState extends State<TravelPlan>
     with SingleTickerProviderStateMixin {
-  String cityName;
+  List selectedPlaces;
   String cityId;
   TravelMode travelMode;
 
   _TravelPlanState(
-    this.cityName,
+    this.selectedPlaces,
     this.cityId,
     this.travelMode,
   );
@@ -55,42 +55,35 @@ class _TravelPlanState extends State<TravelPlan>
   //   });
   // }
 
+  getUserMail() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    userMail = prefs.getString("userEmail");
+  }
+
+  List<QueryDocumentSnapshot> selected;
+
   Set<Marker> _createMarker() {
+    getUserMail();
     markerList = [];
-    for (var i = 0; i < selectedPlaces.length; i++) {
-      double _latitude = double.parse(selectedPlaces[i].latitude);
-      double _longitude = double.parse(selectedPlaces[i].longitude);
+    List<QueryDocumentSnapshot> resultList = [];
+
+    selectedPlaces.forEach((element) {
+      double _latitude = double.parse(element.data()["latitude"]);
+      double _longitude = double.parse(element.data()["longitude"]);
 
       markerList.add(
         Marker(
-          markerId: MarkerId(selectedPlaces[i].id),
+          markerId: MarkerId(element.data()["id"]),
           position: LatLng(_latitude, _longitude),
           infoWindow: InfoWindow(
-            title: selectedPlaces[i].name,
+            title: element.data()["name"],
           ),
           icon: BitmapDescriptor.defaultMarkerWithHue(
             BitmapDescriptor.hueViolet,
           ),
         ),
       );
-    }
-    for (var i = 0; i < selectedRestaurants.length; i++) {
-      double _latitude = double.parse(selectedRestaurants[i].latitude);
-      double _longitude = double.parse(selectedRestaurants[i].longitude);
-
-      markerList.add(
-        Marker(
-          markerId: MarkerId(selectedRestaurants[i].id),
-          position: LatLng(_latitude, _longitude),
-          infoWindow: InfoWindow(
-            title: selectedRestaurants[i].name,
-          ),
-          icon: BitmapDescriptor.defaultMarkerWithHue(
-            BitmapDescriptor.hueViolet,
-          ),
-        ),
-      );
-    }
+    });
 
     return markerList.toSet();
   }
@@ -101,28 +94,30 @@ class _TravelPlanState extends State<TravelPlan>
   void _getPolyline() async {
     List<LatLng> polylineCoordinates = [];
 
-    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-      "AIzaSyA-EuCciDiU3RbI_axYIXGqghI_5nTPS-A",
-      // PointLatLng(
-      //   _currentPosition.latitude,
-      //   _currentPosition.longitude,
-      // ),
-      PointLatLng(
-        markerList[0].position.latitude,
-        markerList[0].position.longitude,
-      ),
-      PointLatLng(
-        markerList[markerList.length - 1].position.latitude,
-        markerList[markerList.length - 1].position.longitude,
-      ),
-      travelMode: travelMode,
-    );
-    if (result.points.isNotEmpty) {
-      result.points.forEach((PointLatLng point) {
-        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
-      });
-    } else {
-      print(result.errorMessage);
+    for (int i = 1; i < selectedPlaces.length; i++) {
+      PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+        "AIzaSyA-EuCciDiU3RbI_axYIXGqghI_5nTPS-A",
+        // PointLatLng(
+        //   _currentPosition.latitude,
+        //   _currentPosition.longitude,
+        // ),
+        PointLatLng(
+          markerList[i - 1].position.latitude,
+          markerList[i - 1].position.longitude,
+        ),
+        PointLatLng(
+          markerList[i].position.latitude,
+          markerList[i].position.longitude,
+        ),
+        travelMode: travelMode,
+      );
+      if (result.points.isNotEmpty) {
+        result.points.forEach((PointLatLng point) {
+          polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+        });
+      } else {
+        print(result.errorMessage);
+      }
     }
     _addPolyLine(polylineCoordinates);
   }
@@ -173,7 +168,7 @@ class _TravelPlanState extends State<TravelPlan>
             children: [
               Align(
                 alignment: Alignment(-0.2, -0.8),
-                child: BoldText(cityName, 20, dayTextColor),
+                child: BoldText("", 20, dayTextColor),
               ),
               Align(
                 alignment: Alignment(0.9, -0.8),
@@ -241,7 +236,7 @@ class _TravelPlanState extends State<TravelPlan>
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => new CommentScreen(cityName, cityId)));
+                  builder: (context) => new CommentScreen(cityId)));
         },
         child: Icon(
           FontAwesomeIcons.arrowRight,
@@ -251,46 +246,4 @@ class _TravelPlanState extends State<TravelPlan>
       ),
     );
   }
-}
-
-getSelectedPlaces(String cityId, String cityName) {
-  List<Widget> places = [];
-  for (int index = 0; index < selectedPlaces.length; index) {
-    places.add(CommentArea(
-      selectedPlaces[index].id,
-      selectedPlaces[index].imageUrl,
-      selectedPlaces[index].name,
-      selectedPlaces[index].location,
-      selectedPlaces[index].description,
-      selectedPlaces[index].rate,
-      selectedPlaces[index].type,
-      selectedPlaces[index].telephone,
-      selectedPlaces[index].whoSee,
-      selectedPlaces[index].hours,
-      cityId,
-      cityName,
-    ));
-  }
-  return places;
-}
-
-getSelectedRestaurants(String cityId, String cityName) {
-  List<Widget> places = [];
-  for (int index = 0; index < selectedRestaurants.length; index) {
-    places.add(CommentArea(
-      selectedRestaurants[index].id,
-      selectedRestaurants[index].imageUrl,
-      selectedRestaurants[index].name,
-      selectedRestaurants[index].location,
-      selectedRestaurants[index].description,
-      selectedRestaurants[index].rate,
-      selectedRestaurants[index].type,
-      selectedRestaurants[index].telephone,
-      selectedRestaurants[index].whoSee,
-      selectedRestaurants[index].hours,
-      cityId,
-      cityName,
-    ));
-  }
-  return places;
 }

@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel_food/Lists/selectedPlaces.dart';
 import 'package:travel_food/Lists/selectedRestaurants.dart';
 import 'package:travel_food/Prefabs/CommentArea.dart';
@@ -10,26 +12,23 @@ import 'package:travel_food/Utils/TextStyles.dart';
 import 'package:travel_food/Utils/consts.dart';
 
 class CommentScreen extends StatefulWidget {
-  final String cityName;
   final String cityId;
 
   CommentScreen(
-    this.cityName,
     this.cityId,
   );
   @override
   _CommentScreenState createState() => _CommentScreenState(
-        this.cityName,
         this.cityId,
       );
 }
 
+String userMail;
+
 class _CommentScreenState extends State<CommentScreen>
     with SingleTickerProviderStateMixin {
-  String cityName;
   String cityId;
   _CommentScreenState(
-    this.cityName,
     this.cityId,
   );
   TabController tabController;
@@ -37,7 +36,13 @@ class _CommentScreenState extends State<CommentScreen>
   @override
   void initState() {
     tabController = new TabController(length: 2, vsync: this);
+    getUserMail();
     super.initState();
+  }
+
+  getUserMail() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    userMail = prefs.getString("userEmail");
   }
 
   @override
@@ -92,52 +97,68 @@ class _CommentScreenState extends State<CommentScreen>
         body: TabBarView(
           controller: tabController,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 16.0, right: 16.0, bottom: 16.0, top: 25.0),
-              child: ListView.builder(
-                itemCount: selectedPlaces.length,
-                itemBuilder: (context, index) {
-                  return CommentArea(
-                    selectedPlaces[index].id,
-                    selectedPlaces[index].imageUrl,
-                    selectedPlaces[index].name,
-                    selectedPlaces[index].location,
-                    selectedPlaces[index].description,
-                    selectedPlaces[index].rate,
-                    selectedPlaces[index].type,
-                    selectedPlaces[index].telephone,
-                    selectedPlaces[index].whoSee,
-                    selectedPlaces[index].hours,
-                    cityName,
-                    cityId,
+            StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection("Users")
+                  .doc(userMail)
+                  .collection("selected")
+                  .where("type", isEqualTo: "place")
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                      padding: const EdgeInsets.only(
+                          left: 20.0, right: 16.0, bottom: 16.0, top: 25.0),
+                      shrinkWrap: true,
+                      itemCount: snapshot.data.documents.length,
+                      itemBuilder: (context, index) {
+                        return CommentArea(
+                          snapshot.data.documents[index].data()["id"],
+                          snapshot.data.documents[index].data()["imageUrl"],
+                          snapshot.data.documents[index].data()["name"],
+                          snapshot.data.documents[index].data()["location"],
+                          snapshot.data.documents[index].data()["rate"],
+                          "",
+                        );
+                      });
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
                   );
-                },
-              ),
+                }
+              },
             ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 16.0, right: 16.0, bottom: 16.0, top: 25.0),
-              child: ListView.builder(
-                itemCount: selectedRestaurants.length,
-                itemBuilder: (context, index) {
-                  return CommentArea(
-                    selectedRestaurants[index].id,
-                    selectedRestaurants[index].imageUrl,
-                    selectedRestaurants[index].name,
-                    selectedRestaurants[index].location,
-                    selectedRestaurants[index].description,
-                    selectedRestaurants[index].rate,
-                    selectedRestaurants[index].type,
-                    selectedRestaurants[index].telephone,
-                    selectedRestaurants[index].whoSee,
-                    selectedRestaurants[index].hours,
-                    cityName,
-                    cityId,
+            StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection("Users")
+                  .doc(userMail)
+                  .collection("selected")
+                  .where("type", isEqualTo: "restaurant")
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                      padding: const EdgeInsets.only(
+                          left: 20.0, right: 16.0, bottom: 16.0, top: 25.0),
+                      shrinkWrap: true,
+                      itemCount: snapshot.data.documents.length,
+                      itemBuilder: (context, index) {
+                        return CommentArea(
+                          snapshot.data.documents[index].data()["id"],
+                          snapshot.data.documents[index].data()["imageUrl"],
+                          snapshot.data.documents[index].data()["name"],
+                          snapshot.data.documents[index].data()["location"],
+                          snapshot.data.documents[index].data()["rate"],
+                          "",
+                        );
+                      });
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
                   );
-                },
-              ),
-            )
+                }
+              },
+            ),
           ],
         ),
       ),
@@ -161,46 +182,4 @@ class _CommentScreenState extends State<CommentScreen>
       ),
     );
   }
-}
-
-getSelectedPlaces(String cityId, String cityName) {
-  List<Widget> places = [];
-  for (int index = 0; index < selectedPlaces.length; index) {
-    places.add(CommentArea(
-      selectedPlaces[index].id,
-      selectedPlaces[index].imageUrl,
-      selectedPlaces[index].name,
-      selectedPlaces[index].location,
-      selectedPlaces[index].description,
-      selectedPlaces[index].rate,
-      selectedPlaces[index].type,
-      selectedPlaces[index].telephone,
-      selectedPlaces[index].whoSee,
-      selectedPlaces[index].hours,
-      cityId,
-      cityName,
-    ));
-  }
-  return places;
-}
-
-getSelectedRestaurants(String cityId, String cityName) {
-  List<Widget> places = [];
-  for (int index = 0; index < selectedRestaurants.length; index) {
-    places.add(CommentArea(
-      selectedRestaurants[index].id,
-      selectedRestaurants[index].imageUrl,
-      selectedRestaurants[index].name,
-      selectedRestaurants[index].location,
-      selectedRestaurants[index].description,
-      selectedRestaurants[index].rate,
-      selectedRestaurants[index].type,
-      selectedRestaurants[index].telephone,
-      selectedRestaurants[index].whoSee,
-      selectedRestaurants[index].hours,
-      cityId,
-      cityName,
-    ));
-  }
-  return places;
 }

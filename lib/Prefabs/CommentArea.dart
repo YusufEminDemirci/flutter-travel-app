@@ -11,28 +11,17 @@ class CommentArea extends StatelessWidget {
   String imageUrl;
   final String name;
   final String location;
-  final String description;
   final String rate;
-  final String type;
-  final String telephone;
-  final List whoSee;
-  final Map hours;
   final String cityName;
-  final String cityId;
 
   CommentArea(
-      this.id,
-      this.imageUrl,
-      this.name,
-      this.location,
-      this.description,
-      this.rate,
-      this.type,
-      this.telephone,
-      this.whoSee,
-      this.hours,
-      this.cityName,
-      this.cityId);
+    this.id,
+    this.imageUrl,
+    this.name,
+    this.location,
+    this.rate,
+    this.cityName,
+  );
 
   final myController = TextEditingController();
 
@@ -61,18 +50,10 @@ class CommentArea extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               CommentPlace(
-                id,
                 imageUrl,
                 name,
-                location,
-                description,
                 rate,
-                type,
-                telephone,
-                whoSee,
-                hours,
                 cityName,
-                cityId,
               ),
               SizedBox(
                 width: 2,

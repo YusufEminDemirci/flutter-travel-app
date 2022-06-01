@@ -1,42 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:travel_food/Lists/selectedPlaces.dart';
-import 'package:travel_food/Lists/selectedRestaurants.dart';
-import 'package:travel_food/Prefabs/Locations.dart';
-import 'package:travel_food/Screens/Detail.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel_food/Utils/consts.dart';
 
 class PlanPlace extends StatelessWidget {
   final String id;
   final String imageUrl;
   final String name;
-  final String location;
-  final String description;
   final String rate;
-  final String type;
-  final String telephone;
-  final String latitude;
-  final String longitude;
-  final List whoSee;
-  final Map hours;
-  final String cityName;
-  final String cityId;
 
   PlanPlace(
     this.id,
     this.imageUrl,
     this.name,
-    this.location,
-    this.description,
     this.rate,
-    this.type,
-    this.telephone,
-    this.latitude,
-    this.longitude,
-    this.whoSee,
-    this.hours,
-    this.cityName,
-    this.cityId,
   );
 
   @override
@@ -93,14 +70,14 @@ class PlanPlace extends StatelessWidget {
                 children: <Widget>[
                   SizedBox(
                     child: Icon(
-                      Icons.location_on,
+                      Icons.security_rounded,
                       color: dayTextColor,
                       size: 17.0,
                     ),
                   ),
                   SizedBox(
                     child: Text(
-                      cityName,
+                      "",
                       style: TextStyle(
                         color: dayTextColor,
                         fontSize: 14.0,
@@ -151,13 +128,18 @@ class PlanPlace extends StatelessWidget {
               top: 0,
               right: 0,
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  String userMail = prefs.getString("userEmail");
+
                   FirebaseFirestore.instance
                       .collection('Users')
-                      .doc('yBeXEnvLJ1QlTxzqh8LM')
+                      .doc(userMail)
                       .collection('selected')
                       .doc(id)
                       .delete();
+
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(name + " removed"),

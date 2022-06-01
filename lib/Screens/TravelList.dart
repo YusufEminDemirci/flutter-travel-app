@@ -9,31 +9,14 @@ import 'package:travel_food/Utils/TextStyles.dart';
 import 'package:travel_food/Utils/consts.dart';
 
 class TravelList extends StatefulWidget {
-  final String cityName;
-  final String cityId;
-
-  TravelList({
-    this.cityName,
-    this.cityId,
-  });
   @override
-  _TravelListState createState() => _TravelListState(
-        this.cityName,
-        this.cityId,
-      );
+  _TravelListState createState() => _TravelListState();
 }
 
 String userMail;
 
 class _TravelListState extends State<TravelList>
     with SingleTickerProviderStateMixin {
-  String cityName;
-  String cityId;
-
-  _TravelListState(
-    this.cityName,
-    this.cityId,
-  );
   TabController tabController;
 
   @override
@@ -111,21 +94,11 @@ class _TravelListState extends State<TravelList>
                       itemCount: snapshot.data.documents.length,
                       itemBuilder: (context, index) {
                         return PlanPlace(
-                            snapshot.data.documents[index].data()["id"],
-                            snapshot.data.documents[index].data()["imageUrl"],
-                            snapshot.data.documents[index].data()["name"],
-                            snapshot.data.documents[index].data()["location"],
-                            snapshot.data.documents[index]
-                                .data()["description"],
-                            snapshot.data.documents[index].data()["rate"],
-                            snapshot.data.documents[index].data()["type"],
-                            snapshot.data.documents[index].data()["telephone"],
-                            snapshot.data.documents[index].data()["latitude"],
-                            snapshot.data.documents[index].data()["longitude"],
-                            [],
-                            snapshot.data.documents[index].data()["Hours"],
-                            cityName,
-                            cityId);
+                          snapshot.data.documents[index].data()["id"],
+                          snapshot.data.documents[index].data()["imageUrl"],
+                          snapshot.data.documents[index].data()["name"],
+                          snapshot.data.documents[index].data()["rate"],
+                        );
                       });
                 } else {
                   return Center(
@@ -152,21 +125,11 @@ class _TravelListState extends State<TravelList>
                       itemCount: snapshot.data.documents.length,
                       itemBuilder: (context, index) {
                         return PlanPlace(
-                            snapshot.data.documents[index].data()["id"],
-                            snapshot.data.documents[index].data()["imageUrl"],
-                            snapshot.data.documents[index].data()["name"],
-                            snapshot.data.documents[index].data()["location"],
-                            snapshot.data.documents[index]
-                                .data()["description"],
-                            snapshot.data.documents[index].data()["rate"],
-                            snapshot.data.documents[index].data()["type"],
-                            snapshot.data.documents[index].data()["telephone"],
-                            snapshot.data.documents[index].data()["latitude"],
-                            snapshot.data.documents[index].data()["longitude"],
-                            [],
-                            snapshot.data.documents[index].data()["Hours"],
-                            cityName,
-                            cityId);
+                          snapshot.data.documents[index].data()["id"],
+                          snapshot.data.documents[index].data()["imageUrl"],
+                          snapshot.data.documents[index].data()["name"],
+                          snapshot.data.documents[index].data()["rate"],
+                        );
                       });
                 } else {
                   return Center(
@@ -187,17 +150,14 @@ class _TravelListState extends State<TravelList>
               .get()
               .then((querySnapshot) {
             if (querySnapshot.docs.length > 0) {
-              cityId = querySnapshot.docs[0].data()["location"];
-              print(querySnapshot.docs);
-              print(cityName);
-              print(cityId);
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) =>
-              //         new TravelPlan(cityName, cityId, TravelMode.walking),
-              //   ),
-              // );
+              String cityId = querySnapshot.docs[0].data()["location"];
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => new TravelPlan(
+                      querySnapshot.docs, cityId, TravelMode.walking),
+                ),
+              );
             } else {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(

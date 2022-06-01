@@ -2,32 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:travel_food/Utils/consts.dart';
 
 class CommentPlace extends StatelessWidget {
-  final String id;
   final String imageUrl;
   final String name;
-  final String location;
-  final String description;
   final String rate;
-  final String type;
-  final String telephone;
-  final List whoSee;
-  final Map hours;
   final String cityName;
-  final String cityId;
 
   CommentPlace(
-    this.id,
     this.imageUrl,
     this.name,
-    this.location,
-    this.description,
     this.rate,
-    this.type,
-    this.telephone,
-    this.whoSee,
-    this.hours,
     this.cityName,
-    this.cityId,
   );
 
   @override
@@ -45,8 +29,9 @@ class CommentPlace extends StatelessWidget {
           Container(
             child: ClipRRect(
               borderRadius: new BorderRadius.only(
-                  topRight: Radius.circular(15.0),
-                  topLeft: Radius.circular(15.0)),
+                topRight: Radius.circular(15.0),
+                topLeft: Radius.circular(15.0),
+              ),
               child: Image.network(
                 imageUrl,
                 fit: BoxFit.cover,
