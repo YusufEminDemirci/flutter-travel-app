@@ -26,15 +26,6 @@ bool _obscureText = true;
 class _LoginState extends State<Login> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  _signInWithEmailAndPassword() async {
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailController.text,
-        password: _passwordController.text,
-      );
-    } on FirebaseAuthException {}
-  }
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -194,66 +185,46 @@ class _LoginState extends State<Login> {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
 
-                    bool success = false;
-
-                    FirebaseFirestore.instance
+                    await FirebaseFirestore.instance
                         .collection("Users")
+                        .where("e-mail", isEqualTo: _emailController.text)
+                        .where("password", isEqualTo: _passwordController.text)
                         .get()
                         .then((querySnapshot) {
                       querySnapshot.docs.forEach((result) {
                         String _email = result.data()["e-mail"];
                         String _password = result.data()["password"];
+                        String _name = result.data()["name"];
+                        String _surname = result.data()["surname"];
+                        String _imageUrl = result.data()["imageUrl"];
+                        String _id = result.data()["id"];
 
-                        _signInWithEmailAndPassword();
+                        prefs.setString('userEmail', _email);
+                        prefs.setString('userName', _name);
+                        prefs.setString('userSurname', _surname);
+                        prefs.setString('userImageUrl', _imageUrl);
+                        prefs.setString('userId', _id);
+                        prefs.setString('userPassword', _password);
 
-                        if (_emailController.text == _email &&
-                            _passwordController.text == _password) {
-                          String _name = result.data()["name"];
-                          String _surname = result.data()["surname"];
-                          String _imageUrl = result.data()["imageUrl"];
-                          String _id = result.data()["id"];
+                        prefs.setBool('isLoggedIn', true);
 
-                          prefs.setString('userEmail', _email);
-                          prefs.setString('userName', _name);
-                          prefs.setString('userSurname', _surname);
-                          prefs.setString('userImageUrl', _imageUrl);
-                          prefs.setString('userId', _id);
-                          prefs.setString('userPassword', _password);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("Logged In"),
+                            backgroundColor: Colors.greenAccent,
+                          ),
+                        );
 
-                          prefs.setBool('isLoggedIn', true);
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => new Home()),
+                          ModalRoute.withName("/Home"),
+                        );
 
-                          success = true;
-
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("Logged In"),
-                              backgroundColor: Colors.greenAccent,
-                            ),
-                          );
-
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(builder: (context) => new Home()),
-                            ModalRoute.withName("/Home"),
-                          );
-
-                          _emailController.text = "";
-                          _passwordController.text = "";
-                        } else {
-                          success = false;
-                        }
+                        _emailController.text = "";
+                        _passwordController.text = "";
                       });
                     });
-
-                    if (!success) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text(
-                              "The information you entered is incorrect, please check your information"),
-                          backgroundColor: Colors.redAccent,
-                        ),
-                      );
-                    }
                   }, true),
                   SizedBox(
                     height: 10,
