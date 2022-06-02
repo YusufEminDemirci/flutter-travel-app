@@ -2,9 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../Models/place.dart';
 import '../../../../Utils/TextStyles.dart';
 import '../../../../Utils/consts.dart';
 import 'Comment/Comment.dart';
@@ -30,7 +32,7 @@ class Plan extends StatefulWidget {
 String userMail;
 
 class _PlanState extends State<Plan> with SingleTickerProviderStateMixin {
-  List selectedPlaces;
+  List<PlaceModel> selectedPlaces;
   String cityId;
   TravelMode travelMode;
 
@@ -42,18 +44,49 @@ class _PlanState extends State<Plan> with SingleTickerProviderStateMixin {
 
   GoogleMapController _controller;
   List<Marker> markerList = [];
-  // Position _currentPosition;
+  Position _currentPosition;
 
-  // _getCurrentLocation() async {
-  //   await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
-  //       .then((Position position) async {
-  //     setState(() {
-  //       _currentPosition = position;
-  //     });
-  //   }).catchError((e) {
-  //     print(e);
-  //   });
-  // }
+  _getCurrentLocation() async {
+    await Geolocator.getCurrentPosition(
+            desiredAccuracy: LocationAccuracy.bestForNavigation)
+        .then((Position position) {
+      setState(() {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Trying to detect your location"),
+            backgroundColor: Colors.amberAccent,
+          ),
+        );
+        _currentPosition = position;
+        selectedPlaces.add(
+          PlaceModel(
+            "0",
+            "",
+            "Current Position",
+            "",
+            "",
+            "",
+            "",
+            "",
+            _currentPosition.latitude.toString(),
+            _currentPosition.longitude.toString(),
+            [],
+            {},
+          ),
+        );
+        _createMarker();
+        _getPolyline();
+      });
+    }).catchError((e) {
+      print(e);
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Your location has been detected"),
+        backgroundColor: Colors.greenAccent,
+      ),
+    );
+  }
 
   getUserMail() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -64,23 +97,28 @@ class _PlanState extends State<Plan> with SingleTickerProviderStateMixin {
 
   Set<Marker> _createMarker() {
     getUserMail();
+    // _getCurrentLocation();
     markerList = [];
     List<QueryDocumentSnapshot> resultList = [];
 
     selectedPlaces.forEach((element) {
-      double _latitude = double.parse(element.data()["latitude"]);
-      double _longitude = double.parse(element.data()["longitude"]);
+      double _latitude = double.parse(element.latitude);
+      double _longitude = double.parse(element.longitude);
 
       markerList.add(
         Marker(
-          markerId: MarkerId(element.data()["id"]),
+          markerId: MarkerId(element.id),
           position: LatLng(_latitude, _longitude),
           infoWindow: InfoWindow(
-            title: element.data()["name"],
+            title: element.name,
           ),
-          icon: BitmapDescriptor.defaultMarkerWithHue(
-            BitmapDescriptor.hueViolet,
-          ),
+          icon: (element.name == "Current Position")
+              ? BitmapDescriptor.defaultMarkerWithHue(
+                  BitmapDescriptor.hueOrange,
+                )
+              : BitmapDescriptor.defaultMarkerWithHue(
+                  BitmapDescriptor.hueViolet,
+                ),
         ),
       );
     });
@@ -97,10 +135,6 @@ class _PlanState extends State<Plan> with SingleTickerProviderStateMixin {
     for (int i = 1; i < selectedPlaces.length; i++) {
       PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
         "AIzaSyA-EuCciDiU3RbI_axYIXGqghI_5nTPS-A",
-        // PointLatLng(
-        //   _currentPosition.latitude,
-        //   _currentPosition.longitude,
-        // ),
         PointLatLng(
           markerList[i - 1].position.latitude,
           markerList[i - 1].position.longitude,
@@ -137,7 +171,8 @@ class _PlanState extends State<Plan> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    // _getCurrentLocation();
+
+    _getCurrentLocation();
     _createMarker();
     _getPolyline();
   }
