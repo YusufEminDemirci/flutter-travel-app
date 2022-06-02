@@ -192,19 +192,19 @@ class _ProfileState extends State<Profile> {
                                         await storage.getDownloadUrl(userEmail);
 
                                     prefs.setString("imageUrl", downloadUrl);
-                                    userImageUrl = downloadUrl;
 
                                     FirebaseFirestore.instance
                                         .collection("Users")
                                         .doc(userEmail)
                                         .set({
-                                      "imageUrl": userImageUrl,
+                                      "imageUrl": downloadUrl,
                                       "name": userName,
                                       "password": userPassword,
                                       "surname": userSurname,
                                       "e-mail": userEmail,
                                       "id": userId,
                                     });
+                                    userImageUrl = downloadUrl;
 
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
