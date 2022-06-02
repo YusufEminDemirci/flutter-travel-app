@@ -116,7 +116,7 @@ class Place_Prefab extends StatelessWidget {
                 children: <Widget>[
                   SizedBox(
                     child: Icon(
-                      Icons.location_on,
+                      Icons.location_city_rounded,
                       color: dayTextColor,
                       size: 17.0,
                     ),

@@ -1,17 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../Utils/consts.dart';
 
 class Place_Prefab extends StatelessWidget {
+  final String id;
   final String imageUrl;
   final String name;
-  final String rate;
+  final String cityId;
   final String cityName;
 
   Place_Prefab(
+    this.id,
     this.imageUrl,
     this.name,
-    this.rate,
+    this.cityId,
     this.cityName,
   );
 
@@ -66,7 +69,7 @@ class Place_Prefab extends StatelessWidget {
               children: <Widget>[
                 SizedBox(
                   child: Icon(
-                    Icons.location_on,
+                    Icons.location_city_rounded,
                     color: kblack,
                     size: 17.0,
                   ),
@@ -94,26 +97,50 @@ class Place_Prefab extends StatelessWidget {
                       color: dayMainColor,
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                          size: 16.0,
-                        ),
-                        Text(
-                          rate.toString(),
-                          style: TextStyle(
-                            color: kwhite,
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
+                    child: StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection("Cities")
+                          .doc(cityId)
+                          .collection("Places")
+                          .doc(id)
+                          .collection("Comments")
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          double rateAverage = 0;
+
+                          snapshot.data.documents.forEach((element) {
+                            rateAverage += double.parse(element["rate"]);
+                          });
+                          rateAverage =
+                              rateAverage / snapshot.data.documents.length;
+
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.star,
+                                color: Colors.amber,
+                                size: 16.0,
+                              ),
+                              Text(
+                                rateAverage.toStringAsFixed(1),
+                                style: TextStyle(
+                                  color: kwhite,
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
+                          );
+                        } else {
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                      },
                     ),
                   ),
                 ),

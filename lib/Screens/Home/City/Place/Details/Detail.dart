@@ -13,18 +13,18 @@ import 'Location/Map.dart';
 final ScrollController scrollController = ScrollController();
 
 class Detail extends StatefulWidget {
-  final String description;
-  final Map hours;
   final String id;
   final String imageUrl;
-  final String location;
   final String name;
+  final String location;
+  final String description;
   final String rate;
+  final String type;
   final String telephone;
   String latitude;
   String longitude;
-  final String type;
   final List whoSee;
+  final Map hours;
   final String cityName;
   final String cityId;
 
@@ -65,18 +65,18 @@ class Detail extends StatefulWidget {
 }
 
 class _DetailState extends State<Detail> with SingleTickerProviderStateMixin {
-  String description;
-  Map hours;
   String id;
   String imageUrl;
-  String location;
   String name;
+  String location;
+  String description;
   String rate;
+  String type;
   String telephone;
   String latitude;
   String longitude;
-  String type;
   List whoSee;
+  Map hours;
   String cityName;
   String cityId;
 
@@ -307,8 +307,6 @@ checkList(
   SharedPreferences prefs = await SharedPreferences.getInstance();
   String userMail = prefs.getString("userEmail");
 
-  print(userMail);
-
   FirebaseFirestore.instance
       .collection('Users')
       .doc(userMail)
@@ -404,47 +402,4 @@ checkList(
                 )
               }
           });
-}
-
-Future<Object> popUpMessage(
-    BuildContext context, String message, IconData icon) {
-  return showGeneralDialog(
-    barrierLabel: "Barrier",
-    barrierDismissible: true,
-    barrierColor: Colors.black.withOpacity(0.5),
-    transitionDuration: Duration(milliseconds: 700),
-    context: context,
-    pageBuilder: (_, __, ___) {
-      return Align(
-        alignment: Alignment.bottomCenter,
-        child: Container(
-          height: 60,
-          child: SizedBox.expand(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                BoldText(message, 20, kblack),
-                Icon(
-                  icon,
-                  color: Colors.redAccent,
-                  size: 30,
-                ),
-              ],
-            ),
-          ),
-          margin: EdgeInsets.only(bottom: 50, left: 12, right: 12),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(5),
-          ),
-        ),
-      );
-    },
-    transitionBuilder: (_, anim, __, child) {
-      return SlideTransition(
-        position: Tween(begin: Offset(0, 1), end: Offset(0, 0)).animate(anim),
-        child: child,
-      );
-    },
-  );
 }

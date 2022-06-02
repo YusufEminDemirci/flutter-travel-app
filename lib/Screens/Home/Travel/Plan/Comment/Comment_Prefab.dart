@@ -12,7 +12,7 @@ class Comment_Prefab extends StatelessWidget {
   String imageUrl;
   final String name;
   final String location;
-  final String rate;
+  final String cityId;
   final String cityName;
 
   Comment_Prefab(
@@ -20,7 +20,7 @@ class Comment_Prefab extends StatelessWidget {
     this.imageUrl,
     this.name,
     this.location,
-    this.rate,
+    this.cityId,
     this.cityName,
   );
 
@@ -51,9 +51,10 @@ class Comment_Prefab extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Place_Prefab(
+                id,
                 imageUrl,
                 name,
-                rate,
+                cityId,
                 cityName,
               ),
               SizedBox(

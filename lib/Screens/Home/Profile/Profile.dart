@@ -18,6 +18,8 @@ String userName;
 String userSurname;
 String userImageUrl;
 String userEmail;
+String userPassword;
+String userId;
 
 class Profile extends StatefulWidget {
   @override
@@ -25,16 +27,21 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  getUserEmail() async {
+  getUserInfo() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     userEmail = prefs.getString("userEmail");
+    userSurname = prefs.getString("userSurname");
+    userImageUrl = prefs.getString("userImageUrl");
+    userEmail = prefs.getString("userEmail");
+    userPassword = prefs.getString("userPassword");
+    userId = prefs.getString("userId");
   }
 
   void initState() {
     super.initState();
 
     if (mounted == true) {
-      getUserEmail();
+      getUserInfo();
     }
   }
 
@@ -173,7 +180,7 @@ class _ProfileState extends State<Profile> {
                                     SharedPreferences prefs =
                                         await SharedPreferences.getInstance();
 
-                                    getUserEmail();
+                                    getUserInfo();
 
                                     final path = results.files.single.path;
                                     final fileName = userEmail;
@@ -185,20 +192,19 @@ class _ProfileState extends State<Profile> {
                                         await storage.getDownloadUrl(userEmail);
 
                                     prefs.setString("imageUrl", downloadUrl);
+                                    userImageUrl = downloadUrl;
 
                                     FirebaseFirestore.instance
                                         .collection("Users")
                                         .doc(userEmail)
                                         .set({
-                                      "imageUrl": downloadUrl,
-                                      "name": "Yusuf Emin",
-                                      "password": "adminadmin",
-                                      "surname": "Demirci",
-                                      "e-mail": "admin@admin.com",
-                                      "id":
-                                          "e6d76119-910b-440a-a202-62c150b385b3",
+                                      "imageUrl": userImageUrl,
+                                      "name": userName,
+                                      "password": userPassword,
+                                      "surname": userSurname,
+                                      "e-mail": userEmail,
+                                      "id": userId,
                                     });
-                                    userImageUrl = downloadUrl;
 
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
@@ -214,7 +220,6 @@ class _ProfileState extends State<Profile> {
                                       .collection("Users")
                                       .where("e-mail", isEqualTo: userEmail)
                                       .snapshots(),
-                                  // ignore: missing_return
                                   builder: (context, snapshot) {
                                     if (snapshot.hasData) {
                                       return CircleAvatar(

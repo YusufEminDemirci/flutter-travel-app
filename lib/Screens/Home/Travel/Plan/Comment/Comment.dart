@@ -113,8 +113,8 @@ class _CommentState extends State<Comment> with SingleTickerProviderStateMixin {
                           snapshot.data.documents[index].data()["imageUrl"],
                           snapshot.data.documents[index].data()["name"],
                           snapshot.data.documents[index].data()["location"],
-                          snapshot.data.documents[index].data()["rate"],
-                          "",
+                          snapshot.data.documents[index].data()["cityId"],
+                          snapshot.data.documents[index].data()["cityName"],
                         );
                       });
                 } else {
@@ -144,8 +144,8 @@ class _CommentState extends State<Comment> with SingleTickerProviderStateMixin {
                           snapshot.data.documents[index].data()["imageUrl"],
                           snapshot.data.documents[index].data()["name"],
                           snapshot.data.documents[index].data()["location"],
-                          snapshot.data.documents[index].data()["rate"],
-                          "",
+                          snapshot.data.documents[index].data()["cityId"],
+                          snapshot.data.documents[index].data()["cityName"],
                         );
                       });
                 } else {

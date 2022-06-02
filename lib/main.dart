@@ -2,7 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'Screens/Welcome.dart';
+import 'Screens/Home/Home.dart';
+// import 'Screens/Welcome.dart';
 import 'Utils/consts.dart';
 
 Future<void> main() async {
@@ -17,7 +18,7 @@ Future<void> main() async {
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Welcome(),
+      home: Home(),
       title: 'Travel App design',
       theme: ThemeData(primaryColor: dayMainColor),
     ),

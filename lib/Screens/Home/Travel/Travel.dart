@@ -98,7 +98,8 @@ class _TravelState extends State<Travel> with SingleTickerProviderStateMixin {
                           snapshot.data.documents[index].data()["id"],
                           snapshot.data.documents[index].data()["imageUrl"],
                           snapshot.data.documents[index].data()["name"],
-                          snapshot.data.documents[index].data()["rate"],
+                          snapshot.data.documents[index].data()["cityId"],
+                          snapshot.data.documents[index].data()["cityName"],
                         );
                       });
                 } else {
@@ -129,7 +130,8 @@ class _TravelState extends State<Travel> with SingleTickerProviderStateMixin {
                           snapshot.data.documents[index].data()["id"],
                           snapshot.data.documents[index].data()["imageUrl"],
                           snapshot.data.documents[index].data()["name"],
-                          snapshot.data.documents[index].data()["rate"],
+                          snapshot.data.documents[index].data()["cityId"],
+                          snapshot.data.documents[index].data()["cityName"],
                         );
                       });
                 } else {
