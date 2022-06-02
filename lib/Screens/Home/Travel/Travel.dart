@@ -4,6 +4,7 @@ import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../Models/place.dart';
 import '../../../Utils/TextStyles.dart';
 import '../../../Utils/consts.dart';
 import 'Place_Prefab.dart';
@@ -151,11 +152,33 @@ class _TravelState extends State<Travel> with SingleTickerProviderStateMixin {
               .then((querySnapshot) {
             if (querySnapshot.docs.length > 0) {
               String cityId = querySnapshot.docs[0].data()["location"];
+
+              List<PlaceModel> travelList = [];
+
+              querySnapshot.docs.forEach((element) {
+                travelList.add(
+                  PlaceModel(
+                    element.data()["id"],
+                    element.data()["imageUrl"],
+                    element.data()["name"],
+                    element.data()["location"],
+                    element.data()["description"],
+                    element.data()["rate"],
+                    element.data()["type"],
+                    element.data()["telephone"],
+                    element.data()["latitude"],
+                    element.data()["longitude"],
+                    element.data()["whoSee"],
+                    element.data()["hours"],
+                  ),
+                );
+              });
+
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      new Plan(querySnapshot.docs, cityId, TravelMode.walking),
+                      new Plan(travelList, cityId, TravelMode.driving),
                 ),
               );
             } else {
