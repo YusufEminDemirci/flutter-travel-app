@@ -34,7 +34,6 @@ class _ProfileState extends State<Profile> {
     super.initState();
 
     if (mounted == true) {
-      // getUserInfo();
       getUserEmail();
     }
   }
@@ -393,26 +392,4 @@ class _ProfileState extends State<Profile> {
       ),
     );
   }
-}
-
-getUserInfo() {
-  StreamBuilder(
-    stream: FirebaseFirestore.instance
-        .collection("Users")
-        .where("e-mail", isEqualTo: userEmail)
-        .snapshots(),
-    builder: (context, snapshot) {
-      if (snapshot.hasData) {
-        userName = snapshot.data()["name"];
-        userSurname = snapshot.data()["surname"];
-        userImageUrl = snapshot.data()["imageUrl"];
-
-        return BoldText(
-          userName + " " + userSurname,
-          30,
-          kwhite,
-        );
-      }
-    },
-  );
 }
