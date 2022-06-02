@@ -2,17 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:travel_food/Lists/commentsList.dart';
-import 'package:travel_food/Lists/selectedPlaces.dart';
-import 'package:travel_food/Lists/selectedRestaurants.dart';
-import 'package:travel_food/Models/comment.dart';
 import 'package:travel_food/Prefabs/CityInfo.dart';
 import 'package:travel_food/Prefabs/CommentDisplay.dart';
-import 'package:travel_food/Prefabs/Locations.dart';
 import 'package:travel_food/Prefabs/PlaceLocationMap.dart';
 import 'package:travel_food/Utils/TextStyles.dart';
 import 'package:travel_food/Utils/consts.dart';
-import 'package:travel_food/Prefabs/Comments.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 final ScrollController scrollController = ScrollController();
@@ -116,7 +110,6 @@ class _DetailScreenState extends State<DetailScreen>
   void initState() {
     super.initState();
     tabController = new TabController(length: 3, vsync: this);
-    getComments(location, id);
   }
 
   @override
@@ -225,7 +218,7 @@ class _DetailScreenState extends State<DetailScreen>
                                   this.hours,
                                   this.cityId,
                                 ),
-                                getComments(cityId, id),
+                                CommentDisplay(cityId, id),
                               ],
                               controller: tabController,
                             ),
@@ -292,45 +285,6 @@ class _DetailScreenState extends State<DetailScreen>
       ),
     );
   }
-}
-
-getComments(String cityId, String placeId) {
-  final firestoreInstance = FirebaseFirestore.instance;
-  return StreamBuilder<QuerySnapshot>(
-    stream: firestoreInstance
-        .collection("Cities")
-        .doc(cityId)
-        .collection("Places")
-        .doc(placeId)
-        .collection("Comments")
-        .snapshots(),
-    builder: (context, snapshot) {
-      final commentList = snapshot.data.docs;
-      comments = [];
-      for (var comment in commentList) {
-        DateTime date = comment.data()["date"].toDate();
-        String _date = date.toString();
-        String _id = comment.data()["id"];
-        String _imageUrl = comment.data()["imageUrl"];
-        String _message = comment.data()["message"];
-        String _name = comment.data()["name"];
-        String _rate = comment.data()["rate"];
-        comments.add(
-          CommentsImage(
-            Comment(
-              date: _date,
-              id: _id,
-              imageUrl: _imageUrl,
-              message: _message,
-              name: _name,
-              rate: _rate,
-            ),
-          ),
-        );
-      }
-      return CommentDisplay();
-    },
-  );
 }
 
 checkList(

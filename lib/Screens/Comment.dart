@@ -1,11 +1,7 @@
-import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:travel_food/Lists/selectedPlaces.dart';
-import 'package:travel_food/Lists/selectedRestaurants.dart';
 import 'package:travel_food/Prefabs/CommentArea.dart';
 import 'package:travel_food/Screens/TravelFinished.dart';
 import 'package:travel_food/Utils/TextStyles.dart';
@@ -165,8 +161,6 @@ class _CommentScreenState extends State<CommentScreen>
       floatingActionButton: FloatingActionButton(
         backgroundColor: dayMainColor,
         onPressed: () {
-          selectedPlaces = [];
-          selectedRestaurants = [];
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(

@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel_food/Screens/Home.dart';
 import 'package:travel_food/Utils/TextStyles.dart';
 import 'package:travel_food/Utils/consts.dart';
@@ -51,7 +53,7 @@ class _TravelFinished extends State<TravelFinished> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: dayMainColor,
-        onPressed: () {
+        onPressed: () async {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
@@ -59,6 +61,20 @@ class _TravelFinished extends State<TravelFinished> {
             ),
             ModalRoute.withName("/Home"),
           );
+
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          String userMail = prefs.getString("userEmail");
+
+          FirebaseFirestore.instance
+              .collection('Users')
+              .doc(userMail)
+              .collection('selected')
+              .get()
+              .then((snapshot) {
+            for (DocumentSnapshot ds in snapshot.docs) {
+              ds.reference.delete();
+            }
+          });
         },
         child: Icon(
           Icons.arrow_forward_ios_rounded,

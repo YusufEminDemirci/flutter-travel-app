@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:travel_food/Screens/BoardingView/sliderDots.dart';
 import 'package:travel_food/Screens/BoardingView/sliderItems.dart';

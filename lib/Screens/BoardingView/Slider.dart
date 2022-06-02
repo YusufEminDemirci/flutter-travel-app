@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:travel_food/Utils/consts.dart';
 
 class Slider {
   final String sliderImageUrl;
@@ -15,14 +14,17 @@ class Slider {
 final sliderArrayList = [
   Slider(
       sliderImageUrl: 'assets/one.png',
-      sliderHeading: SLIDER_HEADING_1,
-      sliderSubHeading: SLIDER_DESC),
+      sliderHeading: "Tour Guide!",
+      sliderSubHeading:
+          "Live the best and easiest traveling experience with us,the fastest and most reliable option you can ever find."),
   Slider(
       sliderImageUrl: 'assets/two.png',
-      sliderHeading: SLIDER_HEADING_2,
-      sliderSubHeading: SLIDER_DESC),
+      sliderHeading: "Hundreds of Places",
+      sliderSubHeading:
+          "Live the best and easiest traveling experience with us,the fastest and most reliable option you can ever find."),
   Slider(
       sliderImageUrl: 'assets/three.png',
-      sliderHeading: SLIDER_HEADING_3,
-      sliderSubHeading: SLIDER_DESC),
+      sliderHeading: "Easy to Use!",
+      sliderSubHeading:
+          "Live the best and easiest traveling experience with us,the fastest and most reliable option you can ever find."),
 ];

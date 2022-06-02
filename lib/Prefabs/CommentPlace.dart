@@ -27,14 +27,14 @@ class CommentPlace extends StatelessWidget {
         alignment: Alignment.topCenter,
         children: <Widget>[
           Container(
+            height: MediaQuery.of(context).size.width * 0.29,
             child: ClipRRect(
               borderRadius: new BorderRadius.only(
-                topRight: Radius.circular(15.0),
-                topLeft: Radius.circular(15.0),
-              ),
+                  topRight: Radius.circular(15.0),
+                  topLeft: Radius.circular(15.0)),
               child: Image.network(
                 imageUrl,
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
               ),
             ),
           ),

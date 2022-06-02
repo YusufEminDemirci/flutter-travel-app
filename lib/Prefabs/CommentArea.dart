@@ -59,7 +59,7 @@ class CommentArea extends StatelessWidget {
                 width: 2,
               ),
               Container(
-                width: 208,
+                width: 200,
                 height: 150,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 15.0),
@@ -109,7 +109,7 @@ class CommentArea extends StatelessWidget {
                           ),
                           Padding(
                             padding:
-                                const EdgeInsets.only(left: 10, bottom: 30.0),
+                                const EdgeInsets.only(left: 5, bottom: 30.0),
                             child: GestureDetector(
                               child: Icon(
                                 FontAwesomeIcons.paperPlane,

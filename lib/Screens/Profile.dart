@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -7,9 +6,6 @@ import 'package:material_dialogs/material_dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
 import 'package:travel_food/Lists/creators.dart';
-import 'package:travel_food/Screens/EditProfile.dart';
-import 'package:travel_food/Screens/Notifications.dart';
-import 'package:travel_food/Screens/AboutUs.dart';
 import 'package:travel_food/Screens/SignIn.dart';
 import 'package:travel_food/Utils/TextStyles.dart';
 import 'package:travel_food/Utils/consts.dart';
@@ -29,11 +25,17 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  getUserEmail() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    userEmail = prefs.getString("userEmail");
+  }
+
   void initState() {
     super.initState();
 
     if (mounted == true) {
-      getUserInfo();
+      // getUserInfo();
+      getUserEmail();
     }
   }
 
@@ -172,7 +174,7 @@ class _ProfileState extends State<Profile> {
                                     SharedPreferences prefs =
                                         await SharedPreferences.getInstance();
 
-                                    userEmail = prefs.getString("userEmail");
+                                    getUserEmail();
 
                                     final path = results.files.single.path;
                                     final fileName = userEmail;
@@ -187,7 +189,7 @@ class _ProfileState extends State<Profile> {
 
                                     FirebaseFirestore.instance
                                         .collection("Users")
-                                        .doc("yBeXEnvLJ1QlTxzqh8LM")
+                                        .doc(userEmail)
                                         .set({
                                       "imageUrl": downloadUrl,
                                       "name": "Yusuf Emin",
@@ -208,17 +210,31 @@ class _ProfileState extends State<Profile> {
                                     );
                                   }
                                 },
-                                child: CircleAvatar(
-                                  backgroundColor: Colors.white,
-                                  radius: 72,
-                                  child: CircleAvatar(
-                                    backgroundColor: Colors.transparent,
-                                    backgroundImage: (userImageUrl != null)
-                                        ? NetworkImage(userImageUrl)
-                                        : AssetImage(
-                                            "assets/orangeProfile.png"),
-                                    radius: 70,
-                                  ),
+                                child: StreamBuilder(
+                                  stream: FirebaseFirestore.instance
+                                      .collection("Users")
+                                      .where("e-mail", isEqualTo: userEmail)
+                                      .snapshots(),
+                                  // ignore: missing_return
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasData) {
+                                      return CircleAvatar(
+                                        backgroundColor: Colors.white,
+                                        radius: 72,
+                                        child: CircleAvatar(
+                                          backgroundColor: Colors.transparent,
+                                          backgroundImage: NetworkImage(snapshot
+                                              .data.documents[0]["imageUrl"]),
+                                          radius: 70,
+                                        ),
+                                      );
+                                    } else {
+                                      return CircleAvatar(
+                                        backgroundColor: Colors.white,
+                                        radius: 72,
+                                      );
+                                    }
+                                  },
                                 ),
                               ),
                             ),
@@ -243,33 +259,64 @@ class _ProfileState extends State<Profile> {
                             ),
                           ],
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 200.0),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 15,
-                              ),
-                              (userName != null && userSurname != null)
-                                  ? BoldText(
+                        StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection("Users")
+                              .where("e-mail", isEqualTo: userEmail)
+                              .snapshots(),
+                          // ignore: missing_return
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              userName = snapshot.data.documents[0]["name"];
+                              userSurname =
+                                  snapshot.data.documents[0]["surname"];
+
+                              return Padding(
+                                padding: const EdgeInsets.only(top: 200.0),
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    BoldText(
                                       userName + " " + userSurname,
-                                      25.0,
-                                      kwhite,
-                                    )
-                                  : BoldText(
-                                      "Name Surname",
                                       30,
                                       kwhite,
                                     ),
-                              Container(
-                                height: 2,
-                                width: 300,
-                                color: kwhite,
-                              ),
-                              SizedBox(height: 25.0),
-                            ],
-                          ),
-                        )
+                                    Container(
+                                      height: 2,
+                                      width: 300,
+                                      color: kwhite,
+                                    ),
+                                    SizedBox(height: 25.0),
+                                  ],
+                                ),
+                              );
+                            } else {
+                              return Padding(
+                                padding: const EdgeInsets.only(top: 200.0),
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    BoldText(
+                                      " ",
+                                      30,
+                                      kwhite,
+                                    ),
+                                    Container(
+                                      height: 2,
+                                      width: 300,
+                                      color: kwhite,
+                                    ),
+                                    SizedBox(height: 25.0),
+                                  ],
+                                ),
+                              );
+                            }
+                          },
+                        ),
                       ],
                     ),
                   ],
@@ -282,34 +329,6 @@ class _ProfileState extends State<Profile> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //   children: [
-                //     GestureDetector(
-                //         child: Container(
-                //           height: 130,
-                //           width: 130,
-                //           decoration: BoxDecoration(
-                //               borderRadius: BorderRadius.circular(10),
-                //               color: kwhite,
-                //               boxShadow: [
-                //                 BoxShadow(
-                //                   color: Colors.black.withOpacity(0.2),
-                //                   blurRadius: 10,
-                //                   spreadRadius: 5,
-                //                 ),
-                //               ]),
-                //           child: profileItem(
-                //               FontAwesomeIcons.edit, "Edit Profile"),
-                //         ),
-                //         onTap: () async {
-                //           Navigator.push(
-                //               context,
-                //               MaterialPageRoute(
-                //                   builder: (context) => new EditProfile()));
-                //         }),
-                //   ],
-                // ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -352,36 +371,26 @@ class _ProfileState extends State<Profile> {
       ),
     );
   }
-
-  // Widget profileItem(IconData icon, String text) {
-  //   return Padding(
-  //     padding: const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 16),
-  //     child: Column(
-  //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //       children: <Widget>[
-  //         Icon(
-  //           icon,
-  //           color: dayTextColor,
-  //           size: 35,
-  //         ),
-  //         Text(
-  //           text,
-  //           style: TextStyle(
-  //             fontSize: 20,
-  //             color: dayTextColor,
-  //           ),
-  //           textAlign: TextAlign.center,
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 }
 
-getUserInfo() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
+getUserInfo() {
+  StreamBuilder(
+    stream: FirebaseFirestore.instance
+        .collection("Users")
+        .where("e-mail", isEqualTo: userEmail)
+        .snapshots(),
+    builder: (context, snapshot) {
+      if (snapshot.hasData) {
+        userName = snapshot.data()["name"];
+        userSurname = snapshot.data()["surname"];
+        userImageUrl = snapshot.data()["imageUrl"];
 
-  userName = prefs.getString('userName');
-  userSurname = prefs.getString('userSurname');
-  userImageUrl = prefs.getString('userImageUrl');
+        return BoldText(
+          userName + " " + userSurname,
+          30,
+          kwhite,
+        );
+      }
+    },
+  );
 }

@@ -1,8 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_food/Prefabs/Cities.dart';
-import 'package:travel_food/Prefabs/SearchBar.dart';
 import 'package:travel_food/Utils/TextStyles.dart';
-import 'package:travel_food/Lists/citiesList.dart';
 import 'package:travel_food/Utils/consts.dart';
 
 class Cities extends StatefulWidget {
@@ -30,31 +29,30 @@ class _CitiesState extends State<Cities> {
           ),
         ),
       ),
-      body: CustomScrollView(
-        slivers: <Widget>[
-          // SliverAppBar(
-          //   elevation: 0.0,
-          //   backgroundColor: Colors.transparent,
-          //   flexibleSpace: FlexibleSpaceBar(
-          //     background: SearchBar(),
-          //   ),
-          //   automaticallyImplyLeading: false,
-          // ),
-          SliverFillRemaining(
-            child: GridView(
-              padding: const EdgeInsets.only(
-                  left: 25.0, right: 25.0, bottom: 25.0, top: 25.0),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-              ),
-              shrinkWrap: true,
-              children: List.generate(cities.length, (index) {
-                return CitiesImage(cities[index].id, cities[index].imageUrl,
-                    cities[index].name);
-              }),
-            ),
-          )
-        ],
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance.collection("Cities").snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return GridView.builder(
+                padding: const EdgeInsets.only(
+                    left: 20.0, right: 16.0, bottom: 16.0, top: 25.0),
+                shrinkWrap: true,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2),
+                itemCount: snapshot.data.documents.length,
+                itemBuilder: (context, index) {
+                  return CitiesImage(
+                    snapshot.data.documents[index].data()["id"],
+                    snapshot.data.documents[index].data()["imageUrl"],
+                    snapshot.data.documents[index].data()["name"],
+                  );
+                });
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
       ),
     );
   }
