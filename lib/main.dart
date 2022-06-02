@@ -1,8 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:travel_food/Screens/Splash.dart';
-import 'package:travel_food/Utils/consts.dart';
+
+import 'Screens/Welcome.dart';
+import 'Utils/consts.dart';
 
 Future<void> main() async {
   SystemChrome.setSystemUIOverlayStyle(
@@ -16,7 +17,7 @@ Future<void> main() async {
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: Welcome(),
       title: 'Travel App design',
       theme: ThemeData(primaryColor: dayMainColor),
     ),

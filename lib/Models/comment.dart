@@ -1,4 +1,4 @@
-class Comment {
+class CommentModel {
   String date;
   String id;
   String imageUrl;
@@ -6,7 +6,7 @@ class Comment {
   String name;
   String rate;
 
-  Comment({
+  CommentModel({
     this.date,
     this.id,
     this.imageUrl,

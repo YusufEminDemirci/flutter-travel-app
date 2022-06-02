@@ -1,4 +1,4 @@
-class UserStat {
+class UserModel {
   String id;
   String imageUrl;
   String name;
@@ -6,6 +6,6 @@ class UserStat {
   String email;
   String password;
 
-  UserStat(this.id, this.imageUrl, this.name, this.surname, this.email,
+  UserModel(this.id, this.imageUrl, this.name, this.surname, this.email,
       this.password);
 }

@@ -1,4 +1,4 @@
-class Location {
+class LocationModel {
   String id;
   String imageUrl;
   String name;
@@ -12,7 +12,7 @@ class Location {
   List whoSee;
   Map hours;
 
-  Location(
+  LocationModel(
       this.id,
       this.imageUrl,
       this.name,
