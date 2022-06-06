@@ -159,6 +159,16 @@ class Comment_Prefab extends StatelessWidget {
                                       "rate": starRating.toString(),
                                     });
 
+                                    String userMail =
+                                        prefs.getString("userEmail");
+
+                                    FirebaseFirestore.instance
+                                        .collection('Users')
+                                        .doc(userMail)
+                                        .collection('selected')
+                                        .doc(id)
+                                        .delete();
+
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
                                         content:
