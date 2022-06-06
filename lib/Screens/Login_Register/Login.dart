@@ -69,7 +69,7 @@ class _LoginState extends State<Login> {
                     width: 340.0,
                     child: TextFormField(
                       style: TextStyle(
-                          fontFamily: "nunito",
+                          fontFamily: "Brandon",
                           fontWeight: FontWeight.w500,
                           color: dayTextColor,
                           fontSize: 15.5),
@@ -90,7 +90,7 @@ class _LoginState extends State<Login> {
                           ),
                           hintText: "E-mail",
                           hintStyle: TextStyle(
-                              fontFamily: "nunito",
+                              fontFamily: "Brandon",
                               fontWeight: FontWeight.w500,
                               color: kgreyDark,
                               fontSize: 15.5),
@@ -114,7 +114,7 @@ class _LoginState extends State<Login> {
                     width: 340.0,
                     child: TextFormField(
                       style: TextStyle(
-                          fontFamily: "nunito",
+                          fontFamily: "Brandon",
                           fontWeight: FontWeight.w500,
                           color: dayTextColor,
                           fontSize: 15.5),
@@ -153,7 +153,7 @@ class _LoginState extends State<Login> {
                           ),
                           hintText: "Password",
                           hintStyle: TextStyle(
-                              fontFamily: "nunito",
+                              fontFamily: "Brandon",
                               fontWeight: FontWeight.w500,
                               color: dayTextColor,
                               fontSize: 15.5),
@@ -210,7 +210,12 @@ class _LoginState extends State<Login> {
 
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text("Logged In"),
+                            content: Text(
+                              "Logged In",
+                              style: TextStyle(
+                                fontFamily: "Brandon",
+                              ),
+                            ),
                             backgroundColor: Colors.greenAccent,
                           ),
                         );

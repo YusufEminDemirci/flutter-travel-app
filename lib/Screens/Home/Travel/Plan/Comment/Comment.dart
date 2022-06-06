@@ -75,7 +75,7 @@ class _CommentState extends State<Comment> with SingleTickerProviderStateMixin {
             labelColor: dayMainColor,
             unselectedLabelColor: dayTextColor,
             labelStyle:
-                TextStyle(fontFamily: "nunito", fontWeight: FontWeight.bold),
+                TextStyle(fontFamily: "Brandon", fontWeight: FontWeight.bold),
             controller: tabController,
             indicatorColor: dayMainColor,
             tabs: <Widget>[

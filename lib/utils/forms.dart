@@ -19,7 +19,7 @@ class _FormsState extends State<PasswordForm> {
   Widget build(BuildContext context) {
     return TextFormField(
       style: TextStyle(
-          fontFamily: "nunito",
+          fontFamily: "Brandon",
           fontWeight: FontWeight.w500,
           color: kgreyDark,
           fontSize: 15.5),
@@ -57,7 +57,7 @@ class _FormsState extends State<PasswordForm> {
           ),
           hintText: "Password",
           hintStyle: TextStyle(
-              fontFamily: "nunito",
+              fontFamily: "Brandon",
               fontWeight: FontWeight.w500,
               color: kgreyDark,
               fontSize: 15.5),
@@ -86,7 +86,7 @@ class NameForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       style: TextStyle(
-          fontFamily: "nunito",
+          fontFamily: "Brandon",
           fontWeight: FontWeight.w500,
           color: kgreyDark,
           fontSize: 15.5),
@@ -106,7 +106,7 @@ class NameForm extends StatelessWidget {
           ),
           hintText: hint,
           hintStyle: TextStyle(
-              fontFamily: "nunito",
+              fontFamily: "Brandon",
               fontWeight: FontWeight.w500,
               color: kgreyDark,
               fontSize: 15.5),
@@ -135,7 +135,7 @@ class SurnameForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       style: TextStyle(
-          fontFamily: "nunito",
+          fontFamily: "Brandon",
           fontWeight: FontWeight.w500,
           color: kgreyDark,
           fontSize: 15.5),
@@ -155,7 +155,7 @@ class SurnameForm extends StatelessWidget {
           ),
           hintText: hint,
           hintStyle: TextStyle(
-              fontFamily: "nunito",
+              fontFamily: "Brandon",
               fontWeight: FontWeight.w500,
               color: kgreyDark,
               fontSize: 15.5),
@@ -184,7 +184,7 @@ class EmailForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       style: TextStyle(
-          fontFamily: "nunito",
+          fontFamily: "Brandon",
           fontWeight: FontWeight.w500,
           color: kgreyDark,
           fontSize: 15.5),
@@ -204,7 +204,7 @@ class EmailForm extends StatelessWidget {
           ),
           hintText: hint,
           hintStyle: TextStyle(
-              fontFamily: "nunito",
+              fontFamily: "Brandon",
               fontWeight: FontWeight.w500,
               color: kgreyDark,
               fontSize: 15.5),

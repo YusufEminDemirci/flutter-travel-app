@@ -86,7 +86,7 @@ class _HomeState extends State<Home> {
                 inactiveColor: dayTextColor,
                 title: Text(
                   "Cities",
-                  style: TextStyle(fontFamily: "nunito"),
+                  style: TextStyle(fontFamily: "Brandon"),
                 ),
               ),
               BottomNavyBarItem(
@@ -95,7 +95,7 @@ class _HomeState extends State<Home> {
                 ),
                 title: Text(
                   "My Plan",
-                  style: TextStyle(fontFamily: "nunito"),
+                  style: TextStyle(fontFamily: "Brandon"),
                 ),
                 activeColor: dayMainColor,
                 inactiveColor: kgreyDark,
@@ -104,7 +104,7 @@ class _HomeState extends State<Home> {
                 icon: Icon(Icons.person),
                 title: Text(
                   "Profile",
-                  style: TextStyle(fontFamily: "nunito"),
+                  style: TextStyle(fontFamily: "Brandon"),
                 ),
                 activeColor: dayMainColor,
                 inactiveColor: kgreyDark,

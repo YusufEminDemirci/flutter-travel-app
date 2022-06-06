@@ -63,7 +63,7 @@ class _PlacesState extends State<Places> with SingleTickerProviderStateMixin {
             labelColor: dayMainColor,
             unselectedLabelColor: kdarkBlue,
             labelStyle:
-                TextStyle(fontFamily: "nunito", fontWeight: FontWeight.bold),
+                TextStyle(fontFamily: "Brandon", fontWeight: FontWeight.bold),
             controller: tabController,
             indicatorColor: dayMainColor,
             tabs: <Widget>[

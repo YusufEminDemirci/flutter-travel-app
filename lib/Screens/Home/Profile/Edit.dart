@@ -46,7 +46,7 @@ class _EditState extends State<Edit> {
               width: 340.0,
               child: TextFormField(
                 style: TextStyle(
-                    fontFamily: "nunito",
+                    fontFamily: "Brandon",
                     fontWeight: FontWeight.w500,
                     color: kgreyDark,
                     fontSize: 15.5),
@@ -85,7 +85,7 @@ class _EditState extends State<Edit> {
                   ),
                   hintText: "New Password",
                   hintStyle: TextStyle(
-                      fontFamily: "nunito",
+                      fontFamily: "Brandon",
                       fontWeight: FontWeight.w500,
                       color: kgreyDark,
                       fontSize: 15.5),
@@ -110,7 +110,7 @@ class _EditState extends State<Edit> {
               width: 340.0,
               child: TextFormField(
                 style: TextStyle(
-                    fontFamily: "nunito",
+                    fontFamily: "Brandon",
                     fontWeight: FontWeight.w500,
                     color: kgreyDark,
                     fontSize: 15.5),
@@ -149,7 +149,7 @@ class _EditState extends State<Edit> {
                   ),
                   hintText: "New Password (Control)",
                   hintStyle: TextStyle(
-                      fontFamily: "nunito",
+                      fontFamily: "Brandon",
                       fontWeight: FontWeight.w500,
                       color: kgreyDark,
                       fontSize: 15.5),

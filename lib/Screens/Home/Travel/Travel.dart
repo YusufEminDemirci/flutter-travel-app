@@ -59,7 +59,7 @@ class _TravelState extends State<Travel> with SingleTickerProviderStateMixin {
             labelColor: dayMainColor,
             unselectedLabelColor: dayTextColor,
             labelStyle:
-                TextStyle(fontFamily: "nunito", fontWeight: FontWeight.bold),
+                TextStyle(fontFamily: "Brandon", fontWeight: FontWeight.bold),
             controller: tabController,
             indicatorColor: dayMainColor,
             tabs: <Widget>[
@@ -187,7 +187,11 @@ class _TravelState extends State<Travel> with SingleTickerProviderStateMixin {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   content: Text(
-                      "Your list is empty, first you need to add a place to your list"),
+                    "Your list is empty, first you need to add a place to your list",
+                    style: TextStyle(
+                      fontFamily: "Brandon",
+                    ),
+                  ),
                   backgroundColor: Colors.redAccent,
                 ),
               );

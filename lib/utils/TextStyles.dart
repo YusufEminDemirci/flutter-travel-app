@@ -13,7 +13,7 @@ class BoldText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(text,
         style: TextStyle(
-            fontFamily: "nunito",
+            fontFamily: "Brandon",
             fontWeight: isVeryBold ? FontWeight.w900 : FontWeight.w700,
             color: color,
             fontSize: size));
@@ -31,7 +31,7 @@ class NormalText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(text,
         style: TextStyle(
-            fontFamily: "nunito",
+            fontFamily: "Brandon",
             fontWeight: FontWeight.w300,
             color: color,
             fontSize: size));

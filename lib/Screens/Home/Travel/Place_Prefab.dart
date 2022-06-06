@@ -52,6 +52,7 @@ class Place_Prefab extends StatelessWidget {
               child: Text(
                 name,
                 style: TextStyle(
+                  fontFamily: "Brandon",
                   color: kwhite,
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
@@ -76,6 +77,7 @@ class Place_Prefab extends StatelessWidget {
                     child: Text(
                       cityName,
                       style: TextStyle(
+                        fontFamily: "Brandon",
                         color: dayTextColor,
                         fontSize: 14.0,
                         fontWeight: FontWeight.bold,

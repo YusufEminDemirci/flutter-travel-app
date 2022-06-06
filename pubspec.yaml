@@ -63,3 +63,7 @@ flutter:
         - asset: fonts/nunito/Nunito-Bold.ttf
         - asset: fonts/nunito/Nunito-Regular.ttf
         - asset: fonts/nunito/Nunito-Light.ttf
+          
+    - family: Brandon
+      fonts:
+        - asset: fonts/brandon/brandontext-regular.ttf

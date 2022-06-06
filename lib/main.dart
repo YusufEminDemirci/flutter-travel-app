@@ -20,7 +20,7 @@ Future<void> main() async {
       debugShowCheckedModeBanner: false,
       home: Home(),
       title: 'Travel App design',
-      theme: ThemeData(primaryColor: dayMainColor),
+      theme: ThemeData(primaryColor: dayMainColor, fontFamily: "Brandon"),
     ),
   );
 }

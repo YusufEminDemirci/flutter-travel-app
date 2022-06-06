@@ -40,7 +40,10 @@ class _SplashState extends State<Splash> {
               TypewriterAnimatedTextKit(
                 text: ["Travel & Food"],
                 textStyle: TextStyle(
-                    fontSize: 30.0, color: kwhite, fontFamily: "nunito"),
+                  fontSize: 30.0,
+                  color: kwhite,
+                  fontFamily: "Brandon",
+                ),
                 speed: Duration(milliseconds: 150),
               )
             ],

@@ -172,7 +172,7 @@ class _DetailState extends State<Detail> with SingleTickerProviderStateMixin {
                           labelColor: dayMainColor,
                           unselectedLabelColor: dayTextColor,
                           labelStyle: TextStyle(
-                            fontFamily: "nunito",
+                            fontFamily: "Brandon",
                             fontWeight: FontWeight.bold,
                           ),
                           controller: tabController,

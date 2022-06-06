@@ -16,6 +16,8 @@ final newPaletteDarkBlue = const Color(0x282750);
 // final dayMainColor = Colors.amber;
 // final daySecondaryColor = Colors.white;
 
+// final dayMainColor = const Color(0x3db2ff);
+
 final dayMainColor = Color.fromRGBO(0, 190, 180, 1);
 final dayTextColor = Color.fromRGBO(63, 77, 89, 1);
 final dayBorderColor = Color.fromRGBO(26, 115, 99, 1);

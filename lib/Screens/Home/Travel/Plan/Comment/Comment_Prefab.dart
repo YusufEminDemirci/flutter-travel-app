@@ -103,7 +103,7 @@ class Comment_Prefab extends StatelessWidget {
                                   border: OutlineInputBorder(),
                                   hintText: 'Write a comment'),
                               style: TextStyle(
-                                  fontFamily: "nunito",
+                                  fontFamily: "Brandon",
                                   fontWeight: FontWeight.w500,
                                   color: dayTextColor,
                                   fontSize: 12.5),

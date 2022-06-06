@@ -82,7 +82,7 @@ class _RegisterState extends State<Register> {
                       width: 340.0,
                       child: TextFormField(
                         style: TextStyle(
-                            fontFamily: "nunito",
+                            fontFamily: "Brandon",
                             fontWeight: FontWeight.w500,
                             color: dayTextColor,
                             fontSize: 15.5),
@@ -103,7 +103,7 @@ class _RegisterState extends State<Register> {
                             ),
                             hintText: "Name",
                             hintStyle: TextStyle(
-                                fontFamily: "nunito",
+                                fontFamily: "Brandon",
                                 fontWeight: FontWeight.w500,
                                 color: dayTextColor,
                                 fontSize: 15.5),
@@ -126,7 +126,7 @@ class _RegisterState extends State<Register> {
                     width: 340.0,
                     child: TextFormField(
                       style: TextStyle(
-                          fontFamily: "nunito",
+                          fontFamily: "Brandon",
                           fontWeight: FontWeight.w500,
                           color: dayTextColor,
                           fontSize: 15.5),
@@ -147,7 +147,7 @@ class _RegisterState extends State<Register> {
                           ),
                           hintText: "Surname",
                           hintStyle: TextStyle(
-                              fontFamily: "nunito",
+                              fontFamily: "Brandon",
                               fontWeight: FontWeight.w500,
                               color: kgreyDark,
                               fontSize: 15.5),
@@ -171,7 +171,7 @@ class _RegisterState extends State<Register> {
                     width: 340.0,
                     child: TextFormField(
                       style: TextStyle(
-                          fontFamily: "nunito",
+                          fontFamily: "Brandon",
                           fontWeight: FontWeight.w500,
                           color: dayTextColor,
                           fontSize: 15.5),
@@ -192,7 +192,7 @@ class _RegisterState extends State<Register> {
                           ),
                           hintText: "E-mail",
                           hintStyle: TextStyle(
-                              fontFamily: "nunito",
+                              fontFamily: "Brandon",
                               fontWeight: FontWeight.w500,
                               color: kgreyDark,
                               fontSize: 15.5),
@@ -216,7 +216,7 @@ class _RegisterState extends State<Register> {
                     width: 340.0,
                     child: TextFormField(
                       style: TextStyle(
-                          fontFamily: "nunito",
+                          fontFamily: "Brandon",
                           fontWeight: FontWeight.w500,
                           color: dayTextColor,
                           fontSize: 15.5),
@@ -255,7 +255,7 @@ class _RegisterState extends State<Register> {
                         ),
                         hintText: "Password",
                         hintStyle: TextStyle(
-                            fontFamily: "nunito",
+                            fontFamily: "Brandon",
                             fontWeight: FontWeight.w500,
                             color: kgreyDark,
                             fontSize: 15.5),
@@ -280,7 +280,7 @@ class _RegisterState extends State<Register> {
                     width: 340.0,
                     child: TextFormField(
                       style: TextStyle(
-                          fontFamily: "nunito",
+                          fontFamily: "Brandon",
                           fontWeight: FontWeight.w500,
                           color: dayTextColor,
                           fontSize: 15.5),
@@ -319,7 +319,7 @@ class _RegisterState extends State<Register> {
                         ),
                         hintText: "Repeat Password",
                         hintStyle: TextStyle(
-                            fontFamily: "nunito",
+                            fontFamily: "Brandon",
                             fontWeight: FontWeight.w500,
                             color: kgreyDark,
                             fontSize: 15.5),
@@ -377,7 +377,12 @@ class _RegisterState extends State<Register> {
 
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text("Registration successful"),
+                              content: Text(
+                                "Registration successful",
+                                style: TextStyle(
+                                  fontFamily: "Brandon",
+                                ),
+                              ),
                               backgroundColor: Colors.greenAccent,
                             ),
                           );
@@ -393,7 +398,11 @@ class _RegisterState extends State<Register> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text(
-                                  "Passwords must be at least 6 characters, please try again"),
+                                "Passwords must be at least 6 characters, please try again",
+                                style: TextStyle(
+                                  fontFamily: "Brandon",
+                                ),
+                              ),
                               backgroundColor: Colors.redAccent,
                             ),
                           );
@@ -402,7 +411,11 @@ class _RegisterState extends State<Register> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text(
-                                "Passwords are different from each other, please try again"),
+                              "Passwords are different from each other, please try again",
+                              style: TextStyle(
+                                fontFamily: "Brandon",
+                              ),
+                            ),
                             backgroundColor: Colors.redAccent,
                           ),
                         );
@@ -411,7 +424,11 @@ class _RegisterState extends State<Register> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text(
-                              "Registration Error, Please check fields and try again"),
+                            "Registration Error, Please check fields and try again",
+                            style: TextStyle(
+                              fontFamily: "Brandon",
+                            ),
+                          ),
                           backgroundColor: Colors.redAccent,
                         ),
                       );
